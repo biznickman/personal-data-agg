@@ -5,9 +5,18 @@ import {
   xKeywordScan,
   granolaIngest,
   messageLogIngest,
+  xPostsFetchRecent,
+  xPostsUpdateAnalytics,
 } from "@/inngest/functions";
 
 export const { GET, POST, PUT } = serve({
   client: inngest,
-  functions: [xNewsIngest, xKeywordScan, granolaIngest, messageLogIngest],
+  functions: [
+    xNewsIngest,
+    xKeywordScan,
+    granolaIngest,
+    messageLogIngest,
+    xPostsFetchRecent,
+    xPostsUpdateAnalytics,
+  ],
 });

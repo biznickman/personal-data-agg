@@ -14,6 +14,9 @@ export { granolaIngest } from "./granola";
 // Message log (session transcripts)
 export { messageLogIngest } from "./messages";
 
+// X/Twitter own posts (@chooserich)
+export { xPostsFetchRecent, xPostsUpdateAnalytics } from "./x-posts";
+
 // Future data sources:
 // export { slackIngest } from "./slack";
 // export { pipedrivSync } from "./pipedrive";

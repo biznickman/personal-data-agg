@@ -4,7 +4,9 @@ export type IngestionFunctionId =
   | "x-news-ingest"
   | "x-keyword-scan"
   | "granola-ingest"
-  | "message-log-ingest";
+  | "message-log-ingest"
+  | "x-posts-fetch-recent"
+  | "x-posts-update-analytics";
 
 type RunState = "ok" | "error";
 
