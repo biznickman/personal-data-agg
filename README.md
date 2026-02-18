@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Ingestion Engine
 
-## Getting Started
+Deterministic ingestion service built with Next.js + Inngest.  
+No AI or browser automation: local files/APIs -> Supabase tables.
 
-First, run the development server:
+## Stack
+
+- Next.js (App Router, TypeScript)
+- Inngest (cron scheduling + retries)
+- Supabase (`@supabase/supabase-js`)
+
+## Environment
+
+Copy `.env.local.example` to `.env.local` and set:
+
+- `SUPABASE_URL`
+- `SUPABASE_KEY`
+- `TWITTERAPI_IO_KEY`
+- `INNGEST_DEV_URL` (optional, defaults to `http://localhost:8288`)
+
+## Local Paths Used by Ingestors
+
+- X sources markdown: `~/clawd/research/x-news-sources.md`
+- OpenClaw transcripts: `~/.openclaw/agents/*/sessions/*.jsonl`
+- Granola auth: `~/Library/Application Support/Granola/supabase.json`
+
+## Run
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Inngest serve endpoint: `http://localhost:3000/api/inngest`  
+Dashboard: `http://localhost:3000`  
+Health endpoint: `http://localhost:3000/api/health`
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Build
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+```
 
-## Learn More
+Build uses webpack in this repo for compatibility in restricted environments.
 
-To learn more about Next.js, take a look at the following resources:
+## Inngest Functions
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `x-news-ingest` (`*/15 * * * *`) -> `tweets`
+- `x-keyword-scan` (`0 * * * *`) -> `tweets` (`topic = "keywords"`)
+- `granola-ingest` (`*/30 * * * *`) -> `voice_notes`
+- `message-log-ingest` (`*/30 * * * *`) -> `message_log`
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Optional Status Table
 
-## Deploy on Vercel
+Functions write run state to `ingestion_runs` when present:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```sql
+create table if not exists ingestion_runs (
+  function_id text primary key,
+  status text not null check (status in ('ok', 'error')),
+  last_run_at timestamptz not null,
+  details jsonb not null default '{}'::jsonb,
+  error_message text
+);
+```

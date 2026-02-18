@@ -4,11 +4,9 @@ import path from "path";
 import readline from "readline";
 import { inngest } from "../client";
 import { supabase } from "@/lib/supabase";
+import { recordFunctionRun } from "../run-status";
 
-const OPENCLAW_DATA = path.join(
-  process.env.HOME || "~",
-  ".openclaw/agents"
-);
+const OPENCLAW_DATA = path.join(process.env.HOME || "~", ".openclaw/agents");
 
 const TRANSCRIPT_DIRS = [
   path.join(OPENCLAW_DATA, "main", "sessions"),
@@ -16,6 +14,35 @@ const TRANSCRIPT_DIRS = [
   path.join(OPENCLAW_DATA, "x-growth", "sessions"),
   path.join(OPENCLAW_DATA, "byte", "sessions"),
 ];
+
+type MessageContentPart = {
+  type?: string;
+  text?: string;
+};
+
+interface TranscriptMessage {
+  content?: string | MessageContentPart[];
+  timestamp?: number;
+  role?: string;
+}
+
+interface TranscriptEntry {
+  type?: string;
+  timestamp?: string;
+  message?: TranscriptMessage;
+}
+
+interface ParsedMessage {
+  content: string | MessageContentPart[];
+  timestamp: number;
+}
+
+interface MessageRow {
+  timestamp: string;
+  message_text: string;
+  session_key: string;
+  message_hash: string;
+}
 
 function hashMessage(text: string, timestamp: string): string {
   return crypto
@@ -25,12 +52,12 @@ function hashMessage(text: string, timestamp: string): string {
     .slice(0, 32);
 }
 
-function extractTextFromContent(content: any): string {
+function extractTextFromContent(content: string | MessageContentPart[]): string {
   if (typeof content === "string") return content;
   if (Array.isArray(content)) {
     return content
-      .filter((c) => c.type === "text")
-      .map((c) => c.text)
+      .filter((part) => part.type === "text" && !!part.text)
+      .map((part) => part.text)
       .join("\n")
       .trim();
   }
@@ -74,8 +101,8 @@ const SYSTEM_PATTERNS = [
 ];
 
 function isSystemMessage(text: string): boolean {
-  const t = text.trim();
-  return SYSTEM_PATTERNS.some((p) => p.test(t));
+  const trimmed = text.trim();
+  return SYSTEM_PATTERNS.some((pattern) => pattern.test(trimmed));
 }
 
 function cleanMessageText(text: string): string {
@@ -90,30 +117,31 @@ function cleanMessageText(text: string): string {
     .trim();
 }
 
-async function readJsonlFile(
-  filePath: string
-): Promise<{ content: any; timestamp: number }[]> {
-  const messages: { content: any; timestamp: number }[] = [];
+async function readJsonlFile(filePath: string): Promise<ParsedMessage[]> {
+  const messages: ParsedMessage[] = [];
   const stream = fs.createReadStream(filePath, { encoding: "utf8" });
   const rl = readline.createInterface({ input: stream, crlfDelay: Infinity });
 
   for await (const line of rl) {
     if (!line.trim()) continue;
     try {
-      const entry = JSON.parse(line);
+      const entry = JSON.parse(line) as TranscriptEntry;
       if (
         entry.type === "message" &&
-        entry.message &&
-        entry.message.role === "user"
+        entry.message?.role === "user" &&
+        entry.message.content
       ) {
+        const fallbackTs = entry.timestamp ? new Date(entry.timestamp).getTime() : NaN;
+        const timestamp = entry.message.timestamp ?? fallbackTs;
+        if (!Number.isFinite(timestamp)) continue;
+
         messages.push({
           content: entry.message.content,
-          timestamp:
-            entry.message.timestamp || new Date(entry.timestamp).getTime(),
+          timestamp,
         });
       }
     } catch {
-      // Skip malformed lines
+      // Skip malformed lines.
     }
   }
   return messages;
@@ -123,17 +151,51 @@ function findJsonlFiles(dirs: string[]): string[] {
   const files: string[] = [];
   for (const dir of dirs) {
     if (!fs.existsSync(dir)) continue;
-    for (const f of fs.readdirSync(dir)) {
-      if (f.endsWith(".jsonl")) {
-        files.push(path.join(dir, f));
+    for (const file of fs.readdirSync(dir)) {
+      if (file.endsWith(".jsonl")) {
+        files.push(path.join(dir, file));
       }
     }
   }
   return files;
 }
 
+async function getExistingMessageHashes(): Promise<Set<string>> {
+  const { data, error } = await supabase
+    .from("message_log")
+    .select("message_hash")
+    .limit(10000);
+
+  if (error) {
+    throw new Error(`Supabase existing hash lookup failed: ${error.message}`);
+  }
+
+  return new Set(
+    (data ?? [])
+      .map((row) => row.message_hash)
+      .filter((hash): hash is string => typeof hash === "string")
+  );
+}
+
+async function insertMessageRows(rows: MessageRow[]): Promise<number> {
+  let inserted = 0;
+  for (let i = 0; i < rows.length; i += 50) {
+    const batch = rows.slice(i, i + 50);
+    const { error } = await supabase
+      .from("message_log")
+      .upsert(batch, { onConflict: "message_hash" });
+
+    if (error) {
+      throw new Error(`Supabase upsert failed: ${error.message}`);
+    }
+
+    inserted += batch.length;
+  }
+  return inserted;
+}
+
 /**
- * Message Log Ingest — extracts Nick's messages from session transcripts every 30 minutes
+ * Message Log Ingest — extracts user messages from session transcripts every 30 minutes
  */
 export const messageLogIngest = inngest.createFunction(
   {
@@ -142,84 +204,78 @@ export const messageLogIngest = inngest.createFunction(
   },
   { cron: "*/30 * * * *" },
   async ({ step }) => {
-    const files = findJsonlFiles(TRANSCRIPT_DIRS);
+    try {
+      const files = await step.run("discover-transcripts", async () => {
+        return findJsonlFiles(TRANSCRIPT_DIRS);
+      });
 
-    // Get existing hashes
-    const existingHashList = await step.run("get-existing-hashes", async () => {
-      const { data } = await supabase
-        .from("message_log")
-        .select("message_hash")
-        .limit(10000);
+      const result = await step.run("scan-and-insert", async () => {
+        const knownHashes = await getExistingMessageHashes();
+        const newRows: MessageRow[] = [];
+        let totalScanned = 0;
 
-      return (data || []).map((r: any) => r.message_hash);
-    });
+        for (const file of files) {
+          const sessionKey = path.basename(file, ".jsonl");
+          try {
+            const messages = await readJsonlFile(file);
+            totalScanned += messages.length;
 
-    const result = await step.run("process-transcripts", async () => {
-      const hashSet = new Set<string>(existingHashList);
-      const newRows: any[] = [];
-      let totalScanned = 0;
+            for (const message of messages) {
+              const text = extractTextFromContent(message.content);
+              if (!text || isSystemMessage(text)) continue;
 
-      for (const file of files) {
-        const sessionKey = path.basename(file, ".jsonl");
-        try {
-          const messages = await readJsonlFile(file);
-          totalScanned += messages.length;
+              const cleanText = cleanMessageText(text);
+              if (!cleanText) continue;
 
-          for (const msg of messages) {
-            const text = extractTextFromContent(msg.content);
-            if (!text || isSystemMessage(text)) continue;
+              const timestamp = new Date(message.timestamp).toISOString();
+              const hash = hashMessage(cleanText, timestamp);
+              if (knownHashes.has(hash)) continue;
 
-            const cleanText = cleanMessageText(text);
-            if (!cleanText) continue;
-
-            const ts = new Date(msg.timestamp).toISOString();
-            const hash = hashMessage(cleanText, ts);
-
-            if (hashSet.has(hash)) continue;
-            hashSet.add(hash);
-
-            newRows.push({
-              timestamp: ts,
-              message_text: cleanText.replace(/\u0000/g, "").slice(0, 5000),
-              session_key: sessionKey,
-              message_hash: hash,
-            });
+              knownHashes.add(hash);
+              newRows.push({
+                timestamp,
+                message_text: cleanText.replace(/\u0000/g, "").slice(0, 5000),
+                session_key: sessionKey,
+                message_hash: hash,
+              });
+            }
+          } catch (error) {
+            const errMessage =
+              error instanceof Error ? error.message : "Unknown error";
+            console.error(`Skipping unreadable transcript ${file}: ${errMessage}`);
           }
-        } catch {
-          // Skip unreadable files
         }
-      }
 
-      return { newRows, totalScanned, filesProcessed: files.length };
-    });
+        const inserted = newRows.length > 0 ? await insertMessageRows(newRows) : 0;
+        return { scanned: totalScanned, files: files.length, inserted };
+      });
 
-    if (result.newRows.length === 0) {
-      return {
+      const summary = {
         status: "ok",
-        scanned: result.totalScanned,
-        files: result.filesProcessed,
-        inserted: 0,
+        ...result,
       };
+
+      await step.run("record-success", async () => {
+        await recordFunctionRun({
+          functionId: "message-log-ingest",
+          state: "ok",
+          details: summary,
+        });
+      });
+
+      return summary;
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Unknown error";
+
+      await step.run("record-failure", async () => {
+        await recordFunctionRun({
+          functionId: "message-log-ingest",
+          state: "error",
+          errorMessage: message,
+        });
+      });
+
+      throw error;
     }
-
-    const inserted = await step.run("insert-messages", async () => {
-      let count = 0;
-      for (let i = 0; i < result.newRows.length; i += 50) {
-        const batch = result.newRows.slice(i, i + 50);
-        const { error } = await supabase
-          .from("message_log")
-          .upsert(batch, { onConflict: "message_hash" });
-
-        if (!error) count += batch.length;
-      }
-      return count;
-    });
-
-    return {
-      status: "ok",
-      scanned: result.totalScanned,
-      files: result.filesProcessed,
-      inserted,
-    };
   }
 );

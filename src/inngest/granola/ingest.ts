@@ -2,60 +2,131 @@ import fs from "fs";
 import path from "path";
 import { inngest } from "../client";
 import { supabase } from "@/lib/supabase";
+import { recordFunctionRun } from "../run-status";
 
 const GRANOLA_CREDS_PATH = path.join(
   process.env.HOME || "~",
   "Library/Application Support/Granola/supabase.json"
 );
 
+interface GranolaTokenPayload {
+  access_token?: string;
+}
+
+interface GranolaCreds {
+  workos_tokens?: string | GranolaTokenPayload;
+}
+
+interface GranolaTextNode {
+  type?: string;
+  text?: string;
+  content?: GranolaTextNode[];
+}
+
+interface GranolaTranscriptSegment {
+  speaker?: string;
+  text?: string;
+}
+
+interface GranolaDoc {
+  id: string;
+  title?: string;
+  created_at?: string;
+  notes?: { content?: GranolaTextNode[] };
+  transcript?:
+    | string
+    | {
+        text?: string;
+        segments?: GranolaTranscriptSegment[];
+      };
+}
+
+interface GranolaDocsResponse {
+  docs?: GranolaDoc[];
+  documents?: GranolaDoc[];
+}
+
+interface VoiceNoteRow {
+  granola_id: string;
+  title: string;
+  created_at: string;
+  notes_text: string | null;
+  transcript: string | null;
+}
+
 function loadGranolaToken(): string {
   if (!fs.existsSync(GRANOLA_CREDS_PATH)) {
     throw new Error(`Granola credentials not found at ${GRANOLA_CREDS_PATH}`);
   }
-  const creds = JSON.parse(fs.readFileSync(GRANOLA_CREDS_PATH, "utf8"));
-  const wt =
-    typeof creds.workos_tokens === "string"
-      ? JSON.parse(creds.workos_tokens)
-      : creds.workos_tokens;
-  return wt.access_token;
+
+  const rawCreds = JSON.parse(fs.readFileSync(GRANOLA_CREDS_PATH, "utf8")) as
+    | GranolaCreds
+    | undefined;
+
+  const workosTokens = rawCreds?.workos_tokens;
+  const parsedTokens: GranolaTokenPayload | undefined =
+    typeof workosTokens === "string"
+      ? (JSON.parse(workosTokens) as GranolaTokenPayload)
+      : workosTokens;
+
+  if (!parsedTokens?.access_token) {
+    throw new Error("Granola access token missing from credentials");
+  }
+
+  return parsedTokens.access_token;
 }
 
-function extractText(doc: any): string {
-  const notes = doc.notes;
-  if (!notes || !notes.content) return "";
+function extractText(doc: GranolaDoc): string {
+  const noteContent = doc.notes?.content;
+  if (!noteContent) return "";
 
   const parts: string[] = [];
-  function walk(nodes: any[]) {
-    if (!Array.isArray(nodes)) return;
-    for (const n of nodes) {
-      if (n.type === "text" && n.text) parts.push(n.text);
-      if (n.type === "hardBreak") parts.push("\n");
-      if (n.content) walk(n.content);
+
+  function walk(nodes: GranolaTextNode[]): void {
+    for (const node of nodes) {
+      if (node.type === "text" && node.text) {
+        parts.push(node.text);
+      }
+      if (node.type === "hardBreak") {
+        parts.push("\n");
+      }
+      if (Array.isArray(node.content)) {
+        walk(node.content);
+      }
       if (
-        ["paragraph", "heading", "bulletList", "listItem"].includes(n.type) &&
+        ["paragraph", "heading", "bulletList", "listItem"].includes(node.type ?? "") &&
         parts.length > 0
       ) {
         parts.push("\n");
       }
     }
   }
-  walk(notes.content);
+
+  walk(noteContent);
   return parts.join("").trim();
 }
 
-function extractTranscript(doc: any): string | null {
+function extractTranscript(doc: GranolaDoc): string | null {
   if (!doc.transcript) return null;
-  if (typeof doc.transcript === "string") return doc.transcript;
-  if (doc.transcript.text) return doc.transcript.text;
-  if (doc.transcript.segments) {
+
+  if (typeof doc.transcript === "string") {
+    return doc.transcript;
+  }
+
+  if (doc.transcript.text) {
+    return doc.transcript.text;
+  }
+
+  if (Array.isArray(doc.transcript.segments)) {
     return doc.transcript.segments
-      .map((s: any) => `${s.speaker || "Speaker"}: ${s.text || ""}`)
+      .map((segment) => `${segment.speaker || "Speaker"}: ${segment.text || ""}`)
       .join("\n");
   }
+
   return JSON.stringify(doc.transcript);
 }
 
-async function fetchGranolaDocs(token: string) {
+async function fetchGranolaDocs(token: string): Promise<GranolaDoc[]> {
   const res = await fetch("https://api.granola.ai/v2/get-documents", {
     method: "POST",
     headers: {
@@ -72,8 +143,18 @@ async function fetchGranolaDocs(token: string) {
     throw new Error(`Granola API: ${res.status} ${txt}`);
   }
 
-  const data = await res.json();
+  const data = (await res.json()) as GranolaDocsResponse;
   return data.docs || data.documents || [];
+}
+
+function toVoiceNoteRow(doc: GranolaDoc): VoiceNoteRow {
+  return {
+    granola_id: doc.id,
+    title: doc.title || "(untitled)",
+    created_at: doc.created_at || new Date().toISOString(),
+    notes_text: extractText(doc).replace(/\u0000/g, "") || null,
+    transcript: extractTranscript(doc)?.replace(/\u0000/g, "") || null,
+  };
 }
 
 /**
@@ -86,57 +167,80 @@ export const granolaIngest = inngest.createFunction(
   },
   { cron: "*/30 * * * *" },
   async ({ step }) => {
-    const docs = await step.run("fetch-granola-docs", async () => {
-      const token = loadGranolaToken();
-      return fetchGranolaDocs(token);
-    });
+    try {
+      const docs = await step.run("fetch-granola-docs", async () => {
+        const token = loadGranolaToken();
+        return fetchGranolaDocs(token);
+      });
 
-    if (docs.length === 0) {
-      return { status: "ok", fetched: 0, upserted: 0 };
-    }
+      const result = await step.run("upsert-notes", async () => {
+        if (docs.length === 0) {
+          return { fetched: 0, upserted: 0, newCount: 0 };
+        }
 
-    const result = await step.run("upsert-notes", async () => {
-      // Get existing IDs
-      const { data: existing } = await supabase
-        .from("voice_notes")
-        .select("granola_id");
-
-      const existingIds = new Set((existing || []).map((r) => r.granola_id));
-
-      const rows = docs.map((doc: any) => ({
-        granola_id: doc.id,
-        title: doc.title || "(untitled)",
-        created_at: doc.created_at || new Date().toISOString(),
-        notes_text: extractText(doc).replace(/\u0000/g, "") || null,
-        transcript: extractTranscript(doc)?.replace(/\u0000/g, "") || null,
-      }));
-
-      const newCount = rows.filter(
-        (r: any) => !existingIds.has(r.granola_id)
-      ).length;
-
-      // Upsert in batches
-      let upserted = 0;
-      for (let i = 0; i < rows.length; i += 50) {
-        const batch = rows.slice(i, i + 50);
-        const { error } = await supabase
+        const { data: existingRows, error: existingError } = await supabase
           .from("voice_notes")
-          .upsert(batch, { onConflict: "granola_id" });
+          .select("granola_id");
 
-        if (error) {
-          console.error(`Supabase upsert error: ${error.message}`);
-        } else {
+        if (existingError) {
+          throw new Error(
+            `Supabase existing note lookup failed: ${existingError.message}`
+          );
+        }
+
+        const existingIds = new Set(
+          (existingRows ?? [])
+            .map((row) => row.granola_id)
+            .filter((id): id is string => typeof id === "string")
+        );
+
+        const rows = docs.map(toVoiceNoteRow);
+        const newCount = rows.filter((row) => !existingIds.has(row.granola_id))
+          .length;
+
+        let upserted = 0;
+        for (let i = 0; i < rows.length; i += 50) {
+          const batch = rows.slice(i, i + 50);
+          const { error } = await supabase
+            .from("voice_notes")
+            .upsert(batch, { onConflict: "granola_id" });
+
+          if (error) {
+            throw new Error(`Supabase upsert failed: ${error.message}`);
+          }
+
           upserted += batch.length;
         }
-      }
 
-      return { upserted, newCount };
-    });
+        return { fetched: docs.length, upserted, newCount };
+      });
 
-    return {
-      status: "ok",
-      fetched: docs.length,
-      ...result,
-    };
+      const summary = {
+        status: "ok",
+        ...result,
+      };
+
+      await step.run("record-success", async () => {
+        await recordFunctionRun({
+          functionId: "granola-ingest",
+          state: "ok",
+          details: summary,
+        });
+      });
+
+      return summary;
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Unknown error";
+
+      await step.run("record-failure", async () => {
+        await recordFunctionRun({
+          functionId: "granola-ingest",
+          state: "error",
+          errorMessage: message,
+        });
+      });
+
+      throw error;
+    }
   }
 );

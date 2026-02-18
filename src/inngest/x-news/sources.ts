@@ -7,11 +7,18 @@ const SOURCES_FILE = path.join(
 );
 
 export function loadSources(): string[] {
+  if (!fs.existsSync(SOURCES_FILE)) {
+    throw new Error(`Sources file not found: ${SOURCES_FILE}`);
+  }
+
   const md = fs.readFileSync(SOURCES_FILE, "utf8");
-  const handles: string[] = [];
+  const handles = new Set<string>();
   for (const line of md.split("\n")) {
     const match = line.match(/\|\s*\d+\s*\|\s*@(\w+)/);
-    if (match) handles.push(match[1]);
+    if (match?.[1]) {
+      handles.add(match[1].toLowerCase());
+    }
   }
-  return handles;
+
+  return Array.from(handles);
 }
