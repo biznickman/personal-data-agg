@@ -145,17 +145,17 @@ export const messageLogIngest = inngest.createFunction(
     const files = findJsonlFiles(TRANSCRIPT_DIRS);
 
     // Get existing hashes
-    const existingHashes = await step.run("get-existing-hashes", async () => {
+    const existingHashList = await step.run("get-existing-hashes", async () => {
       const { data } = await supabase
         .from("message_log")
         .select("message_hash")
         .limit(10000);
 
-      return new Set((data || []).map((r) => r.message_hash));
+      return (data || []).map((r: any) => r.message_hash);
     });
 
     const result = await step.run("process-transcripts", async () => {
-      const hashSet = new Set(existingHashes);
+      const hashSet = new Set<string>(existingHashList);
       const newRows: any[] = [];
       let totalScanned = 0;
 
