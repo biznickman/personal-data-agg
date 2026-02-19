@@ -103,7 +103,7 @@ async function mcpCall(
 ): Promise<McpResponse> {
   const headers: Record<string, string> = {
     "Content-Type": "application/json",
-    Accept: "application/json",
+    Accept: "application/json, text/event-stream",
     Authorization: `Bearer ${token}`,
   };
 
@@ -190,6 +190,7 @@ async function mcpInitialize(token: string): Promise<void> {
   // Send initialized notification
   const headers: Record<string, string> = {
     "Content-Type": "application/json",
+    Accept: "application/json, text/event-stream",
     Authorization: `Bearer ${token}`,
   };
   if (mcpSessionId) {
@@ -318,18 +319,34 @@ export const granolaIngest = inngest.createFunction(
       const meetingList = await step.run("list-meetings", async () => {
         const raw = await mcpCallTool("list_meetings", {}, token);
 
-        // The MCP tool returns text — could be JSON or natural language
-        // Try to parse as JSON first
+        // MCP tool returns text — could be JSON, XML-like, or natural language
+        // Try JSON first
         try {
           const parsed = JSON.parse(raw);
           if (Array.isArray(parsed)) return parsed as MeetingListItem[];
           if (parsed.meetings) return parsed.meetings as MeetingListItem[];
           if (parsed.notes) return parsed.notes as MeetingListItem[];
-          // If it's a single object with meeting-like fields
           return [parsed] as MeetingListItem[];
         } catch {
-          // MCP returned natural language — can't parse
-          console.log("MCP list_meetings returned non-JSON:", raw.slice(0, 200));
+          // Not JSON — try parsing XML-like format from Granola MCP
+          // Format: <meeting id="..." title="..." date="...">
+          const meetings: MeetingListItem[] = [];
+          const meetingRegex = /<meeting\s+id="([^"]+)"\s+title="([^"]+)"\s+date="([^"]+)"/g;
+          let match;
+          while ((match = meetingRegex.exec(raw)) !== null) {
+            meetings.push({
+              id: match[1],
+              title: match[2],
+              created_at: new Date(match[3]).toISOString(),
+            });
+          }
+
+          if (meetings.length > 0) {
+            console.log(`Parsed ${meetings.length} meetings from MCP XML response`);
+            return meetings;
+          }
+
+          console.log("MCP list_meetings returned unparseable format:", raw.slice(0, 300));
           return [] as MeetingListItem[];
         }
       });
@@ -375,17 +392,24 @@ export const granolaIngest = inngest.createFunction(
               token
             );
 
+            // Parse detail — could be JSON, XML-like, or plain text
             let detail: MeetingDetail;
             try {
               const parsed = JSON.parse(detailRaw);
               detail = parsed as MeetingDetail;
             } catch {
-              // If we can't parse the detail, use list data + raw text as notes
+              // Use the raw text as the notes/summary content
+              // Strip XML tags if present to get clean text
+              const cleanText = detailRaw
+                .replace(/<[^>]+>/g, "\n")
+                .replace(/\n{3,}/g, "\n\n")
+                .trim();
+
               detail = {
                 id: meeting.id,
                 title: meeting.title,
                 created_at: meeting.created_at || meeting.date,
-                summary_text: detailRaw,
+                summary_text: cleanText,
               };
             }
 
