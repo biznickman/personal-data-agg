@@ -96,6 +96,14 @@ interface McpResponse {
 
 let mcpSessionId: string | null = null;
 
+function sleep(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+function isRateLimitMessage(message: string): boolean {
+  return /rate limit|too many requests|please slow down/i.test(message);
+}
+
 async function mcpCall(
   method: string,
   params: Record<string, unknown>,
@@ -222,10 +230,57 @@ async function mcpCallTool(
     throw new Error(`MCP tool error: ${response.error.message}`);
   }
 
+  if (response.result?.isError) {
+    const text = response.result.content
+      ?.filter((c) => c.type === "text" && c.text)
+      .map((c) => c.text)
+      .join("\n")
+      .trim();
+    throw new Error(`MCP tool ${toolName} returned error: ${text || "Unknown tool error"}`);
+  }
+
   const textContent = response.result?.content?.find(
     (c) => c.type === "text" && c.text
   );
   return textContent?.text || "";
+}
+
+async function mcpCallToolWithRetry(
+  toolName: string,
+  args: Record<string, unknown>,
+  token: string,
+  options?: { maxAttempts?: number; baseDelayMs?: number }
+): Promise<string> {
+  const maxAttempts = options?.maxAttempts ?? 4;
+  const baseDelayMs = options?.baseDelayMs ?? 750;
+
+  let lastError: Error | null = null;
+
+  for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
+    try {
+      const text = await mcpCallTool(toolName, args, token);
+      if (isRateLimitMessage(text)) {
+        throw new Error(text);
+      }
+      return text;
+    } catch (err) {
+      const error =
+        err instanceof Error ? err : new Error(typeof err === "string" ? err : "Unknown MCP error");
+      lastError = error;
+
+      if (!isRateLimitMessage(error.message) || attempt === maxAttempts) {
+        throw error;
+      }
+
+      const delayMs = baseDelayMs * 2 ** (attempt - 1);
+      console.warn(
+        `Rate limited on ${toolName}; retrying (${attempt}/${maxAttempts}) in ${delayMs}ms`
+      );
+      await sleep(delayMs);
+    }
+  }
+
+  throw lastError ?? new Error(`Failed to call ${toolName}`);
 }
 
 // ---------- Data types ----------
@@ -242,14 +297,16 @@ interface MeetingDetail {
   id: string;
   title?: string;
   created_at?: string;
+  private_notes?: string;
+  summary?: string;
   summary_text?: string;
   summary_markdown?: string;
-  transcript?: Array<{
-    speaker?: { name?: string; source?: string };
-    text?: string;
-    start_time?: string;
-    end_time?: string;
-  }>;
+}
+
+interface ExistingVoiceNote {
+  granola_id: string;
+  notes_text: string | null;
+  transcript: string | null;
 }
 
 interface VoiceNoteRow {
@@ -262,26 +319,255 @@ interface VoiceNoteRow {
 
 // ---------- Transform helpers ----------
 
-function extractTranscriptText(
-  transcript?: MeetingDetail["transcript"]
-): string | null {
-  if (!transcript || !Array.isArray(transcript) || transcript.length === 0) {
+function normalizeText(value: string | null | undefined): string | null {
+  if (typeof value !== "string") {
     return null;
   }
 
-  return transcript
-    .map((seg) => {
-      const speaker = seg.speaker?.name || seg.speaker?.source || "Speaker";
-      return `${speaker}: ${seg.text || ""}`;
-    })
-    .join("\n")
+  const clean = value
+    .replace(/\u0000/g, "")
+    .replace(/\r\n/g, "\n")
+    .replace(/\n{3,}/g, "\n\n")
     .trim();
+
+  return clean.length > 0 ? clean : null;
+}
+
+function parseJson<T>(raw: string): T | null {
+  try {
+    return JSON.parse(raw) as T;
+  } catch {
+    return null;
+  }
+}
+
+function parseDateToIso(dateLike?: string): string | null {
+  if (!dateLike) return null;
+  const parsed = new Date(dateLike);
+  if (Number.isNaN(parsed.getTime())) {
+    return null;
+  }
+  return parsed.toISOString();
+}
+
+function decodeXmlEntities(input: string): string {
+  return input
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&apos;/g, "'")
+    .replace(/&amp;/g, "&");
+}
+
+function extractTagContent(raw: string, tag: string): string | null {
+  const regex = new RegExp(`<${tag}>([\\s\\S]*?)<\\/${tag}>`, "i");
+  const match = regex.exec(raw);
+  if (!match) return null;
+  return normalizeText(decodeXmlEntities(match[1]));
+}
+
+function extractMeetingAttrs(attrText: string): {
+  id: string | null;
+  title: string | null;
+  date: string | null;
+} {
+  const id = /\bid="([^"]+)"/i.exec(attrText)?.[1] ?? null;
+  const title = /\btitle="([^"]*)"/i.exec(attrText)?.[1] ?? null;
+  const date = /\bdate="([^"]+)"/i.exec(attrText)?.[1] ?? null;
+  return { id, title, date };
+}
+
+function parseMeetingList(raw: string): MeetingListItem[] {
+  const parsed = parseJson<unknown>(raw);
+  if (parsed) {
+    const source =
+      Array.isArray(parsed)
+        ? parsed
+        : typeof parsed === "object" && parsed !== null
+          ? Array.isArray((parsed as { meetings?: unknown[] }).meetings)
+            ? ((parsed as { meetings: unknown[] }).meetings ?? [])
+            : Array.isArray((parsed as { notes?: unknown[] }).notes)
+              ? ((parsed as { notes: unknown[] }).notes ?? [])
+              : [parsed]
+          : [];
+
+    const list: MeetingListItem[] = [];
+    for (const item of source) {
+      if (!item || typeof item !== "object") continue;
+      const obj = item as Record<string, unknown>;
+      const id = typeof obj.id === "string" ? obj.id : null;
+      if (!id) continue;
+
+      const title = typeof obj.title === "string" ? obj.title : undefined;
+      const createdAt =
+        typeof obj.created_at === "string"
+          ? obj.created_at
+          : typeof obj.date === "string"
+            ? parseDateToIso(obj.date) || obj.date
+            : undefined;
+      const date = typeof obj.date === "string" ? obj.date : undefined;
+      list.push({ id, title, created_at: createdAt, date });
+    }
+
+    if (list.length > 0) {
+      return list;
+    }
+  }
+
+  const list: MeetingListItem[] = [];
+  const seen = new Set<string>();
+  const meetingRegex = /<meeting\b([^>]*)>/gi;
+
+  let match: RegExpExecArray | null;
+  while ((match = meetingRegex.exec(raw)) !== null) {
+    const attrs = extractMeetingAttrs(match[1] ?? "");
+    if (!attrs.id || seen.has(attrs.id)) continue;
+    seen.add(attrs.id);
+
+    list.push({
+      id: attrs.id,
+      title: attrs.title ?? undefined,
+      date: attrs.date ?? undefined,
+      created_at: parseDateToIso(attrs.date ?? undefined) ?? undefined,
+    });
+  }
+
+  return list;
+}
+
+function parseMeetingDetails(raw: string): MeetingDetail[] {
+  const parsed = parseJson<unknown>(raw);
+  if (parsed) {
+    const source =
+      Array.isArray(parsed)
+        ? parsed
+        : typeof parsed === "object" && parsed !== null
+          ? Array.isArray((parsed as { meetings?: unknown[] }).meetings)
+            ? ((parsed as { meetings: unknown[] }).meetings ?? [])
+            : Array.isArray((parsed as { notes?: unknown[] }).notes)
+              ? ((parsed as { notes: unknown[] }).notes ?? [])
+              : [parsed]
+          : [];
+
+    const details: MeetingDetail[] = [];
+    for (const item of source) {
+      if (!item || typeof item !== "object") continue;
+      const obj = item as Record<string, unknown>;
+      const id = typeof obj.id === "string" ? obj.id : null;
+      if (!id) continue;
+
+      details.push({
+        id,
+        title: typeof obj.title === "string" ? obj.title : undefined,
+        created_at:
+          typeof obj.created_at === "string"
+            ? obj.created_at
+            : typeof obj.date === "string"
+              ? parseDateToIso(obj.date) || obj.date
+              : undefined,
+        private_notes:
+          typeof obj.private_notes === "string"
+            ? obj.private_notes
+            : undefined,
+        summary: typeof obj.summary === "string" ? obj.summary : undefined,
+        summary_text:
+          typeof obj.summary_text === "string" ? obj.summary_text : undefined,
+        summary_markdown:
+          typeof obj.summary_markdown === "string"
+            ? obj.summary_markdown
+            : undefined,
+      });
+    }
+
+    if (details.length > 0) {
+      return details;
+    }
+  }
+
+  const details: MeetingDetail[] = [];
+  const meetingRegex = /<meeting\b([^>]*)>([\s\S]*?)<\/meeting>/gi;
+
+  let match: RegExpExecArray | null;
+  while ((match = meetingRegex.exec(raw)) !== null) {
+    const attrs = extractMeetingAttrs(match[1] ?? "");
+    if (!attrs.id) continue;
+
+    const body = match[2] ?? "";
+    details.push({
+      id: attrs.id,
+      title: attrs.title ?? undefined,
+      created_at: parseDateToIso(attrs.date ?? undefined) ?? undefined,
+      private_notes: extractTagContent(body, "private_notes") ?? undefined,
+      summary: extractTagContent(body, "summary") ?? undefined,
+    });
+  }
+
+  return details;
+}
+
+function parseTranscriptText(raw: string): string | null {
+  const parsed = parseJson<unknown>(raw);
+  if (parsed && typeof parsed === "object") {
+    const transcript = (parsed as { transcript?: unknown }).transcript;
+    if (typeof transcript === "string") {
+      const clean = normalizeText(transcript);
+      if (!clean || /^no transcript$/i.test(clean) || isRateLimitMessage(clean)) {
+        return null;
+      }
+      return clean;
+    }
+  }
+
+  const xmlTranscript = extractTagContent(raw, "transcript");
+  if (xmlTranscript) {
+    if (/^no transcript$/i.test(xmlTranscript) || isRateLimitMessage(xmlTranscript)) {
+      return null;
+    }
+    return xmlTranscript;
+  }
+
+  // Do not persist arbitrary plain-text fallbacks from the MCP tool.
+  // These are often error/status strings (e.g. rate limiting), not transcript.
+  return null;
+}
+
+function buildNotesText(meeting: MeetingDetail): string | null {
+  const summary = normalizeText(
+    meeting.summary_markdown || meeting.summary_text || meeting.summary
+  );
+  const privateNotes = normalizeText(meeting.private_notes);
+
+  const parts: string[] = [];
+  if (summary && !/^no summary$/i.test(summary)) {
+    parts.push(summary);
+  }
+  if (
+    privateNotes &&
+    !/^no private notes$/i.test(privateNotes) &&
+    privateNotes !== summary
+  ) {
+    parts.push(privateNotes);
+  }
+
+  return normalizeText(parts.join("\n\n"));
+}
+
+function looksLikeFallbackAssistantText(text: string | null): boolean {
+  if (!text) return false;
+  return (
+    /i don't (see|have access to).+meeting/i.test(text) ||
+    /meetings (available|i have access)/i.test(text)
+  );
 }
 
 function toVoiceNoteRow(
   meeting: MeetingDetail,
-  listItem?: MeetingListItem
+  listItem: MeetingListItem | undefined,
+  transcriptText: string | null,
+  existing?: ExistingVoiceNote
 ): VoiceNoteRow {
+  const notes = buildNotesText(meeting);
+
   return {
     granola_id: meeting.id,
     title: meeting.title || listItem?.title || "(untitled)",
@@ -290,11 +576,8 @@ function toVoiceNoteRow(
       listItem?.created_at ||
       listItem?.date ||
       new Date().toISOString(),
-    notes_text:
-      (meeting.summary_markdown || meeting.summary_text || "")
-        .replace(/\u0000/g, "")
-        .trim() || null,
-    transcript: extractTranscriptText(meeting.transcript),
+    notes_text: notes ?? existing?.notes_text ?? null,
+    transcript: transcriptText ?? existing?.transcript ?? null,
   };
 }
 
@@ -317,38 +600,29 @@ export const granolaIngest = inngest.createFunction(
 
       // List recent meetings
       const meetingList = await step.run("list-meetings", async () => {
-        const raw = await mcpCallTool("list_meetings", {}, token);
+        const startDate = process.env.GRANOLA_MCP_START_DATE || "2020-01-01";
+        const endDate = new Date().toISOString().slice(0, 10);
 
-        // MCP tool returns text — could be JSON, XML-like, or natural language
-        // Try JSON first
-        try {
-          const parsed = JSON.parse(raw);
-          if (Array.isArray(parsed)) return parsed as MeetingListItem[];
-          if (parsed.meetings) return parsed.meetings as MeetingListItem[];
-          if (parsed.notes) return parsed.notes as MeetingListItem[];
-          return [parsed] as MeetingListItem[];
-        } catch {
-          // Not JSON — try parsing XML-like format from Granola MCP
-          // Format: <meeting id="..." title="..." date="...">
-          const meetings: MeetingListItem[] = [];
-          const meetingRegex = /<meeting\s+id="([^"]+)"\s+title="([^"]+)"\s+date="([^"]+)"/g;
-          let match;
-          while ((match = meetingRegex.exec(raw)) !== null) {
-            meetings.push({
-              id: match[1],
-              title: match[2],
-              created_at: new Date(match[3]).toISOString(),
-            });
-          }
+        const raw = await mcpCallToolWithRetry(
+          "list_meetings",
+          {
+            time_range: "custom",
+            custom_start: startDate,
+            custom_end: endDate,
+          },
+          token
+        );
 
-          if (meetings.length > 0) {
-            console.log(`Parsed ${meetings.length} meetings from MCP XML response`);
-            return meetings;
-          }
-
-          console.log("MCP list_meetings returned unparseable format:", raw.slice(0, 300));
-          return [] as MeetingListItem[];
+        const meetings = parseMeetingList(raw);
+        if (meetings.length > 0) {
+          console.log(
+            `Discovered ${meetings.length} meetings from list_meetings (${startDate} to ${endDate})`
+          );
+          return meetings;
         }
+
+        console.log("list_meetings returned unparseable format:", raw.slice(0, 300));
+        return [] as MeetingListItem[];
       });
 
       if (meetingList.length === 0) {
@@ -364,66 +638,103 @@ export const granolaIngest = inngest.createFunction(
       }
 
       // Check which meetings already exist in Supabase
-      const existingIdList = await step.run("check-existing", async () => {
+      const existingRows = await step.run("check-existing", async () => {
         const { data, error } = await supabase
           .from("voice_notes")
-          .select("granola_id");
+          .select("granola_id,notes_text,transcript");
 
         if (error) {
           throw new Error(`Supabase lookup failed: ${error.message}`);
         }
 
         return (data ?? [])
-          .map((row) => row.granola_id)
-          .filter((id): id is string => typeof id === "string");
+          .map((row) => ({
+            granola_id:
+              typeof row.granola_id === "string" ? row.granola_id : null,
+            notes_text:
+              typeof row.notes_text === "string" ? row.notes_text : null,
+            transcript:
+              typeof row.transcript === "string" ? row.transcript : null,
+          }))
+          .filter((row): row is ExistingVoiceNote => row.granola_id !== null);
       });
 
-      const existingIds = new Set(existingIdList);
+      const existingById = new Map(
+        existingRows.map((row) => [row.granola_id, row])
+      );
+      const existingIds = new Set(existingRows.map((row) => row.granola_id));
+
+      // Fetch only missing or incomplete rows; this avoids rewriting all rows every run.
+      const meetingsToFetch = meetingList.filter((meeting) => {
+        const existing = existingById.get(meeting.id);
+        if (!existing) return true;
+        if (!existing.notes_text || looksLikeFallbackAssistantText(existing.notes_text)) {
+          return true;
+        }
+        if (!existing.transcript) return true;
+        return false;
+      });
 
       // Fetch details for each meeting (with transcript)
       const rows = await step.run("fetch-details", async () => {
-        const results: VoiceNoteRow[] = [];
+        if (meetingsToFetch.length === 0) {
+          return [] as VoiceNoteRow[];
+        }
 
-        for (const meeting of meetingList) {
+        const results: VoiceNoteRow[] = [];
+        const detailBatchSize = 10;
+        const transcriptDelayMs = Number.parseInt(
+          process.env.GRANOLA_MCP_TRANSCRIPT_DELAY_MS || "300",
+          10
+        );
+
+        for (let i = 0; i < meetingsToFetch.length; i += detailBatchSize) {
+          const batchMeetings = meetingsToFetch.slice(i, i + detailBatchSize);
+          const batchIds = batchMeetings.map((meeting) => meeting.id);
+
+          const detailById = new Map<string, MeetingDetail>();
           try {
-            const detailRaw = await mcpCallTool(
-              "query_granola_meetings",
-              { query: `Get full details and transcript for meeting ${meeting.id}` },
+            const detailRaw = await mcpCallToolWithRetry(
+              "get_meetings",
+              { meeting_ids: batchIds },
               token
             );
+            const parsedDetails = parseMeetingDetails(detailRaw);
+            for (const detail of parsedDetails) {
+              detailById.set(detail.id, detail);
+            }
+          } catch (err) {
+            console.error(
+              `Failed to fetch get_meetings batch (${batchIds.join(",")}):`,
+              err
+            );
+          }
 
-            // Parse detail — could be JSON, XML-like, or plain text
-            let detail: MeetingDetail;
+          for (const meeting of batchMeetings) {
+            const detail = detailById.get(meeting.id) ?? {
+              id: meeting.id,
+              title: meeting.title,
+              created_at: meeting.created_at || meeting.date,
+            };
+
+            let transcriptText: string | null = null;
             try {
-              const parsed = JSON.parse(detailRaw);
-              detail = parsed as MeetingDetail;
-            } catch {
-              // Use the raw text as the notes/summary content
-              // Strip XML tags if present to get clean text
-              const cleanText = detailRaw
-                .replace(/<[^>]+>/g, "\n")
-                .replace(/\n{3,}/g, "\n\n")
-                .trim();
-
-              detail = {
-                id: meeting.id,
-                title: meeting.title,
-                created_at: meeting.created_at || meeting.date,
-                summary_text: cleanText,
-              };
+              if (transcriptDelayMs > 0) {
+                await sleep(transcriptDelayMs);
+              }
+              const transcriptRaw = await mcpCallToolWithRetry(
+                "get_meeting_transcript",
+                { meeting_id: meeting.id },
+                token,
+                { maxAttempts: 5, baseDelayMs: 1000 }
+              );
+              transcriptText = parseTranscriptText(transcriptRaw);
+            } catch (err) {
+              console.error(`Failed to fetch transcript for meeting ${meeting.id}:`, err);
             }
 
-            results.push(toVoiceNoteRow(detail, meeting));
-          } catch (err) {
-            console.error(`Failed to fetch meeting ${meeting.id}:`, err);
-            // Still add basic row from list data
-            results.push({
-              granola_id: meeting.id,
-              title: meeting.title || "(untitled)",
-              created_at: meeting.created_at || meeting.date || new Date().toISOString(),
-              notes_text: null,
-              transcript: null,
-            });
+            const existing = existingById.get(meeting.id);
+            results.push(toVoiceNoteRow(detail, meeting, transcriptText, existing));
           }
         }
 
@@ -432,9 +743,9 @@ export const granolaIngest = inngest.createFunction(
 
       // Upsert to Supabase
       const result = await step.run("upsert-notes", async () => {
-        const newCount = rows.filter(
-          (row) => !existingIds.has(row.granola_id)
-        ).length;
+        const newCount = rows.filter((row) => !existingIds.has(row.granola_id)).length;
+        const discovered = meetingList.length;
+        const attempted = meetingsToFetch.length;
 
         let upserted = 0;
         for (let i = 0; i < rows.length; i += 50) {
@@ -450,7 +761,7 @@ export const granolaIngest = inngest.createFunction(
           upserted += batch.length;
         }
 
-        return { fetched: rows.length, upserted, newCount };
+        return { discovered, attempted, fetched: rows.length, upserted, newCount };
       });
 
       const summary = { status: "ok", ...result };
