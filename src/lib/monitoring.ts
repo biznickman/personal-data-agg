@@ -132,6 +132,51 @@ async function getMessageLogStats(): Promise<TableStats> {
   return { rowCount: count ?? null, latestDataAt, queryError };
 }
 
+async function getXPostsStats(): Promise<TableStats> {
+  const [{ count, error: countError }, { data: latestData, error: latestError }] =
+    await Promise.all([
+      supabase.from("x_posts").select("tweet_id", { count: "exact", head: true }),
+      supabase
+        .from("x_posts")
+        .select("tweet_time")
+        .not("tweet_time", "is", null)
+        .order("tweet_time", { ascending: false })
+        .limit(1),
+    ]);
+
+  const queryError = countError?.message || latestError?.message || null;
+  const latestDataAt =
+    latestData && latestData[0] && typeof latestData[0].tweet_time === "string"
+      ? latestData[0].tweet_time
+      : null;
+
+  return { rowCount: count ?? null, latestDataAt, queryError };
+}
+
+async function getXPostsAnalyticsStats(): Promise<TableStats> {
+  const [{ count, error: countError }, { data: latestData, error: latestError }] =
+    await Promise.all([
+      supabase
+        .from("x_posts")
+        .select("tweet_id", { count: "exact", head: true })
+        .not("analytics_updated_at", "is", null),
+      supabase
+        .from("x_posts")
+        .select("analytics_updated_at")
+        .not("analytics_updated_at", "is", null)
+        .order("analytics_updated_at", { ascending: false })
+        .limit(1),
+    ]);
+
+  const queryError = countError?.message || latestError?.message || null;
+  const latestDataAt =
+    latestData && latestData[0] && typeof latestData[0].analytics_updated_at === "string"
+      ? latestData[0].analytics_updated_at
+      : null;
+
+  return { rowCount: count ?? null, latestDataAt, queryError };
+}
+
 const FUNCTION_CONFIGS: FunctionConfig[] = [
   {
     id: "x-news-ingest",
@@ -160,6 +205,20 @@ const FUNCTION_CONFIGS: FunctionConfig[] = [
     schedule: "Every 30 minutes",
     scheduleMinutes: 30,
     getStats: getMessageLogStats,
+  },
+  {
+    id: "x-posts-fetch-recent",
+    name: "X Posts (Fetch Recent)",
+    schedule: "Every 15 minutes",
+    scheduleMinutes: 15,
+    getStats: getXPostsStats,
+  },
+  {
+    id: "x-posts-update-analytics",
+    name: "X Posts (Analytics)",
+    schedule: "Every 4 hours",
+    scheduleMinutes: 240,
+    getStats: getXPostsAnalyticsStats,
   },
 ];
 
