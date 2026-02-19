@@ -29,7 +29,19 @@ export const xPostsFetchRecent = inngest.createFunction(
         const bearerToken = process.env.TWITTER_BEARER_TOKEN;
         if (!bearerToken) throw new Error("Missing TWITTER_BEARER_TOKEN");
 
-        const twitter = new TwitterService(bearerToken);
+        const consumerKey = process.env.TWITTER_CONSUMER_KEY;
+        const consumerSecret = process.env.TWITTER_SECRET_KEY;
+        const accessToken = process.env.TWITTER_ACCESS_TOKEN;
+        const accessSecret = process.env.TWITTER_ACCESS_SECRET;
+        const hasOAuth = !!(consumerKey && consumerSecret && accessToken && accessSecret);
+
+        const twitter = new TwitterService(bearerToken, hasOAuth ? {
+          consumerKey: consumerKey!,
+          consumerSecret: consumerSecret!,
+          accessToken: accessToken!,
+          accessSecret: accessSecret!,
+        } : undefined);
+
         const startTime = new Date(Date.now() - LOOKBACK_MINUTES * 60 * 1000);
 
         console.log(

@@ -7,6 +7,7 @@ import {
   messageLogIngest,
   xPostsFetchRecent,
   xPostsUpdateAnalytics,
+  xPostsArchive,
 } from "@/inngest/functions";
 
 export const { GET, POST, PUT } = serve({
@@ -18,5 +19,6 @@ export const { GET, POST, PUT } = serve({
     messageLogIngest,
     xPostsFetchRecent,
     xPostsUpdateAnalytics,
+    xPostsArchive,
   ],
 });

@@ -15,7 +15,7 @@ export { granolaIngest } from "./granola";
 export { messageLogIngest } from "./messages";
 
 // X/Twitter own posts (@chooserich)
-export { xPostsFetchRecent, xPostsUpdateAnalytics } from "./x-posts";
+export { xPostsFetchRecent, xPostsUpdateAnalytics, xPostsArchive } from "./x-posts";
 
 // Future data sources:
 // export { slackIngest } from "./slack";

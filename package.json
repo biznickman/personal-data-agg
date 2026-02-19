@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "inngest": "npx inngest-cli@latest dev",
+    "dev:all": "concurrently -n next,inngest -c blue,magenta \"pnpm dev\" \"pnpm inngest\"",
     "build": "next build --webpack",
     "start": "next start",
     "lint": "eslint"
@@ -22,6 +24,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "concurrently": "^9.2.1",
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
     "tailwindcss": "^4",

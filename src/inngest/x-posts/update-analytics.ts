@@ -58,22 +58,42 @@ export const xPostsUpdateAnalytics = inngest.createFunction(
         return { status: "complete", tweetsUpdated: 0 };
       }
 
-      // Step 2: Fetch analytics from Twitter API
+      // Step 2: Fetch private metrics via OAuth 1.0a (includes url_clicks, video retention)
       const analyticsData = await step.run("fetch-analytics", async () => {
         const bearerToken = process.env.TWITTER_BEARER_TOKEN;
         if (!bearerToken) throw new Error("Missing TWITTER_BEARER_TOKEN");
 
-        const twitter = new TwitterService(bearerToken);
+        const consumerKey = process.env.TWITTER_CONSUMER_KEY;
+        const consumerSecret = process.env.TWITTER_SECRET_KEY;
+        const accessToken = process.env.TWITTER_ACCESS_TOKEN;
+        const accessSecret = process.env.TWITTER_ACCESS_SECRET;
+
+        const hasOAuth = consumerKey && consumerSecret && accessToken && accessSecret;
+
+        const twitter = new TwitterService(bearerToken, hasOAuth ? {
+          consumerKey,
+          consumerSecret,
+          accessToken,
+          accessSecret,
+        } : undefined);
+
         const tweetIds = tweetsToUpdate.map((t) => t.tweet_id as string);
 
-        return twitter.fetchTweetAnalyticsByIds(tweetIds);
+        // Use private metrics if OAuth available, fall back to public-only
+        if (hasOAuth) {
+          console.log("[x-posts-analytics] Using OAuth for private metrics");
+          return { private: true, data: await twitter.fetchPrivateMetricsByIds(tweetIds) };
+        } else {
+          console.log("[x-posts-analytics] No OAuth — using public metrics only");
+          return { private: false, data: await twitter.fetchTweetAnalyticsByIds(tweetIds) };
+        }
       });
 
       // Step 3: Update rows in Supabase
       const updatedCount = await step.run("update-rows", async () => {
         const now = new Date().toISOString();
         const analyticsMap = new Map(
-          analyticsData.map((a) => [a.tweet_id, a])
+          analyticsData.data.map((a) => [a.tweet_id, a])
         );
 
         let success = 0;
@@ -83,7 +103,7 @@ export const xPostsUpdateAnalytics = inngest.createFunction(
           .filter((t) => analyticsMap.has(t.tweet_id as string))
           .map((t) => {
             const a = analyticsMap.get(t.tweet_id as string)!;
-            return {
+            const row: Record<string, unknown> = {
               id: t.id,
               tweet_id: t.tweet_id,
               analytics_updated_at: now,
@@ -94,6 +114,21 @@ export const xPostsUpdateAnalytics = inngest.createFunction(
               bookmarks: a.bookmarks,
               replies: a.replies,
             };
+
+            // Add private metrics if available
+            if (analyticsData.private && "url_clicks" in a) {
+              const p = a as import("./twitter-service").PrivateMetricsData;
+              row.url_clicks = p.url_clicks;
+              row.profile_clicks = p.profile_clicks;
+              row.view_count = p.view_count;
+              row.playback_0 = p.playback_0;
+              row.playback_25 = p.playback_25;
+              row.playback_50 = p.playback_50;
+              row.playback_75 = p.playback_75;
+              row.playback_100 = p.playback_100;
+            }
+
+            return row;
           });
 
         if (withAnalytics.length > 0) {
@@ -137,7 +172,7 @@ export const xPostsUpdateAnalytics = inngest.createFunction(
         state: "ok",
         details: {
           queried: tweetsToUpdate.length,
-          analyticsReceived: analyticsData.length,
+          analyticsReceived: analyticsData.data.length,
           updated: updatedCount,
         },
       });
@@ -145,7 +180,7 @@ export const xPostsUpdateAnalytics = inngest.createFunction(
       return {
         status: "complete",
         tweetsQueried: tweetsToUpdate.length,
-        analyticsReceived: analyticsData.length,
+        analyticsReceived: analyticsData.data.length,
         tweetsUpdated: updatedCount,
         durationMs: Date.now() - startedAt,
       };
