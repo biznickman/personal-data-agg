@@ -854,29 +854,33 @@ export const granolaIngest = inngest.createFunction(
           }
 
           for (const meeting of batchMeetings) {
+            const existing = existingById.get(meeting.id);
             const detail = detailById.get(meeting.id) ?? {
               id: meeting.id,
               title: meeting.title,
               created_at: meeting.created_at || meeting.date,
             };
 
-            let transcriptText: string | null = null;
-            try {
-              if (transcriptDelayMs > 0) {
-                await sleep(transcriptDelayMs);
+            let transcriptText: string | null = existing?.transcript ?? null;
+            const needsTranscript = !existing?.transcript;
+
+            if (needsTranscript) {
+              try {
+                if (transcriptDelayMs > 0) {
+                  await sleep(transcriptDelayMs);
+                }
+                const transcriptRaw = await mcpCallToolWithRetry(
+                  "get_meeting_transcript",
+                  { meeting_id: meeting.id },
+                  token,
+                  { maxAttempts: 5, baseDelayMs: 1000 }
+                );
+                transcriptText = parseTranscriptText(transcriptRaw);
+              } catch (err) {
+                console.error(`Failed to fetch transcript for meeting ${meeting.id}:`, err);
               }
-              const transcriptRaw = await mcpCallToolWithRetry(
-                "get_meeting_transcript",
-                { meeting_id: meeting.id },
-                token,
-                { maxAttempts: 5, baseDelayMs: 1000 }
-              );
-              transcriptText = parseTranscriptText(transcriptRaw);
-            } catch (err) {
-              console.error(`Failed to fetch transcript for meeting ${meeting.id}:`, err);
             }
 
-            const existing = existingById.get(meeting.id);
             results.push(toVoiceNoteRow(detail, meeting, transcriptText, existing));
           }
         }
