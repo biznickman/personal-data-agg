@@ -4,44 +4,179 @@ import { recordFunctionRun } from "../run-status";
 
 // Granola MCP endpoint (Streamable HTTP transport)
 const GRANOLA_MCP_URL = "https://mcp.granola.ai/mcp";
+const GRANOLA_DEFAULT_TOKEN_URL = "https://mcp-auth.granola.ai/oauth2/token";
+// Auth values are read from app_settings first, then env vars as fallback.
 
-// OAuth tokens — access token + refresh token stored in env vars
-// GRANOLA_MCP_ACCESS_TOKEN: current bearer token
-// GRANOLA_MCP_REFRESH_TOKEN: long-lived refresh token for renewal
-// GRANOLA_MCP_TOKEN_URL: OAuth token endpoint for refresh (from MCP discovery)
+type GranolaSettingKey =
+  | "granola_mcp_access_token"
+  | "granola_mcp_refresh_token"
+  | "granola_mcp_client_id"
+  | "granola_mcp_token_url";
+
+const GRANOLA_SETTING_KEYS: GranolaSettingKey[] = [
+  "granola_mcp_access_token",
+  "granola_mcp_refresh_token",
+  "granola_mcp_client_id",
+  "granola_mcp_token_url",
+];
+
+interface GranolaAuthConfig {
+  accessToken: string | null;
+  refreshToken: string | null;
+  clientId: string | null;
+  tokenUrl: string;
+}
+
+interface AppSettingRow {
+  setting_key: string;
+  setting_value: string | null;
+}
 
 let cachedAccessToken: string | null = null;
+let cachedGranolaAuth: GranolaAuthConfig | null = null;
+
+function normalizeSettingValue(value: unknown): string | null {
+  if (typeof value !== "string") return null;
+  const trimmed = value.trim();
+  return trimmed.length > 0 ? trimmed : null;
+}
+
+async function loadGranolaSettings(): Promise<Partial<Record<GranolaSettingKey, string>>> {
+  try {
+    const { data, error } = await supabase
+      .from("app_settings")
+      .select("setting_key,setting_value")
+      .in("setting_key", GRANOLA_SETTING_KEYS);
+
+    if (error) {
+      throw new Error(error.message);
+    }
+
+    const settings: Partial<Record<GranolaSettingKey, string>> = {};
+    for (const row of (data ?? []) as AppSettingRow[]) {
+      if (!GRANOLA_SETTING_KEYS.includes(row.setting_key as GranolaSettingKey)) {
+        continue;
+      }
+
+      const value = normalizeSettingValue(row.setting_value);
+      if (!value) continue;
+
+      settings[row.setting_key as GranolaSettingKey] = value;
+    }
+
+    return settings;
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    console.warn(`Unable to load Granola settings from app_settings, falling back to env vars: ${message}`);
+    return {};
+  }
+}
+
+async function getGranolaAuthConfig(forceReload = false): Promise<GranolaAuthConfig> {
+  if (cachedGranolaAuth && !forceReload) {
+    return cachedGranolaAuth;
+  }
+
+  const dbSettings = await loadGranolaSettings();
+
+  const accessToken =
+    normalizeSettingValue(dbSettings.granola_mcp_access_token) ||
+    normalizeSettingValue(process.env.GRANOLA_MCP_ACCESS_TOKEN);
+  const refreshToken =
+    normalizeSettingValue(dbSettings.granola_mcp_refresh_token) ||
+    normalizeSettingValue(process.env.GRANOLA_MCP_REFRESH_TOKEN);
+  const clientId =
+    normalizeSettingValue(dbSettings.granola_mcp_client_id) ||
+    normalizeSettingValue(process.env.GRANOLA_MCP_CLIENT_ID);
+  const tokenUrl =
+    normalizeSettingValue(dbSettings.granola_mcp_token_url) ||
+    normalizeSettingValue(process.env.GRANOLA_MCP_TOKEN_URL) ||
+    GRANOLA_DEFAULT_TOKEN_URL;
+
+  cachedGranolaAuth = {
+    accessToken,
+    refreshToken,
+    clientId,
+    tokenUrl,
+  };
+
+  return cachedGranolaAuth;
+}
+
+async function persistGranolaAuthConfig(config: GranolaAuthConfig): Promise<void> {
+  const rows = [
+    {
+      setting_key: "granola_mcp_access_token",
+      setting_value: config.accessToken,
+      is_secret: true,
+      description: "Granola MCP access token",
+    },
+    {
+      setting_key: "granola_mcp_refresh_token",
+      setting_value: config.refreshToken,
+      is_secret: true,
+      description: "Granola MCP refresh token",
+    },
+    {
+      setting_key: "granola_mcp_client_id",
+      setting_value: config.clientId,
+      is_secret: false,
+      description: "Granola MCP OAuth client id",
+    },
+    {
+      setting_key: "granola_mcp_token_url",
+      setting_value: config.tokenUrl,
+      is_secret: false,
+      description: "Granola MCP OAuth token endpoint",
+    },
+  ].filter((row) => normalizeSettingValue(row.setting_value) !== null);
+
+  if (rows.length === 0) return;
+
+  try {
+    const { error } = await supabase
+      .from("app_settings")
+      .upsert(rows, { onConflict: "setting_key" });
+    if (error) {
+      throw new Error(error.message);
+    }
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    console.warn(`Failed to persist Granola auth settings to app_settings: ${message}`);
+  }
+}
 
 async function getAccessToken(): Promise<string> {
   if (cachedAccessToken) return cachedAccessToken;
 
-  const token = process.env.GRANOLA_MCP_ACCESS_TOKEN;
-  if (!token) {
+  const auth = await getGranolaAuthConfig();
+  if (!auth.accessToken) {
+    if (auth.refreshToken) {
+      console.log("No Granola access token found; refreshing from stored refresh token...");
+      return refreshAccessToken();
+    }
+
     throw new Error(
-      "GRANOLA_MCP_ACCESS_TOKEN env var not set. Run the OAuth flow to obtain tokens."
+      "Granola MCP access token not set. Configure app_settings.granola_mcp_access_token or GRANOLA_MCP_ACCESS_TOKEN."
     );
   }
 
-  // Try the token — if it works, use it
-  // If it fails with 401, attempt refresh
-  cachedAccessToken = token;
-  return token;
+  cachedAccessToken = auth.accessToken;
+  return auth.accessToken;
 }
 
 async function refreshAccessToken(): Promise<string> {
-  const refreshToken = process.env.GRANOLA_MCP_REFRESH_TOKEN;
-  const clientId = process.env.GRANOLA_MCP_CLIENT_ID;
+  const auth = await getGranolaAuthConfig(true);
+  const refreshToken = auth.refreshToken;
+  const clientId = auth.clientId;
 
   if (!refreshToken) {
     throw new Error(
-      "GRANOLA_MCP_REFRESH_TOKEN not set — cannot refresh expired token. Re-run OAuth flow."
+      "Granola MCP refresh token not set — configure app_settings.granola_mcp_refresh_token or GRANOLA_MCP_REFRESH_TOKEN."
     );
   }
 
-  // Discover the OAuth token endpoint from the MCP server
-  const tokenUrl =
-    process.env.GRANOLA_MCP_TOKEN_URL ||
-    "https://mcp-auth.granola.ai/oauth2/token";
+  const tokenUrl = auth.tokenUrl || GRANOLA_DEFAULT_TOKEN_URL;
 
   const params = new URLSearchParams({
     grant_type: "refresh_token",
@@ -67,12 +202,20 @@ async function refreshAccessToken(): Promise<string> {
     refresh_token?: string;
   };
 
-  cachedAccessToken = data.access_token;
+  const nextConfig: GranolaAuthConfig = {
+    accessToken: data.access_token,
+    refreshToken: data.refresh_token || refreshToken,
+    clientId,
+    tokenUrl,
+  };
 
-  // Log if we got a new refresh token (would need manual env var update)
+  cachedAccessToken = data.access_token;
+  cachedGranolaAuth = nextConfig;
+  await persistGranolaAuthConfig(nextConfig);
+
   if (data.refresh_token && data.refresh_token !== refreshToken) {
     console.warn(
-      "⚠️ New refresh token issued — update GRANOLA_MCP_REFRESH_TOKEN env var:",
+      "⚠️ New refresh token issued — persisted to app_settings:",
       data.refresh_token.slice(0, 8) + "..."
     );
   }
