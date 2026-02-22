@@ -6,6 +6,7 @@
     "dev": "next dev",
     "inngest": "npx inngest-cli@latest dev",
     "dev:all": "concurrently -n next,inngest -c blue,magenta \"pnpm dev\" \"pnpm inngest\"",
+    "stories:scan": "node scripts/story-scan.cjs",
     "build": "next build --webpack",
     "start": "next start",
     "lint": "eslint"
