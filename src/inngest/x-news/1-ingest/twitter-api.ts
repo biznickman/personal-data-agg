@@ -4,6 +4,49 @@ interface TweetAuthor {
   userName?: string;
 }
 
+export interface TweetEntityUrl {
+  url?: string;
+  display_url?: string;
+  expanded_url?: string;
+}
+
+export interface TweetVideoVariant {
+  url?: string;
+  bitrate?: number;
+  bit_rate?: number;
+  content_type?: string;
+}
+
+export interface TweetVideoInfo {
+  variants?: TweetVideoVariant[];
+}
+
+export interface TweetMedia {
+  type?: string;
+  media_key?: string;
+  media_url_https?: string;
+  url?: string;
+  preview_image_url?: string;
+  duration_ms?: number;
+  width?: number;
+  height?: number;
+  original_info?: {
+    width?: number;
+    height?: number;
+  };
+  variants?: TweetVideoVariant[];
+  video_info?: TweetVideoInfo;
+}
+
+export interface TweetEntities {
+  urls?: TweetEntityUrl[];
+  media?: TweetMedia[];
+}
+
+export interface TweetExtendedEntities {
+  media?: TweetMedia[];
+}
+
 export interface Tweet {
   id: string;
   text?: string;
@@ -19,6 +62,9 @@ export interface Tweet {
   isReply?: boolean;
   quoted_tweet?: unknown;
   author?: TweetAuthor;
+  entities?: TweetEntities;
+  extendedEntities?: TweetExtendedEntities;
+  card?: unknown;
 }
 
 export interface SearchResult {
@@ -50,7 +96,6 @@ export interface TweetRow {
   is_reply: boolean;
   is_quote: boolean;
   is_breakout: boolean;
-  topic?: string;
 }
 
 export async function searchTweets(
@@ -94,7 +139,7 @@ export async function searchTweetsPaginated(
   return allTweets;
 }
 
-export function tweetToRow(tweet: Tweet, topic?: string): TweetRow {
+export function tweetToRow(tweet: Tweet): TweetRow {
   const author = tweet.author ?? {};
   const tweetTime = tweet.createdAt
     ? new Date(tweet.createdAt).toISOString()
@@ -119,6 +164,5 @@ export function tweetToRow(tweet: Tweet, topic?: string): TweetRow {
     is_reply: !!tweet.isReply,
     is_quote: !!tweet.quoted_tweet,
     is_breakout: false,
-    ...(topic ? { topic } : {}),
   };
 }

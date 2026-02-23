@@ -1,7 +1,7 @@
 # Ingestion Engine Spec
 
 ## Overview
-A Next.js + Inngest application that handles deterministic data ingestion. No AI, no browsers — just APIs → Supabase. Each data source is an Inngest function in its own subfolder.
+A Next.js + Inngest application that handles deterministic data ingestion. APIs -> Supabase, with optional LLM normalization for `x-news` clustering inputs. Each data source is an Inngest function in its own subfolder.
 
 ## Architecture
 - **Framework:** Next.js (App Router, TypeScript)
@@ -20,10 +20,18 @@ src/
 │   ├── functions.ts          ← parent file exporting all functions
 │   ├── x-news/              ← X/Twitter news monitoring
 │   │   ├── index.ts
-│   │   ├── ingest.ts        ← polls 49 accounts every 15min
-│   │   ├── keywords.ts      ← crypto keyword search hourly
-│   │   ├── twitter-api.ts   ← shared Twitter API helpers
-│   │   └── sources.ts       ← reads source accounts from markdown
+│   │   ├── 1-ingest/
+│   │   │   ├── ingest.ts      ← polls source accounts every 15min
+│   │   │   ├── keywords.ts    ← crypto keyword search hourly
+│   │   │   ├── twitter-api.ts ← shared Twitter API helpers
+│   │   │   ├── sources.ts     ← reads source accounts from markdown
+│   │   │   └── assets.ts      ← parses/upserts images, videos, URLs
+│   │   ├── 2-enrich/
+│   │   │   ├── enrich-urls.ts ← fetches readable content for parsed URLs
+│   │   │   ├── normalize.ts   ← normalizes tweet text + URL context into headline/facts
+│   │   │   ├── normalize-llm.ts ← OpenRouter/Portkey routing for normalization
+│   │   │   └── url-content.ts ← readability extraction logic
+│   │   └── 3-cluster/         ← reserved for clustering stage
 │   ├── granola/             ← Meeting notes
 │   │   ├── index.ts
 │   │   └── ingest.ts        ← syncs Granola notes every 30min
@@ -62,7 +70,10 @@ Replace the static page.tsx with a useful dashboard that:
 - README.md with setup instructions
 
 ## Supabase Tables (existing)
-- `tweets` — tweet_id (text, unique), tweet_time, username, link, tweet_text, raw (jsonb), impressions, likes, quotes, retweets, bookmarks, replies, is_retweet, is_reply, is_quote, is_breakout, topic, canonical_tweet_id, is_latest_version
+- `tweets` — tweet_id (text, unique), tweet_time, username, link, tweet_text, raw (jsonb), impressions, likes, quotes, retweets, bookmarks, replies, is_retweet, is_reply, is_quote, is_breakout, canonical_tweet_id, is_latest_version, normalized_headline (text), normalized_facts (jsonb)
+- `tweet_images` — tweet_id, image_url, warrants_financial_analysis, image_category, initial_claude_analysis, summary, claude_summary_payload
+- `tweet_urls` — tweet_id, url, url_content, raw_url_content
+- `tweet_videos` — tweet_id (FK → tweets.id), preview_image_url, duration_ms, media_key, url_320, url_480, url_720, url_1080, raw_variants
 - `voice_notes` — granola_id (text, unique), title, created_at, notes_text, transcript
 - `message_log` — message_hash (text, unique), timestamp, message_text, session_key, category
 

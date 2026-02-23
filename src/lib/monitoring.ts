@@ -55,31 +55,67 @@ function formatLogsUrl(functionId: IngestionFunctionId): string {
   return `${INNGEST_DEV_URL}/functions/${functionId}`;
 }
 
-async function getTweetsStatsByTopic(topic: string | null): Promise<TableStats> {
-  const countQuery =
-    topic === null
-      ? supabase.from("tweets").select("tweet_id", { count: "exact", head: true }).is("topic", null)
-      : supabase.from("tweets").select("tweet_id", { count: "exact", head: true }).eq("topic", topic);
-
-  const latestQuery =
-    topic === null
-      ? supabase
-          .from("tweets")
-          .select("tweet_time")
-          .is("topic", null)
-          .not("tweet_time", "is", null)
-          .order("tweet_time", { ascending: false })
-          .limit(1)
-      : supabase
-          .from("tweets")
-          .select("tweet_time")
-          .eq("topic", topic)
-          .not("tweet_time", "is", null)
-          .order("tweet_time", { ascending: false })
-          .limit(1);
-
+async function getTweetsStats(): Promise<TableStats> {
   const [{ count, error: countError }, { data: latestData, error: latestError }] =
-    await Promise.all([countQuery, latestQuery]);
+    await Promise.all([
+      supabase.from("tweets").select("tweet_id", { count: "exact", head: true }),
+      supabase
+        .from("tweets")
+        .select("tweet_time")
+        .not("tweet_time", "is", null)
+        .order("tweet_time", { ascending: false })
+        .limit(1),
+    ]);
+
+  const queryError = countError?.message || latestError?.message || null;
+  const latestDataAt =
+    latestData && latestData[0] && typeof latestData[0].tweet_time === "string"
+      ? latestData[0].tweet_time
+      : null;
+
+  return { rowCount: count ?? null, latestDataAt, queryError };
+}
+
+async function getTweetUrlsEnrichmentStats(): Promise<TableStats> {
+  const [{ count, error: countError }, { data: latestData, error: latestError }] =
+    await Promise.all([
+      supabase
+        .from("tweet_urls")
+        .select("id", { count: "exact", head: true })
+        .not("url_content", "is", null),
+      supabase
+        .from("tweet_urls")
+        .select("created_at")
+        .not("url_content", "is", null)
+        .not("created_at", "is", null)
+        .order("created_at", { ascending: false })
+        .limit(1),
+    ]);
+
+  const queryError = countError?.message || latestError?.message || null;
+  const latestDataAt =
+    latestData && latestData[0] && typeof latestData[0].created_at === "string"
+      ? latestData[0].created_at
+      : null;
+
+  return { rowCount: count ?? null, latestDataAt, queryError };
+}
+
+async function getTweetNormalizationStats(): Promise<TableStats> {
+  const [{ count, error: countError }, { data: latestData, error: latestError }] =
+    await Promise.all([
+      supabase
+        .from("tweets")
+        .select("tweet_id", { count: "exact", head: true })
+        .not("normalized_headline", "is", null),
+      supabase
+        .from("tweets")
+        .select("tweet_time")
+        .not("normalized_headline", "is", null)
+        .not("tweet_time", "is", null)
+        .order("tweet_time", { ascending: false })
+        .limit(1),
+    ]);
 
   const queryError = countError?.message || latestError?.message || null;
   const latestDataAt =
@@ -127,6 +163,27 @@ async function getMessageLogStats(): Promise<TableStats> {
   const latestDataAt =
     latestData && latestData[0] && typeof latestData[0].timestamp === "string"
       ? latestData[0].timestamp
+      : null;
+
+  return { rowCount: count ?? null, latestDataAt, queryError };
+}
+
+async function getSlackMessagesStats(): Promise<TableStats> {
+  const [{ count, error: countError }, { data: latestData, error: latestError }] =
+    await Promise.all([
+      supabase.from("slack_messages").select("slack_message_id", { count: "exact", head: true }),
+      supabase
+        .from("slack_messages")
+        .select("message_time")
+        .not("message_time", "is", null)
+        .order("message_time", { ascending: false })
+        .limit(1),
+    ]);
+
+  const queryError = countError?.message || latestError?.message || null;
+  const latestDataAt =
+    latestData && latestData[0] && typeof latestData[0].message_time === "string"
+      ? latestData[0].message_time
       : null;
 
   return { rowCount: count ?? null, latestDataAt, queryError };
@@ -183,14 +240,28 @@ const FUNCTION_CONFIGS: FunctionConfig[] = [
     name: "X News Ingest",
     schedule: "Every 15 minutes",
     scheduleMinutes: 15,
-    getStats: () => getTweetsStatsByTopic(null),
+    getStats: getTweetsStats,
   },
   {
     id: "x-keyword-scan",
     name: "X Keyword Scan",
     schedule: "Every hour",
     scheduleMinutes: 60,
-    getStats: () => getTweetsStatsByTopic("keywords"),
+    getStats: getTweetsStats,
+  },
+  {
+    id: "x-news-enrich-urls",
+    name: "X News URL Enrichment",
+    schedule: "Event-driven",
+    scheduleMinutes: 720,
+    getStats: getTweetUrlsEnrichmentStats,
+  },
+  {
+    id: "x-news-normalize",
+    name: "X News Normalize",
+    schedule: "Event-driven",
+    scheduleMinutes: 720,
+    getStats: getTweetNormalizationStats,
   },
   {
     id: "granola-ingest",
@@ -205,6 +276,13 @@ const FUNCTION_CONFIGS: FunctionConfig[] = [
     schedule: "Every 30 minutes",
     scheduleMinutes: 30,
     getStats: getMessageLogStats,
+  },
+  {
+    id: "slack-ingest",
+    name: "Slack Messages",
+    schedule: "Every 10 minutes",
+    scheduleMinutes: 10,
+    getStats: getSlackMessagesStats,
   },
   {
     id: "x-posts-fetch-recent",

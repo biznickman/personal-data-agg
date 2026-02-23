@@ -3,6 +3,8 @@ import { inngest } from "@/inngest/client";
 import {
   xNewsIngest,
   xKeywordScan,
+  xNewsEnrichUrls,
+  xNewsNormalize,
   granolaIngest,
   messageLogIngest,
   xPostsFetchRecent,
@@ -15,6 +17,8 @@ export const { GET, POST, PUT } = serve({
   functions: [
     xNewsIngest,
     xKeywordScan,
+    xNewsEnrichUrls,
+    xNewsNormalize,
     granolaIngest,
     messageLogIngest,
     xPostsFetchRecent,
