@@ -6,7 +6,15 @@
  */
 
 // X/Twitter
-export { xNewsIngest, xKeywordScan, xNewsEnrichUrls, xNewsNormalize } from "./x-news";
+export {
+  xNewsIngest,
+  xKeywordScan,
+  xNewsEnrichUrls,
+  xNewsNormalize,
+  xNewsClusterAssign,
+  xNewsClusterMerge,
+  xNewsClusterBackfill,
+} from "./x-news";
 
 // Granola meeting notes
 export { granolaIngest } from "./granola";

@@ -1,0 +1,411 @@
+{
+  "generated_at": "2026-02-23T02:19:09.065Z",
+  "options": {
+    "hours": 24,
+    "limit": 220,
+    "provider": "openai",
+    "model": "text-embedding-3-small",
+    "dupThreshold": 0.88,
+    "textMode": "headline_only"
+  },
+  "input_tweets": 155,
+  "lexical_baseline_clusters": 56,
+  "embedding": {
+    "provider": "openai",
+    "model": "text-embedding-3-small",
+    "total_tokens": 2088,
+    "estimated_cost_usd": 0.000042
+  },
+  "best_config": {
+    "name": "emb_0.84_0.88",
+    "assign_threshold": 0.84,
+    "merge_threshold": 0.88,
+    "score": 685.5,
+    "metrics": {
+      "clusters": 68,
+      "singletons": 53,
+      "multi": 15,
+      "story_raw": 8,
+      "story_filtered": 6,
+      "promo_filtered_clusters": 15,
+      "residual_dup_pairs": 0,
+      "largest": 29
+    }
+  },
+  "top_configs": [
+    {
+      "name": "emb_0.84_0.88",
+      "assign_threshold": 0.84,
+      "merge_threshold": 0.88,
+      "score": 685.5,
+      "clusters": 68,
+      "singletons": 53,
+      "story_filtered": 6,
+      "residual_dup_pairs": 0
+    },
+    {
+      "name": "emb_0.84_0.86",
+      "assign_threshold": 0.84,
+      "merge_threshold": 0.86,
+      "score": 682.5,
+      "clusters": 67,
+      "singletons": 53,
+      "story_filtered": 6,
+      "residual_dup_pairs": 0
+    },
+    {
+      "name": "emb_0.84_0.90",
+      "assign_threshold": 0.84,
+      "merge_threshold": 0.9,
+      "score": 648.5,
+      "clusters": 69,
+      "singletons": 53,
+      "story_filtered": 6,
+      "residual_dup_pairs": 1
+    },
+    {
+      "name": "emb_0.84_0.92",
+      "assign_threshold": 0.84,
+      "merge_threshold": 0.92,
+      "score": 648.5,
+      "clusters": 69,
+      "singletons": 53,
+      "story_filtered": 6,
+      "residual_dup_pairs": 1
+    },
+    {
+      "name": "emb_0.81_0.86",
+      "assign_threshold": 0.81,
+      "merge_threshold": 0.86,
+      "score": 579,
+      "clusters": 62,
+      "singletons": 46,
+      "story_filtered": 5,
+      "residual_dup_pairs": 0
+    },
+    {
+      "name": "emb_0.81_0.88",
+      "assign_threshold": 0.81,
+      "merge_threshold": 0.88,
+      "score": 579,
+      "clusters": 62,
+      "singletons": 46,
+      "story_filtered": 5,
+      "residual_dup_pairs": 0
+    },
+    {
+      "name": "emb_0.78_0.86",
+      "assign_threshold": 0.78,
+      "merge_threshold": 0.86,
+      "score": 573,
+      "clusters": 60,
+      "singletons": 46,
+      "story_filtered": 5,
+      "residual_dup_pairs": 0
+    },
+    {
+      "name": "emb_0.78_0.88",
+      "assign_threshold": 0.78,
+      "merge_threshold": 0.88,
+      "score": 573,
+      "clusters": 60,
+      "singletons": 46,
+      "story_filtered": 5,
+      "residual_dup_pairs": 0
+    }
+  ],
+  "stories": [
+    {
+      "cluster_id": 7,
+      "headline": "LayerZero Launches 'ZERO' L1 Blockchain with Institutional Backing",
+      "tweet_count": 9,
+      "unique_users": 8,
+      "first_seen_at": "2026-02-22T23:17:10+00:00",
+      "last_seen_at": "2026-02-23T00:40:16+00:00",
+      "tweets": [
+        {
+          "tweet_id": "2025732406171594873",
+          "username": "mihaelstrategy",
+          "tweet_time": "2026-02-23T00:40:16+00:00",
+          "link": "https://x.com/mihaelstrategy/status/2025732406171594873",
+          "tweet_text": "TETHER. DTCC. GOOGLE CLOUD. ALL backing $ZRO. AND 10% is for voters.\n\nLAYERZERO just launched \"ZERO\" — their own L1.\n\n💰 VOTE ON = instant $ZRO eligibility 💰\n\nhttps://t.co/2tpi24jvvP\n\nHigh-performance blockchain for institutional global markets\n\nEligible:\n✅ Users who voted\n✅ On-chain activity\n✅ Early ZRO adopter\n\nEven one vote counts\n\n10% supply = community voters allocation\nVote and become instantly eligible\n\nRewards could range from $300 to $5,000\n\nCitadel Securities direct $ZRO purchase \nARK Invest equity + ZRO, with Cathie Wood advisory \nSNARK-proving powered by Jolt\n\nDon't sleep on this opportunity 👇\n\n$LIGHT $NB"
+        },
+        {
+          "tweet_id": "2025728351915384936",
+          "username": "rickcrypto_eth",
+          "tweet_time": "2026-02-23T00:24:09+00:00",
+          "link": "https://x.com/rickcrypto_eth/status/2025728351915384936",
+          "tweet_text": "TETHER, DTCC, GOOGLE CLOUD—big names backing $ZRO. Plus, 10% is reserved for voters.\n\nLAYERZERO just launched \"ZERO,\" their new L1.\n\n💰 VOTE ON = INSTANT $ZRO ELIGIBILITY 💰\n\nhttps://t.co/49Y9TsELYi\n\nHigh-performance blockchain for institutional global markets\n\nEligible:\n✅ Voters \n✅ On-chain activity\n✅ Early ZRO adopters\n\nEvery vote counts\n\n10% of the supply goes to the community voters\nVote now and get instant eligibility\n\nRewards can range from $300 to $5,000\n\nCitadel Securities is making direct $ZRO purchases\nARK Invest equity + ZRO, with Cathie Wood's advisory\nSNARK-proving powered by Jolt\n\nDon’t sleep on this opportunity 👇\n\n$CUDIS $NOBODY"
+        },
+        {
+          "tweet_id": "2025728009706385474",
+          "username": "tokyorosiecr",
+          "tweet_time": "2026-02-23T00:22:48+00:00",
+          "link": "https://x.com/tokyorosiecr/status/2025728009706385474",
+          "tweet_text": "TETHER. DTCC. GOOGLE CLOUD. All backing $ZRO. Plus, 10% is for voters.\n\nLayerZero just dropped \"ZERO\" — their own L1.\n\n💰 Vote on = instant $ZRO eligibility 💰\n\nhttps://t.co/Jnkciqfq0r\n\nHigh-performance blockchain for global institutional markets.\n\nEligible:\n✅ Voters\n✅ On-chain activity\n✅ Early ZRO adopters\n\nEvery vote counts.\n\n10% supply = community voters allocation. Get involved and become instantly eligible.\n\nRewards ranging from $300 to $5,000.\n\nCitadel Securities is directly buying $ZRO. \nARK Invest equity + ZRO, with Cathie Wood's advisory.\nSNARK-proving powered by Jolt.\n\nDon’t let this opportunity slip by 👇\n\n$PAXG $SUP"
+        },
+        {
+          "tweet_id": "2025719375727312906",
+          "username": "VladimirMD_",
+          "tweet_time": "2026-02-22T23:48:29+00:00",
+          "link": "https://x.com/VladimirMD_/status/2025719375727312906",
+          "tweet_text": "ZRO time. GOOGLE CLOUD. DTCC. TETHER. ARK INVEST. CITADEL. They’re all backing $ZRO.\n\nAND YOU CAN VOTE FOR A 10% SUPPLY ALLOCATION.\n\n⚠️ LAYERZERO \"ZERO\" IS LIVE ⚠️\n\nhttps://t.co/OtzeOI18ro\n\nJust launched a high-performance L1 for institutional markets.\n\nEligible to participate:\n→ Cast your vote\n→ LayerZero supporter\n→ Any on-chain activity\n→ Early adopters\n\nEvery single transaction counts.\n\n10% of the supply goes to community voters.\nVote = instant $ZRO eligibility.\n\nPeople are grabbing anywhere from $500 to $40,000.\n\nCitadel Securities made a direct purchase.\nCathie Wood is on the advisory board. This is serious institutional stuff.\n\n$PEPE $CUDIS"
+        },
+        {
+          "tweet_id": "2025716412002816324",
+          "username": "rickcrypto_eth",
+          "tweet_time": "2026-02-22T23:36:43+00:00",
+          "link": "https://x.com/rickcrypto_eth/status/2025716412002816324",
+          "tweet_text": "All eyes on $ZRO. \n\nGOOGLE CLOUD. DTCC. TETHER. ARK INVEST. CITADEL. They're all in.\n\nAnd guess what? You can vote for a 10% supply allocation.\n\n⚠️ LAYERZERO \"ZERO\" IS LIVE ⚠️\n\nhttps://t.co/49Y9TsELYi\n\nJust launched: a high-performance L1 for institutional markets.\n\nEligible:\n→ Vote on participant\n→ LayerZero supporter\n→ Any on-chain activity\n→ Early adopter\n\nEvery single transaction counts.\n\n10% of the supply goes to community voters. Vote = instant $ZRO eligibility.\n\nPeople are snagging anywhere from $500 to $40,000.\n\nCitadel Securities is in direct. Cathie Wood is on advisory. This is next-level institutional stuff.\n\n$COAI $ANON"
+        },
+        {
+          "tweet_id": "2025714739549290620",
+          "username": "juancbarry_eth",
+          "tweet_time": "2026-02-22T23:30:04+00:00",
+          "link": "https://x.com/juancbarry_eth/status/2025714739549290620",
+          "tweet_text": "$ZRO vibes. GOOGLE CLOUD, DTCC, TETHER, ARK INVEST, and CITADEL are all backing it.\n\nAND YOU CAN VOTE FOR A 10% SUPPLY ALLOCATION.\n\n⚠️ LAYERZERO \"ZERO\" IS LIVE ⚠️\n\nhttps://t.co/70TS6zg8h4\n\nJust launched a high-performance L1 for institutional markets.\n\nEligible:\n→ Vote on participants\n→ LayerZero supporter\n→ Any on-chain activity\n→ Early adopter\n\nEvery transaction counts.\n\n10% of the supply is up for grabs to community voters.\nVote = instant $ZRO eligibility.\n\nFolks are scooping up from $500 to $40,000.\n\nCitadel Securities went direct.\nCathie Wood’s on advisory. This is next-level institutional stuff.\n\n$BTG $PAXG"
+        },
+        {
+          "tweet_id": "2025714454521110979",
+          "username": "0xKevinRich",
+          "tweet_time": "2026-02-22T23:28:56+00:00",
+          "link": "https://x.com/0xKevinRich/status/2025714454521110979",
+          "tweet_text": "Big news on $ZRO. \n\nGOOGLE CLOUD. DTCC. TETHER. ARK INVEST. CITADEL. They’re all in. \n\n⚠️ LAYERZERO \"ZERO\" IS LIVE ⚠️\n\nhttps://t.co/MWcK3Cv237\n\nJust launched a high-performance L1 for the institutional space. \n\nEligible:\n→ Vote on participant\n→ LayerZero supporter\n→ Any on-chain activity\n→ Early adopter\n\nEvery transaction counts.\n\n10% of the supply is going to community voters. Vote and you’re instantly eligible for $ZRO.\n\nPeople are picking up from $500 to $40,000.\n\nCitadel Securities is in the mix, and Cathie Wood's on the advisory team. This is serious institutional stuff.\n\n$PENGU $FARTCOIN"
+        },
+        {
+          "tweet_id": "2025712136060809545",
+          "username": "jenni_defi",
+          "tweet_time": "2026-02-22T23:19:43+00:00",
+          "link": "https://x.com/jenni_defi/status/2025712136060809545",
+          "tweet_text": "Big news with $ZRO. \n\nGOOGLE CLOUD. DTCC. TETHER. ARK INVEST. CITADEL. They’re all in.\n\nAND YOU CAN VOTE FOR A 10% SUPPLY ALLOCATION.\n\n⚠️ LAYERZERO \"ZERO\" IS LIVE ⚠️\n\nhttps://t.co/zyWfOmfonP\n\nA high-performance L1 just launched for the institutional space.\n\nEligible:\n→ Cast your vote on participants\n→ LayerZero backers\n→ Any on-chain actions\n→ Early supporters\n\nEvery single transaction counts.\n\n10% of the supply is up for grabs by community voters.\nVote and you’re instantly eligible for $ZRO.\n\nPeople are scooping up anywhere from $500 to $40,000.\n\nCitadel Securities made a direct purchase.\nCathie Wood’s on board as an advisor. This is serious institutional stuff.\n\n$BARD $SEI"
+        }
+      ]
+    },
+    {
+      "cluster_id": 3,
+      "headline": "Ondo Finance Launches Tokenized Stock Rewards on Ethereum",
+      "tweet_count": 8,
+      "unique_users": 6,
+      "first_seen_at": "2026-02-22T22:31:38+00:00",
+      "last_seen_at": "2026-02-23T00:47:06+00:00",
+      "tweets": [
+        {
+          "tweet_id": "2025734126901620872",
+          "username": "mihaelstrategy",
+          "tweet_time": "2026-02-23T00:47:06+00:00",
+          "link": "https://x.com/mihaelstrategy/status/2025734126901620872",
+          "tweet_text": "ETH fees? They're flowing into NVIDIA & TESLA now. \n\n$ONDO is making tokenized stocks a reality.\n\n🔥 10% SUPPLY → $NVDAON $TSLAON 🔥\n\nhttps://t.co/cnKwifRIyY\n\nOndo Summit is uniting BlackRock, DTCC, and the White House.\n\nEligible:\n✅ Ethereum user\n✅ $ONDO supporter\n✅ DeFi participant\n✅ On-chain activity\n\nJust one interaction qualifies you.\n\n10% of supply distributed as tokenized NVIDIA & TESLA. \nTurn fees into real NVDAON & TSLAON rewards.\n\nPeople scoring $100 to $22,000.\n\nYour piece of the 10% is waiting. \nThe biggest event in tokenization is happening NOW.\n\nStart accumulating digital stocks today."
+        },
+        {
+          "tweet_id": "2025733510372450733",
+          "username": "VladimirMD_",
+          "tweet_time": "2026-02-23T00:44:39+00:00",
+          "link": "https://x.com/VladimirMD_/status/2025733510372450733",
+          "tweet_text": "ETH fees? They're morphing into NVIDIA & TESLA now.\n\n$ONDO is making tokenized stocks a reality.\n\n🔥 10% SUPPLY → $NVDAON $TSLAON 🔥\n\nhttps://t.co/j5cJU1jspA\n\nOndo Summit is uniting BlackRock, DTCC, and the White House\n\nEligible:\n✅ Ethereum user\n✅ $ONDO supporter\n✅ DeFi enthusiast\n✅ On-chain activity\n\nJust one interaction qualifies\n\n10% of supply up for grabs as tokenized NVIDIA & TESLA\nTurn those fees into real NVDAON & TSLAON rewards\n\nPeople pulling in $100 to $22,000\n\nYour slice of the 10% is ready.\nThe biggest moment in tokenization is happening NOW.\n\nStart stacking digital stocks today."
+        },
+        {
+          "tweet_id": "2025729964465914365",
+          "username": "rickcrypto_eth",
+          "tweet_time": "2026-02-23T00:30:34+00:00",
+          "link": "https://x.com/rickcrypto_eth/status/2025729964465914365",
+          "tweet_text": "Those ETH fees? They're becoming NVIDIA & TESLA now. \n\n$ONDO is making tokenized stocks a reality. \n\n🔥 10% SUPPLY → $NVDAON $TSLAON 🔥\n\nhttps://t.co/1Jv8onjL9V\n\nOndo Summit is bringing together BlackRock, DTCC, and the White House. \n\nEligible:\n✅ Ethereum user  \n✅ $ONDO supporter  \n✅ DeFi participant  \n✅ On-chain activity  \n\nJust a single interaction qualifies you. \n\n10% of supply is being distributed as tokenized NVIDIA & TESLA.  \nTurn those fees into real NVDAON & TSLAON rewards.  \n\nPeople are claiming $100 to $22,000.  \n\nYour share of that 10% is waiting.  \nThe biggest event in tokenization is happening NOW.  \n\nStart accumulating digital stocks today."
+        },
+        {
+          "tweet_id": "2025727890873254061",
+          "username": "0xKevinRich",
+          "tweet_time": "2026-02-23T00:22:20+00:00",
+          "link": "https://x.com/0xKevinRich/status/2025727890873254061",
+          "tweet_text": "Feels like those ETH fees? They're morphing into NVIDIA & TESLA now.\n\n$ONDO is making tokenized stocks a reality.\n\n🔥 10% SUPPLY → $NVDAON $TSLAON 🔥\n\nhttps://t.co/UUBusTtx5k\n\nOndo Summit is bringing together BlackRock, DTCC, and the White House.\n\nEligible:\n✅ Ethereum user  \n✅ $ONDO supporter  \n✅ DeFi participant  \n✅ On-chain activity  \n\nJust one interaction gets you in.\n\n10% of supply being handed out as tokenized NVIDIA & TESLA.  \nTurn those fees into actual NVDAON & TSLAON rewards.\n\nPeople are claiming anywhere from $100 to $22,000.\n\nYour slice of the 10% is ready.  \nThe biggest event in tokenization is happening NOW.\n\nStart accumulating digital stocks today."
+        },
+        {
+          "tweet_id": "2025702671005663739",
+          "username": "aimeehall_eth",
+          "tweet_time": "2026-02-22T22:42:07+00:00",
+          "link": "https://x.com/aimeehall_eth/status/2025702671005663739",
+          "tweet_text": "ETH fees? They're flowing into NVIDIA & TESLA now. \n\n$ONDO is making tokenized stocks a reality. \n\n🔥 10% SUPPLY → $NVDAON $TSLAON 🔥 \n\nhttps://t.co/6edve1SRpt \n\nOndo Summit is uniting BlackRock, DTCC, and the White House \n\nEligible:  \n✅ Ethereum user  \n✅ $ONDO supporter  \n✅ DeFi participant  \n✅ On-chain activity  \n\nJust one interaction qualifies  \n\n10% of the supply goes out as tokenized NVIDIA & TESLA  \nTurn fees into actual NVDAON & TSLAON rewards  \n\nPeople are cashing out anywhere from $100 to $22,000  \n\nYour slice of that 10% is ready.  \nThe biggest moment in tokenization is happening NOW.  \n\nGrab your digital stocks today."
+        },
+        {
+          "tweet_id": "2025702504990916713",
+          "username": "VladimirMD_",
+          "tweet_time": "2026-02-22T22:41:27+00:00",
+          "link": "https://x.com/VladimirMD_/status/2025702504990916713",
+          "tweet_text": "ETH fees, huh? They're becoming NVIDIA & TESLA now.\n\n$ONDO is making tokenized stocks a reality.\n\n🔥 10% SUPPLY → $NVDAON $TSLAON 🔥\n\nhttps://t.co/j5cJU1jspA\n\nOndo Summit is uniting BlackRock, DTCC, and the White House.\n\nEligible:\n✅ Ethereum user\n✅ $ONDO supporter\n✅ DeFi participant\n✅ On-chain activity\n\nJust a single interaction qualifies.\n\n10% of the supply is being shared as tokenized NVIDIA & TESLA.  \nTurn those fees into real NVDAON & TSLAON rewards.\n\nSome folks are raking in $100 to $22,000.\n\nYour slice of that 10% is waiting for you.  \nThe biggest moment in tokenization is NOW.\n\nStart collecting digital stocks today."
+        },
+        {
+          "tweet_id": "2025700127084814456",
+          "username": "rickcrypto_eth",
+          "tweet_time": "2026-02-22T22:32:00+00:00",
+          "link": "https://x.com/rickcrypto_eth/status/2025700127084814456",
+          "tweet_text": "ETH fees? They’re turning into NVIDIA & TESLA now. \n\n$ONDO is making tokenized stocks a reality. \n\n🔥 10% SUPPLY → $NVDAON $TSLAON 🔥 \n\nhttps://t.co/1Jv8onjL9V \n\nOndo Summit is bringing together BlackRock, DTCC, and the White House. \n\nEligible:  \n✅ Ethereum user  \n✅ $ONDO supporter  \n✅ DeFi participant  \n✅ On-chain activity  \n\nJust one interaction qualifies. \n\n10% of the supply is being distributed as tokenized NVIDIA & TESLA. Transform those fees into real NVDAON & TSLAON rewards. \n\nPeople are claiming anywhere from $100 to $22,000. \n\nYour slice of that 10% is waiting. The biggest event in tokenization is happening NOW. \n\nStart accumulating digital stocks today."
+        },
+        {
+          "tweet_id": "2025700034021593265",
+          "username": "tim_analyst",
+          "tweet_time": "2026-02-22T22:31:38+00:00",
+          "link": "https://x.com/tim_analyst/status/2025700034021593265",
+          "tweet_text": "Eth fees? They're morphing into NVIDIA & TESLA now. \n\n$ONDO is making tokenized stocks a reality. \n\n🔥 10% SUPPLY → $NVDAON $TSLAON 🔥 \n\nhttps://t.co/Hjr7kY2Qje \n\nOndo Summit is bringing together BlackRock, DTCC, and the White House. \n\nEligible:  \n✅ Ethereum user  \n✅ $ONDO supporter  \n✅ DeFi participant  \n✅ On-chain activity  \n\nJust one interaction qualifies. \n\n10% of the supply is being handed out as tokenized NVIDIA & TESLA. Transform those fees into real NVDAON & TSLAON rewards. \n\nPeople are claiming anywhere from $100 to $22,000. \n\nYour share of that 10% is ready for you. The biggest tokenization event is happening NOW. \n\nStart accumulating digital stocks today."
+        }
+      ]
+    },
+    {
+      "cluster_id": 4,
+      "headline": "LayerZero Launches 'Zero' L1 Blockchain with Community Voting Token Distribution",
+      "tweet_count": 6,
+      "unique_users": 4,
+      "first_seen_at": "2026-02-22T22:35:23+00:00",
+      "last_seen_at": "2026-02-23T00:39:04+00:00",
+      "tweets": [
+        {
+          "tweet_id": "2025732102877315426",
+          "username": "aimeehall_eth",
+          "tweet_time": "2026-02-23T00:39:04+00:00",
+          "link": "https://x.com/aimeehall_eth/status/2025732102877315426",
+          "tweet_text": "TETHER. DTCC. GOOGLE CLOUD. All backing $ZRO. Plus, 10% is for the voters.\n\nLAYERZERO just launched \"ZERO\" — their own L1.\n\n💰 Vote on = instant $ZRO eligibility 💰\n\nhttps://t.co/PW7Z90nskr\n\nHigh-performance blockchain for global institutional markets\n\nEligible:\n✅ Users who voted\n✅ On-chain activity\n✅ Early ZRO adopters\n\nEvery vote counts\n\n10% supply = community voter allocation  \nVote and get instantly eligible\n\nRewards ranging from $300 to $5,000\n\nCitadel Securities directly buying $ZRO  \nARK Invest equity + ZRO, with Cathie Wood advising  \nSNARK-proving powered by Jolt\n\nDon’t let this chance slip by 👇\n\n$ALLO $CDL"
+        },
+        {
+          "tweet_id": "2025728323142459433",
+          "username": "tim_analyst",
+          "tweet_time": "2026-02-23T00:24:03+00:00",
+          "link": "https://x.com/tim_analyst/status/2025728323142459433",
+          "tweet_text": "TETHER. DTCC. GOOGLE CLOUD. ALL IN ON $ZRO. AND 10% IS FOR VOTERS.\n\nLAYERZERO JUST LAUNCHED \"ZERO\" — THEIR OWN L1.\n\n💰 VOTE ON = INSTANT $ZRO ELIGIBILITY 💰\n\nhttps://t.co/3Ksqvh6seb\n\nHigh-performance blockchain for global institutional markets\n\nEligible:\n✅ Users who cast their vote\n✅ On-chain activity\n✅ Early ZRO supporter\n\nEven one vote counts\n\n10% supply = community voters share\nVote and instantly qualify\n\nRewards ranging from $300 to $5,000\n\nCitadel Securities direct $ZRO buy\nARK Invest equity + ZRO, with Cathie Wood's advisory\nSNARK-proving powered by Jolt\n\nDon't sleep on this opportunity 👇\n\n$BBSNEK $PIPPIN"
+        },
+        {
+          "tweet_id": "2025722947227558126",
+          "username": "eaglecrypto_web",
+          "tweet_time": "2026-02-23T00:02:41+00:00",
+          "link": "https://x.com/eaglecrypto_web/status/2025722947227558126",
+          "tweet_text": "TETHER. DTCC. GOOGLE CLOUD. All backing $ZRO. Plus, 10% is for voters.\n\nLayerZero just launched \"ZERO\" — their own L1.\n\n💰 Vote on = instant $ZRO eligibility 💰\n\nhttps://t.co/29WNFjxsVR\n\nHigh-performance blockchain for global institutional markets\n\nEligible:\n✅ Voters\n✅ On-chain activity\n✅ Early ZRO adopters\n\nEvery single vote counts\n\n10% supply = community voter allocation\nVote now and get eligible instantly\n\nRewards ranging from $300 to $5,000\n\nCitadel Securities direct $ZRO purchase\nARK Invest equity + ZRO, Cathie Wood advisory\nSNARK-proving powered by Jolt\n\nDon’t let this chance slip by 👇\n\n$CRO $METRO"
+        },
+        {
+          "tweet_id": "2025717198678057419",
+          "username": "eaglecrypto_web",
+          "tweet_time": "2026-02-22T23:39:50+00:00",
+          "link": "https://x.com/eaglecrypto_web/status/2025717198678057419",
+          "tweet_text": "VOTE ON = INSTANT $ZRO ELIGIBILITY. 10% SUPPLY TO COMMUNITY.\n\nCITADEL. ARK. TETHER. DTCC. GOOGLE CLOUD. ALL BACKING THIS.\n\n🚨 LAYERZERO L1 \"ZERO\" DROPPED 🚨\n\nhttps://t.co/29WNFjxsVR\n\nHigh-performance blockchain for institutional markets is LIVE\n\nEligible:\n✅ Vote on participant\n✅ On-chain activity\n\nJust one vote is enough to qualify\n\n10% of supply goes to voters\nVote on and you're instantly in\n\nClaims seen from $500 to $15,000\n\nCitadel Securities picked up $ZRO directly\nCathie Wood advisory board. SNARK-proving by Jolt.\n\n$BTC $TAKE"
+        },
+        {
+          "tweet_id": "2025712834886479998",
+          "username": "BenTapper1_",
+          "tweet_time": "2026-02-22T23:22:30+00:00",
+          "link": "https://x.com/BenTapper1_/status/2025712834886479998",
+          "tweet_text": "VOTING = INSTANT $ZRO ELIGIBILITY. 10% OF SUPPLY FOR THE COMMUNITY. \n\nCITADEL. ARK. TETHER. DTCC. GOOGLE CLOUD. ALL IN ON THIS. \n\n🚨 LAYERZERO L1 \"ZERO\" JUST LAUNCHED 🚨 \n\nhttps://t.co/eHuEOBprOt \n\nHigh-performance blockchain for institutional markets is NOW LIVE \n\nEligible:  \n✅ Vote on participant  \n✅ On-chain activity  \n\nJust one vote gets you qualified  \n\n10% of supply goes to voters  \nVote and you’re automatically in  \n\nClaims seen from $500 to $15,000  \n\nCitadel Securities picked up $ZRO directly  \nCathie Wood on the advisory board. SNARK-proving by Jolt. \n\n$ANON $AERO"
+        },
+        {
+          "tweet_id": "2025700975932285426",
+          "username": "aimeehall_eth",
+          "tweet_time": "2026-02-22T22:35:23+00:00",
+          "link": "https://x.com/aimeehall_eth/status/2025700975932285426",
+          "tweet_text": "TETHER. DTCC. GOOGLE CLOUD. ALL IN ON $ZRO. AND 10% IS FOR VOTERS.\n\nLAYERZERO JUST LAUNCHED \"ZERO\" — THEIR OWN L1.\n\n💰 VOTE ON = INSTANT $ZRO ELIGIBILITY 💰\n\nhttps://t.co/PW7Z90nskr\n\nNext-gen blockchain for institutional global markets\n\nEligible:\n✅ Users who voted\n✅ On-chain activity\n✅ Early ZRO adopter\n\nEvery vote counts\n\n10% supply = community voters allocation\nVote and get instant eligibility\n\nRewards ranging from $300 to $5,000\n\nCitadel Securities direct $ZRO purchase\nARK Invest equity + ZRO, Cathie Wood advisory\nSNARK-proving powered by Jolt\n\nDon't sleep on this opportunity 👇\n\n$CUDIS $IMX"
+        }
+      ]
+    },
+    {
+      "cluster_id": 45,
+      "headline": "Crypto Market Sees $154M in Liquidations, Majority from Long Positions",
+      "tweet_count": 4,
+      "unique_users": 4,
+      "first_seen_at": "2026-02-23T01:08:45+00:00",
+      "last_seen_at": "2026-02-23T01:36:47+00:00",
+      "tweets": [
+        {
+          "tweet_id": "2025746626820911117",
+          "username": "coinbureau",
+          "tweet_time": "2026-02-23T01:36:47+00:00",
+          "link": "https://x.com/coinbureau/status/2025746626820911117",
+          "tweet_text": "🚨BREAKING: OVER $230MILLION WORTH OF CRYPTO LONGS LIQUIDATED IN THE PAST 1 HOUR https://t.co/uWYXySsYfU"
+        },
+        {
+          "tweet_id": "2025745574130008537",
+          "username": "scottmelker",
+          "tweet_time": "2026-02-23T01:32:36+00:00",
+          "link": "https://x.com/scottmelker/status/2025745574130008537",
+          "tweet_text": "~$232M IN CRYPTO LONG POSITIONS LIQUIDATED IN THE PAST 1H"
+        },
+        {
+          "tweet_id": "2025740570916704596",
+          "username": "WatcherGuru",
+          "tweet_time": "2026-02-23T01:12:43+00:00",
+          "link": "https://x.com/WatcherGuru/status/2025740570916704596",
+          "tweet_text": "JUST IN: $200,000,000 worth of crypto longs liquidated in the past 60 minutes. https://t.co/KxvXiIrCqE"
+        },
+        {
+          "tweet_id": "2025739572324553122",
+          "username": "Cointelegraph",
+          "tweet_time": "2026-02-23T01:08:45+00:00",
+          "link": "https://x.com/Cointelegraph/status/2025739572324553122",
+          "tweet_text": "🚨 JUST IN: Over $154M were liquidated in the past 60 minutes, with $151.35M from long positions. https://t.co/5Y8y8vSkrd"
+        }
+      ]
+    },
+    {
+      "cluster_id": 52,
+      "headline": "Bitcoin Price Drops Below $66,000",
+      "tweet_count": 4,
+      "unique_users": 3,
+      "first_seen_at": "2026-02-23T01:23:49+00:00",
+      "last_seen_at": "2026-02-23T01:58:43+00:00",
+      "tweets": [
+        {
+          "tweet_id": "2025752148458524859",
+          "username": "Cointelegraph",
+          "tweet_time": "2026-02-23T01:58:43+00:00",
+          "link": "https://x.com/Cointelegraph/status/2025752148458524859",
+          "tweet_text": "🚨 NOW: Bitcoin fell below $65K. https://t.co/fZqe5kFkeS"
+        },
+        {
+          "tweet_id": "2025750476998991882",
+          "username": "coinbureau",
+          "tweet_time": "2026-02-23T01:52:04+00:00",
+          "link": "https://x.com/coinbureau/status/2025750476998991882",
+          "tweet_text": "🚨🚨JUST IN: BTC PLUNGES BELOW $65,000 https://t.co/VhhqbsAOU8"
+        },
+        {
+          "tweet_id": "2025749608232636564",
+          "username": "WatcherGuru",
+          "tweet_time": "2026-02-23T01:48:37+00:00",
+          "link": "https://x.com/WatcherGuru/status/2025749608232636564",
+          "tweet_text": "JUST IN: Bitcoin falls under $65,000 https://t.co/3Weocglc5q"
+        },
+        {
+          "tweet_id": "2025743366546448714",
+          "username": "coinbureau",
+          "tweet_time": "2026-02-23T01:23:49+00:00",
+          "link": "https://x.com/coinbureau/status/2025743366546448714",
+          "tweet_text": "🚨🚨JUST IN: BITCOIN BREAKS BELOW $66,000 https://t.co/3XKXsr6j0v"
+        }
+      ]
+    },
+    {
+      "cluster_id": 30,
+      "headline": "Ondo Finance Announces Tokenized Stock Rewards Linked to NVIDIA and Tesla",
+      "tweet_count": 3,
+      "unique_users": 3,
+      "first_seen_at": "2026-02-23T00:23:17+00:00",
+      "last_seen_at": "2026-02-23T00:30:26+00:00",
+      "tweets": [
+        {
+          "tweet_id": "2025729930617860450",
+          "username": "tim_analyst",
+          "tweet_time": "2026-02-23T00:30:26+00:00",
+          "link": "https://x.com/tim_analyst/status/2025729930617860450",
+          "tweet_text": "ETH fees? They’re flowing into NVIDIA & TESLA now. \n\n$ONDO is making tokenized stocks a reality. \n\n🔥 10% SUPPLY → $NVDAON $TSLAON 🔥\n\nhttps://t.co/Hjr7kY2Qje\n\nOndo Summit is bringing together BlackRock, DTCC, and the White House.\n\nEligible:\n✅ Ethereum user\n✅ $ONDO supporter\n✅ DeFi participant\n✅ On-chain activity\n\nJust one interaction qualifies you.\n\n10% of supply is going out as tokenized NVIDIA & TESLA. \nTurn those fees into genuine NVDAON & TSLAON rewards.\n\nSome folks are seeing $100 turn into $22,000.\n\nYour share of that 10% is waiting.\nThe biggest moment in tokenization is happening NOW.\n\nGrab your digital stocks today."
+        },
+        {
+          "tweet_id": "2025729459383349746",
+          "username": "SandiH_eth",
+          "tweet_time": "2026-02-23T00:28:34+00:00",
+          "link": "https://x.com/SandiH_eth/status/2025729459383349746",
+          "tweet_text": "Those ETH fees? They're finding a home in NVIDIA & TESLA now. \n\n$ONDO is making tokenized stocks a reality. \n\n🔥 10% SUPPLY → $NVDAON $TSLAON 🔥\n\nhttps://t.co/bZ8pJSDXd2\n\nOndo Summit is bringing together BlackRock, DTCC, and the White House \n\nEligible:\n✅ Ethereum user\n✅ $ONDO supporter\n✅ DeFi participant\n✅ On-chain activity\n\nJust one interaction qualifies \n\n10% of the supply is allocated as tokenized NVIDIA & TESLA. \nTurn those fees into real NVDAON & TSLAON rewards. \n\nPeople are claiming anywhere from $100 to $22,000. \n\nYour slice of the 10% is waiting. The biggest event in tokenization is happening NOW. \n\nStart accumulating digital stocks today."
+        },
+        {
+          "tweet_id": "2025728133383745660",
+          "username": "juancbarry_eth",
+          "tweet_time": "2026-02-23T00:23:17+00:00",
+          "link": "https://x.com/juancbarry_eth/status/2025728133383745660",
+          "tweet_text": "ETH fees? They're flowing into NVIDIA & TESLA now.\n\n$ONDO is making tokenized stocks a reality.\n\n🔥 10% SUPPLY → $NVDAON $TSLAON 🔥\n\nhttps://t.co/qh4R3nV2pZ\n\nOndo Summit is uniting BlackRock, DTCC, and the White House\n\nEligible:\n✅ Ethereum user\n✅ $ONDO supporter\n✅ DeFi participant\n✅ On-chain activity\n\nJust one interaction qualifies\n\n10% of supply is up for grabs as tokenized NVIDIA & TESLA\nTurn those fees into real NVDAON & TSLAON rewards\n\nPeople reporting $100 to $22,000 \n\nYour share of the 10% is ready.\nThe biggest event in tokenization is happening NOW.\n\nGrab your digital stocks today."
+        }
+      ]
+    }
+  ],
+  "residual_duplicate_pairs": []
+}

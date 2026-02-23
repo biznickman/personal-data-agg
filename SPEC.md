@@ -14,6 +14,9 @@ A Next.js + Inngest application that handles deterministic data ingestion. APIs 
 src/
 ├── app/
 │   ├── api/inngest/route.ts  ← Inngest serve endpoint
+│   ├── api/x-news/stories/route.ts ← latest clustered stories JSON
+│   ├── api/x-news/cluster/backfill/route.ts ← one-click cluster backfill trigger
+│   ├── news/page.tsx         ← story explorer + backfill control
 │   └── page.tsx              ← dashboard
 ├── inngest/
 │   ├── client.ts             ← Inngest client (id: "ingestion-engine")
@@ -31,7 +34,12 @@ src/
 │   │   │   ├── normalize.ts   ← normalizes tweet text + URL context into headline/facts
 │   │   │   ├── normalize-llm.ts ← OpenRouter/Portkey routing for normalization
 │   │   │   └── url-content.ts ← readability extraction logic
-│   │   └── 3-cluster/         ← reserved for clustering stage
+│   │   └── 3-cluster/
+│   │       ├── assign.ts      ← event-driven cluster assignment
+│   │       ├── backfill.ts    ← event-driven historical replay enqueue
+│   │       ├── merge.ts       ← periodic duplicate-cluster merge
+│   │       ├── tokenize.ts    ← canonical text tokenization + similarity
+│   │       └── cluster-db.ts  ← story-candidate thresholds + promo/spam gating
 │   ├── granola/             ← Meeting notes
 │   │   ├── index.ts
 │   │   └── ingest.ts        ← syncs Granola notes every 30min
@@ -42,32 +50,12 @@ src/
     └── supabase.ts          ← shared Supabase client
 ```
 
-## What Needs Work
+## Current Focus
 
-### 1. Review and fix the existing 4 functions
-The code was migrated from standalone Node.js scripts. Review each function for:
-- Proper TypeScript types (minimize `any`)
-- Correct Inngest step usage (data returned from steps gets serialized — no Sets, Maps, etc.)
-- Error handling and logging
-- Make sure the Supabase client usage is correct with @supabase/supabase-js (not raw fetch)
-
-### 2. Build a real dashboard page
-Replace the static page.tsx with a useful dashboard that:
-- Shows each ingestion function's status
-- Queries Supabase for latest ingestion stats (row counts, most recent timestamps)
-- Links to Inngest dev server for detailed logs
-- Use server components where appropriate
-
-### 3. Add a health API endpoint
-`/api/health` — returns JSON with:
-- Each function's last run time and status (query from Inngest or track in Supabase)
-- Supabase connection status
-- Overall system health
-
-### 4. Clean up
-- Remove any unused boilerplate from create-next-app
-- Make sure .env.local.example exists with placeholder keys
-- README.md with setup instructions
+- Keep `x-news` fully event-driven through ingest -> URL enrich -> normalize -> cluster assign.
+- Use lightweight token-set clustering first; add embeddings only if quality stalls.
+- Publish latest story candidates from `x_news_clusters` via `/api/x-news/stories`.
+- Support on-demand backfill through `/api/x-news/cluster/backfill`.
 
 ## Supabase Tables (existing)
 - `tweets` — tweet_id (text, unique), tweet_time, username, link, tweet_text, raw (jsonb), impressions, likes, quotes, retweets, bookmarks, replies, is_retweet, is_reply, is_quote, is_breakout, canonical_tweet_id, is_latest_version, normalized_headline (text), normalized_facts (jsonb)

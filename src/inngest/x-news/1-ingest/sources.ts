@@ -4,6 +4,7 @@ import path from "path";
 // Hardcoded source handles — canonical list of X accounts to monitor.
 // Update here when adding/removing sources (no longer depends on local filesystem).
 const DEFAULT_SOURCES: string[] = [
+  "AggrNews",
   "ashcrypto",
   "autismcapital",
   "blockworks_",

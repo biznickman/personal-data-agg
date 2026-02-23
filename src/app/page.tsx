@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getSystemHealth, type FunctionHealth } from "@/lib/monitoring";
+import { getLatestXNewsStories } from "@/lib/x-news-stories";
 
 export const dynamic = "force-dynamic";
 
@@ -18,7 +19,15 @@ function statusClasses(status: FunctionHealth["status"]): string {
 }
 
 export default async function Home() {
-  const health = await getSystemHealth();
+  const [health, stories] = await Promise.all([
+    getSystemHealth(),
+    getLatestXNewsStories({
+      limit: 8,
+      lookbackHours: 24,
+      onlyStoryCandidates: false,
+      maxTweetsPerStory: 3,
+    }),
+  ]);
 
   return (
     <main className="min-h-screen bg-slate-950 text-slate-100 p-6 md:p-10">
@@ -103,6 +112,69 @@ export default async function Home() {
               /api/health
             </Link>
           </p>
+          <p className="mt-1">
+            Stories endpoint:{" "}
+            <Link
+              href="/api/x-news/stories?hours=24&limit=20"
+              className="text-cyan-300 hover:text-cyan-200 underline"
+            >
+              /api/x-news/stories
+            </Link>
+          </p>
+          <p className="mt-1">
+            Stories page:{" "}
+            <Link href="/news" className="text-cyan-300 hover:text-cyan-200 underline">
+              /news
+            </Link>
+          </p>
+        </section>
+
+        <section className="rounded-lg border border-slate-800 bg-slate-900/50 p-5">
+          <div className="flex items-center justify-between gap-4">
+            <h2 className="text-lg font-medium">Latest X News Clusters (24h)</h2>
+            <span className="text-xs text-slate-400">{stories.length} clusters</span>
+          </div>
+
+          {stories.length === 0 ? (
+            <p className="text-sm text-slate-400 mt-3">No clusters in the current window.</p>
+          ) : (
+            <ul className="mt-4 space-y-3 text-sm">
+              {stories.map((story) => (
+                <li key={story.clusterId} className="rounded border border-slate-800 p-3 bg-slate-950/40">
+                  <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                    <span className="font-medium">{story.normalizedHeadline ?? "Untitled cluster"}</span>
+                    <span className="text-xs text-slate-400">#{story.clusterId}</span>
+                    <span className="text-xs text-slate-400">
+                      {story.tweetCount} tweets / {story.uniqueUserCount} users
+                    </span>
+                    {story.isStoryCandidate ? (
+                      <span className="text-xs px-2 py-0.5 border rounded border-green-500/50 text-green-300">
+                        story candidate
+                      </span>
+                    ) : null}
+                  </div>
+
+                  {story.normalizedFacts.length > 0 ? (
+                    <p className="mt-2 text-slate-300 line-clamp-2">{story.normalizedFacts.join(" ")}</p>
+                  ) : null}
+
+                  {story.tweets.length > 0 ? (
+                    <div className="mt-2 flex flex-wrap gap-3 text-xs text-slate-400">
+                      {story.tweets.map((tweet) =>
+                        tweet.link ? (
+                          <Link key={tweet.tweetId} href={tweet.link} className="underline text-cyan-300">
+                            {tweet.username ? `@${tweet.username}` : tweet.tweetId}
+                          </Link>
+                        ) : (
+                          <span key={tweet.tweetId}>{tweet.username ? `@${tweet.username}` : tweet.tweetId}</span>
+                        )
+                      )}
+                    </div>
+                  ) : null}
+                </li>
+              ))}
+            </ul>
+          )}
         </section>
       </div>
     </main>
