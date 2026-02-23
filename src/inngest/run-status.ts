@@ -3,10 +3,14 @@ import { supabase } from "@/lib/supabase";
 export type IngestionFunctionId =
   | "x-news-ingest"
   | "x-keyword-scan"
+  | "x-news-enrich-urls"
+  | "x-news-normalize"
   | "granola-ingest"
   | "message-log-ingest"
+  | "slack-ingest"
   | "x-posts-fetch-recent"
-  | "x-posts-update-analytics";
+  | "x-posts-update-analytics"
+  | "x-posts-archive";
 
 type RunState = "ok" | "error";
 

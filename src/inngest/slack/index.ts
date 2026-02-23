@@ -1,0 +1,1 @@
+export { slackIngest } from "./ingest";

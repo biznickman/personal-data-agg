@@ -11,7 +11,7 @@ import { inngest } from "../client";
 import { supabase } from "@/lib/supabase";
 import { recordFunctionRun } from "../run-status";
 import { formatTweet, XPostRow } from "./format-tweet";
-import { TwitterApi, TweetV2 } from "twitter-api-v2";
+import { TwitterApi, TweetV2, UserV2 } from "twitter-api-v2";
 import type { EnrichedTweet, Media } from "./twitter-service";
 
 function buildOAuthClient(): TwitterApi | null {
@@ -55,11 +55,12 @@ export const xPostsArchive = inngest.createFunction(
     retries: 2,
   },
   { event: "x-posts/archive" },
-  async ({ event, step }: { event: ArchiveEvent; step: any }) => {
+  async ({ event, step }) => {
+    const archiveEvent = event as ArchiveEvent;
     const startedAt = Date.now();
-    const sinceTime = event.data?.sinceTime;
-    const untilTime = event.data?.untilTime;
-    const maxPages = event.data?.maxPages ?? MAX_PAGES;
+    const sinceTime = archiveEvent.data?.sinceTime;
+    const untilTime = archiveEvent.data?.untilTime;
+    const maxPages = archiveEvent.data?.maxPages ?? MAX_PAGES;
 
     try {
       // Step 1: Get user ID for @chooserich
@@ -88,16 +89,14 @@ export const xPostsArchive = inngest.createFunction(
 
         const allTweets: TweetV2[] = [];
         const allMedia: Media[] = [];
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const allUsers: any[] = [];
+        const allUsers: UserV2[] = [];
 
         let nextToken: string | undefined;
         let pageCount = 0;
 
         do {
           pageCount++;
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          const params: Record<string, any> = {
+          const params: Record<string, unknown> = {
             max_results: MAX_RESULTS_PER_PAGE,
             "tweet.fields": hasOAuth ? TWEET_FIELDS_PRIVATE : TWEET_FIELDS_PUBLIC,
             expansions: "attachments.media_keys,author_id",
@@ -135,7 +134,7 @@ export const xPostsArchive = inngest.createFunction(
         // Enrich and format
         const mediaMap = new Map<string, Media>();
         allMedia.forEach((m) => mediaMap.set(m.media_key, m));
-        const userMap = new Map<string, any>();
+        const userMap = new Map<string, UserV2>();
         allUsers.forEach((u) => userMap.set(u.id, u));
 
         const enriched: EnrichedTweet[] = allTweets.map((tweet) => {
@@ -183,7 +182,7 @@ export const xPostsArchive = inngest.createFunction(
       });
 
       await recordFunctionRun({
-        functionId: "x-posts-archive" as any,
+        functionId: "x-posts-archive",
         state: "ok",
         details: {
           tweetsFetched: rows.length,
@@ -201,7 +200,7 @@ export const xPostsArchive = inngest.createFunction(
       };
     } catch (err) {
       await recordFunctionRun({
-        functionId: "x-posts-archive" as any,
+        functionId: "x-posts-archive",
         state: "error",
         errorMessage: err instanceof Error ? err.message : String(err),
       });

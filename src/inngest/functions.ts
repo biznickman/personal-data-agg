@@ -6,7 +6,7 @@
  */
 
 // X/Twitter
-export { xNewsIngest, xKeywordScan } from "./x-news";
+export { xNewsIngest, xKeywordScan, xNewsEnrichUrls, xNewsNormalize } from "./x-news";
 
 // Granola meeting notes
 export { granolaIngest } from "./granola";
@@ -17,8 +17,10 @@ export { messageLogIngest } from "./messages";
 // X/Twitter own posts (@chooserich)
 export { xPostsFetchRecent, xPostsUpdateAnalytics, xPostsArchive } from "./x-posts";
 
+// Slack workspace messages
+export { slackIngest } from "./slack";
+
 // Future data sources:
-// export { slackIngest } from "./slack";
 // export { pipedrivSync } from "./pipedrive";
 // export { rssIngest } from "./rss";
 // export { youtubeCompetitorSync } from "./youtube";

@@ -1,0 +1,332 @@
+{
+  "generatedAt": "2026-02-20T22:52:59.309Z",
+  "hours": 24,
+  "minClusterSize": 2,
+  "fetchedTweetCount": 1443,
+  "candidateCount": 7,
+  "candidates": [
+    {
+      "signalScore": 14.859498558187777,
+      "tweetCount": 3,
+      "uniqueUsers": 3,
+      "symbols": [
+        "USDT"
+      ],
+      "hashtags": [],
+      "urls": [],
+      "promoRatio": 0,
+      "latestAt": "2026-02-20T12:05:18.000Z",
+      "leadTweet": {
+        "tweetId": "2024804038479409245",
+        "username": "Cointelegraph",
+        "text": "🚨 LATEST: Tether’s $USDT supply has fallen -1.7% over the past month, the largest since FTX collapse. https://t.co/LG1TCBuRf6",
+        "link": "https://x.com/Cointelegraph/status/2024804038479409245",
+        "engagement": 51,
+        "impressions": 998,
+        "engagementRate": 0.05110220440881764,
+        "time": "2026-02-20T11:11:16+00:00"
+      },
+      "sampleTweets": [
+        {
+          "tweetId": "2024804038479409245",
+          "username": "Cointelegraph",
+          "text": "🚨 LATEST: Tether’s $USDT supply has fallen -1.7% over the past month, the largest since FTX collapse. https://t.co/LG1TCBuRf6",
+          "link": "https://x.com/Cointelegraph/status/2024804038479409245",
+          "engagement": 51,
+          "impressions": 998,
+          "time": "2026-02-20T11:11:16+00:00"
+        },
+        {
+          "tweetId": "2024793959243903361",
+          "username": "solidintel_x",
+          "text": "INTEL: Tether’s $USDT supply has fallen 1.7% over the past month, marking its largest contraction since FTX crash amid MiCA implementation and recent market selloffs",
+          "link": "https://x.com/solidintel_x/status/2024793959243903361",
+          "engagement": 19,
+          "impressions": 1004,
+          "time": "2026-02-20T10:31:13+00:00"
+        },
+        {
+          "tweetId": "2024817638380020086",
+          "username": "SolanaFloor",
+          "text": "NEW: $USDT supply has fallen ~1.7% over the past month, the largest contraction since the FTX collapse. The drop comes as the EU rolls out MiCA regulations amid a broader crypto market downturn. https://t.co/1mvg2uVv1o",
+          "link": "https://x.com/SolanaFloor/status/2024817638380020086",
+          "engagement": 1,
+          "impressions": 287,
+          "time": "2026-02-20T12:05:18+00:00"
+        }
+      ]
+    },
+    {
+      "signalScore": 12.747075327211288,
+      "tweetCount": 3,
+      "uniqueUsers": 2,
+      "symbols": [
+        "BTC"
+      ],
+      "hashtags": [],
+      "urls": [],
+      "promoRatio": 0,
+      "latestAt": "2026-02-20T17:28:10.000Z",
+      "leadTweet": {
+        "tweetId": "2024840241811505575",
+        "username": "solidintel_x",
+        "text": "INTEL: Massive Bitcoin Whale (reportedly Garrett Bullish) deposits 5000 $BTC ($335.75M) to Binance https://t.co/V8OigzwXV0",
+        "link": "https://x.com/solidintel_x/status/2024840241811505575",
+        "engagement": 63,
+        "impressions": 2044,
+        "engagementRate": 0.030821917808219176,
+        "time": "2026-02-20T13:35:08+00:00"
+      },
+      "sampleTweets": [
+        {
+          "tweetId": "2024840241811505575",
+          "username": "solidintel_x",
+          "text": "INTEL: Massive Bitcoin Whale (reportedly Garrett Bullish) deposits 5000 $BTC ($335.75M) to Binance https://t.co/V8OigzwXV0",
+          "link": "https://x.com/solidintel_x/status/2024840241811505575",
+          "engagement": 63,
+          "impressions": 2044,
+          "time": "2026-02-20T13:35:08+00:00"
+        },
+        {
+          "tweetId": "2024896729649172495",
+          "username": "solidintel_x",
+          "text": "INTEL: Massive Bitcoin Whale (reportedly Garrett Bullish) deposits 6318 $BTC ($424.86M) to Binance https://t.co/LEmT2rTgkg",
+          "link": "https://x.com/solidintel_x/status/2024896729649172495",
+          "engagement": 57,
+          "impressions": 2699,
+          "time": "2026-02-20T17:19:35+00:00"
+        },
+        {
+          "tweetId": "2024898889103679594",
+          "username": "Crypto_Briefing",
+          "text": "🚨 JUST IN: A massive Bitcoin whale — reportedly Garrett Bullish — has transferred 6,318 $BTC (worth approximately $424.86M) to Binance. https://t.co/OSizpt0LI7",
+          "link": "https://x.com/Crypto_Briefing/status/2024898889103679594",
+          "engagement": 2,
+          "impressions": 62,
+          "time": "2026-02-20T17:28:10+00:00"
+        }
+      ]
+    },
+    {
+      "signalScore": 12.6183200996244,
+      "tweetCount": 2,
+      "uniqueUsers": 2,
+      "symbols": [
+        "BTC"
+      ],
+      "hashtags": [],
+      "urls": [],
+      "promoRatio": 0,
+      "latestAt": "2026-02-20T13:53:14.000Z",
+      "leadTweet": {
+        "tweetId": "2024830885854351789",
+        "username": "Cointelegraph",
+        "text": "🚨 JUST IN: Blackrock sent 2,563 $BTC to Coinbase in under 20 minutes. https://t.co/u8y7Qca4VW",
+        "link": "https://x.com/Cointelegraph/status/2024830885854351789",
+        "engagement": 50,
+        "impressions": 768,
+        "engagementRate": 0.06510416666666667,
+        "time": "2026-02-20T12:57:57+00:00"
+      },
+      "sampleTweets": [
+        {
+          "tweetId": "2024830885854351789",
+          "username": "Cointelegraph",
+          "text": "🚨 JUST IN: Blackrock sent 2,563 $BTC to Coinbase in under 20 minutes. https://t.co/u8y7Qca4VW",
+          "link": "https://x.com/Cointelegraph/status/2024830885854351789",
+          "engagement": 50,
+          "impressions": 768,
+          "time": "2026-02-20T12:57:57+00:00"
+        },
+        {
+          "tweetId": "2024844799753228500",
+          "username": "Crypto_Briefing",
+          "text": "⚡️ JUST IN: BlackRock transferred 2,563 $BTC to Coinbase in less than 20 minutes. https://t.co/oQY3HyMP1L",
+          "link": "https://x.com/Crypto_Briefing/status/2024844799753228500",
+          "engagement": 3,
+          "impressions": 113,
+          "time": "2026-02-20T13:53:14+00:00"
+        }
+      ]
+    },
+    {
+      "signalScore": 12.50871934556747,
+      "tweetCount": 2,
+      "uniqueUsers": 2,
+      "symbols": [],
+      "hashtags": [],
+      "urls": [
+        "https://www.theblock.co/post/390629/bgd-labs-to-cease-aave-contributions-after-four-years-as-governance-tensions-grow"
+      ],
+      "promoRatio": 0,
+      "latestAt": "2026-02-20T13:30:25.000Z",
+      "leadTweet": {
+        "tweetId": "2024839055737856058",
+        "username": "DegenerateNews",
+        "text": "NEW: BGD LABS TO CEASE AAVE CONTRIBUTIONS AFTER FOUR YEARS AS GOVERNANCE TENSIONS GROW - THE BLOCK\n\nSOURCE: https://t.co/F5LxKZoUO7 https://t.co/OkEbk8sbHi",
+        "link": "https://x.com/DegenerateNews/status/2024839055737856058",
+        "engagement": 59,
+        "impressions": 2546,
+        "engagementRate": 0.023173605655930872,
+        "time": "2026-02-20T13:30:25+00:00"
+      },
+      "sampleTweets": [
+        {
+          "tweetId": "2024839055737856058",
+          "username": "DegenerateNews",
+          "text": "NEW: BGD LABS TO CEASE AAVE CONTRIBUTIONS AFTER FOUR YEARS AS GOVERNANCE TENSIONS GROW - THE BLOCK\n\nSOURCE: https://t.co/F5LxKZoUO7 https://t.co/OkEbk8sbHi",
+          "link": "https://x.com/DegenerateNews/status/2024839055737856058",
+          "engagement": 59,
+          "impressions": 2546,
+          "time": "2026-02-20T13:30:25+00:00"
+        },
+        {
+          "tweetId": "2024838009284071424",
+          "username": "TheBlock__",
+          "text": "BGD Labs to cease Aave contributions after four years as governance tensions grow https://t.co/F8Qclggwlt",
+          "link": "https://x.com/TheBlock__/status/2024838009284071424",
+          "engagement": 1,
+          "impressions": 564,
+          "time": "2026-02-20T13:26:15+00:00"
+        }
+      ]
+    },
+    {
+      "signalScore": 9.224634745797141,
+      "tweetCount": 2,
+      "uniqueUsers": 2,
+      "symbols": [],
+      "hashtags": [],
+      "urls": [
+        "https://x.com/i/broadcasts/1eaKbjaNXXZKX"
+      ],
+      "promoRatio": 0,
+      "latestAt": "2026-02-20T15:04:31.000Z",
+      "leadTweet": {
+        "tweetId": "2024862736052535704",
+        "username": "Tyler_Did_It",
+        "text": "Live talking markets, GDP miss, aliens &amp; crypto, PUNCH and some mega YEET action\n\nJump in\n\nhttps://t.co/gcpodUO0r4",
+        "link": "https://x.com/Tyler_Did_It/status/2024862736052535704",
+        "engagement": 3,
+        "impressions": 438,
+        "engagementRate": 0.00684931506849315,
+        "time": "2026-02-20T15:04:31+00:00"
+      },
+      "sampleTweets": [
+        {
+          "tweetId": "2024862736052535704",
+          "username": "Tyler_Did_It",
+          "text": "Live talking markets, GDP miss, aliens &amp; crypto, PUNCH and some mega YEET action\n\nJump in\n\nhttps://t.co/gcpodUO0r4",
+          "link": "https://x.com/Tyler_Did_It/status/2024862736052535704",
+          "engagement": 3,
+          "impressions": 438,
+          "time": "2026-02-20T15:04:31+00:00"
+        },
+        {
+          "tweetId": "2024862694310920396",
+          "username": "DecryptMedia",
+          "text": "Base Breaks Up With Optimism, Crypto Up 3%, PUNCH Meme Up 200% as Monkey Goes Viral\n\nhttps://t.co/PFzXg2FKaG",
+          "link": "https://x.com/DecryptMedia/status/2024862694310920396",
+          "engagement": 3,
+          "impressions": 494,
+          "time": "2026-02-20T15:04:21+00:00"
+        }
+      ]
+    },
+    {
+      "signalScore": 9.183937780485891,
+      "tweetCount": 2,
+      "uniqueUsers": 2,
+      "symbols": [
+        "OWL"
+      ],
+      "hashtags": [],
+      "urls": [],
+      "promoRatio": 0,
+      "latestAt": "2026-02-20T12:01:50.000Z",
+      "leadTweet": {
+        "tweetId": "2024816762403852580",
+        "username": "EricBalchunas",
+        "text": "So wait, was the FT wrong then? the headline false? Here’s what it said which set everyone off: “Blue Owl permanently halts redemptions at fund aimed at retail investors”",
+        "link": "https://x.com/EricBalchunas/status/2024816762403852580",
+        "engagement": 15,
+        "impressions": 2899,
+        "engagementRate": 0.005174197999310107,
+        "time": "2026-02-20T12:01:50+00:00"
+      },
+      "sampleTweets": [
+        {
+          "tweetId": "2024816762403852580",
+          "username": "EricBalchunas",
+          "text": "So wait, was the FT wrong then? the headline false? Here’s what it said which set everyone off: “Blue Owl permanently halts redemptions at fund aimed at retail investors”",
+          "link": "https://x.com/EricBalchunas/status/2024816762403852580",
+          "engagement": 15,
+          "impressions": 2899,
+          "time": "2026-02-20T12:01:50+00:00"
+        },
+        {
+          "tweetId": "2024786115622818175",
+          "username": "TheTranscript_",
+          "text": "$OWL",
+          "link": "https://x.com/TheTranscript_/status/2024786115622818175",
+          "engagement": 0,
+          "impressions": 28,
+          "time": "2026-02-20T10:00:03+00:00"
+        }
+      ]
+    },
+    {
+      "signalScore": 7,
+      "tweetCount": 3,
+      "uniqueUsers": 3,
+      "symbols": [
+        "LOBSTAR"
+      ],
+      "hashtags": [],
+      "urls": [
+        "https://t.me/WaveXCalls"
+      ],
+      "promoRatio": 0,
+      "latestAt": "2026-02-20T18:00:05.000Z",
+      "leadTweet": {
+        "tweetId": "2024906922407985370",
+        "username": "DonWaveX",
+        "text": "Lobstar - $Lobstar hit ×237.75X from 25K\nCurrent: 6.0M | Duration: 13h\n\nCA: AVF9F4C4j8b1Kh4BmNHqybDaHgnZpJ7W7yLvL7hUpump\n\nGet more: https://t.co/emLnnRcxar\n\n🟣 SOLANA https://t.co/M0AAJOuaAu",
+        "link": "https://x.com/DonWaveX/status/2024906922407985370",
+        "engagement": 0,
+        "impressions": 0,
+        "engagementRate": 0,
+        "time": "2026-02-20T18:00:05+00:00"
+      },
+      "sampleTweets": [
+        {
+          "tweetId": "2024906922407985370",
+          "username": "DonWaveX",
+          "text": "Lobstar - $Lobstar hit ×237.75X from 25K\nCurrent: 6.0M | Duration: 13h\n\nCA: AVF9F4C4j8b1Kh4BmNHqybDaHgnZpJ7W7yLvL7hUpump\n\nGet more: https://t.co/emLnnRcxar\n\n🟣 SOLANA https://t.co/M0AAJOuaAu",
+          "link": "https://x.com/DonWaveX/status/2024906922407985370",
+          "engagement": 0,
+          "impressions": 0,
+          "time": "2026-02-20T18:00:05+00:00"
+        },
+        {
+          "tweetId": "2024906917366432237",
+          "username": "LionXCaller",
+          "text": "Lobstar - $Lobstar update: 238xX profit\nMC journey: 25K to 6.0M\nTime frame: 13h\n\nAVF9F4C4j8b1Kh4BmNHqybDaHgnZpJ7W7yLvL7hUpump\n\nChannel: https://t.co/A5izj42m8B\n\n🟣 SOLANA https://t.co/YUpGhnnFVG",
+          "link": "https://x.com/LionXCaller/status/2024906917366432237",
+          "engagement": 0,
+          "impressions": 0,
+          "time": "2026-02-20T18:00:04+00:00"
+        },
+        {
+          "tweetId": "2024891860783927667",
+          "username": "WavexCaller",
+          "text": "$Lobstar outcome: 205xX\n25K to 5.2M\nTime: 12h\n\nAVF9F4C4j8b1Kh4BmNHqybDaHgnZpJ7W7yLvL7hUpump\n\nSource: https://t.co/hhL1EYCITf\n\n🟣 SOLANA https://t.co/XxmZgFZzxY",
+          "link": "https://x.com/WavexCaller/status/2024891860783927667",
+          "engagement": 0,
+          "impressions": 0,
+          "time": "2026-02-20T17:00:14+00:00"
+        }
+      ]
+    }
+  ]
+}

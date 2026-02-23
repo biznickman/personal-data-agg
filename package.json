@@ -6,14 +6,17 @@
     "dev": "next dev",
     "inngest": "npx inngest-cli@latest dev",
     "dev:all": "concurrently -n next,inngest -c blue,magenta \"pnpm dev\" \"pnpm inngest\"",
+    "stories:scan": "node scripts/story-scan.cjs",
     "build": "next build --webpack",
     "start": "next start",
     "lint": "eslint"
   },
   "dependencies": {
+    "@mozilla/readability": "^0.6.0",
     "@supabase/supabase-js": "^2.97.0",
     "dotenv": "^17.3.1",
     "inngest": "^3.52.1",
+    "linkedom": "^0.18.12",
     "next": "16.1.6",
     "react": "19.2.3",
     "react-dom": "19.2.3",
