@@ -7,11 +7,15 @@
     "inngest": "npx inngest-cli@latest dev",
     "dev:all": "concurrently -n next,inngest -c blue,magenta \"pnpm dev\" \"pnpm inngest\"",
     "stories:scan": "node scripts/story-scan.cjs",
+    "stories:cluster-eval": "node scripts/cluster-threshold-eval.cjs",
+    "stories:cluster-compare": "node scripts/cluster-compare.cjs",
+    "stories:embedding-preview": "node scripts/embedding-story-preview.cjs",
     "build": "next build --webpack",
     "start": "next start",
     "lint": "eslint"
   },
   "dependencies": {
+    "@google/genai": "^1.42.0",
     "@mozilla/readability": "^0.6.0",
     "@supabase/supabase-js": "^2.97.0",
     "dotenv": "^17.3.1",

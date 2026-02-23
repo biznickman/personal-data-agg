@@ -126,6 +126,48 @@ async function getTweetNormalizationStats(): Promise<TableStats> {
   return { rowCount: count ?? null, latestDataAt, queryError };
 }
 
+async function getXNewsClusterAssignmentsStats(): Promise<TableStats> {
+  const [{ count, error: countError }, { data: latestData, error: latestError }] =
+    await Promise.all([
+      supabase.from("x_news_cluster_tweets").select("tweet_id", { count: "exact", head: true }),
+      supabase
+        .from("x_news_cluster_tweets")
+        .select("assigned_at")
+        .not("assigned_at", "is", null)
+        .order("assigned_at", { ascending: false })
+        .limit(1),
+    ]);
+
+  const queryError = countError?.message || latestError?.message || null;
+  const latestDataAt =
+    latestData && latestData[0] && typeof latestData[0].assigned_at === "string"
+      ? latestData[0].assigned_at
+      : null;
+
+  return { rowCount: count ?? null, latestDataAt, queryError };
+}
+
+async function getXNewsClusterMergesStats(): Promise<TableStats> {
+  const [{ count, error: countError }, { data: latestData, error: latestError }] =
+    await Promise.all([
+      supabase.from("x_news_cluster_merges").select("id", { count: "exact", head: true }),
+      supabase
+        .from("x_news_cluster_merges")
+        .select("created_at")
+        .not("created_at", "is", null)
+        .order("created_at", { ascending: false })
+        .limit(1),
+    ]);
+
+  const queryError = countError?.message || latestError?.message || null;
+  const latestDataAt =
+    latestData && latestData[0] && typeof latestData[0].created_at === "string"
+      ? latestData[0].created_at
+      : null;
+
+  return { rowCount: count ?? null, latestDataAt, queryError };
+}
+
 async function getVoiceNotesStats(): Promise<TableStats> {
   const [{ count, error: countError }, { data: latestData, error: latestError }] =
     await Promise.all([
@@ -262,6 +304,27 @@ const FUNCTION_CONFIGS: FunctionConfig[] = [
     schedule: "Event-driven",
     scheduleMinutes: 720,
     getStats: getTweetNormalizationStats,
+  },
+  {
+    id: "x-news-cluster-assign",
+    name: "X News Cluster Assign",
+    schedule: "Event-driven",
+    scheduleMinutes: 720,
+    getStats: getXNewsClusterAssignmentsStats,
+  },
+  {
+    id: "x-news-cluster-merge",
+    name: "X News Cluster Merge",
+    schedule: "Every 2 minutes",
+    scheduleMinutes: 2,
+    getStats: getXNewsClusterMergesStats,
+  },
+  {
+    id: "x-news-cluster-backfill",
+    name: "X News Cluster Backfill",
+    schedule: "On demand",
+    scheduleMinutes: 10080,
+    getStats: getXNewsClusterAssignmentsStats,
   },
   {
     id: "granola-ingest",
