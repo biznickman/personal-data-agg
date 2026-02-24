@@ -49,7 +49,6 @@ Copy `.env.local.example` to `.env.local` and set:
 
 ## Local Paths Used by Ingestors
 
-- X sources markdown: `~/clawd/research/x-news-sources.md`
 - OpenClaw transcripts: `~/.openclaw/agents/*/sessions/*.jsonl`
 - Granola auth: `~/Library/Application Support/Granola/supabase.json`
 
@@ -135,9 +134,13 @@ Create and install a Slack app with a bot token (`xoxb-...`) and grant:
 
 ## X-News Stages
 
-- `src/inngest/x-news/1-ingest/` -> fetch tweets + parse/upsert media/urls/videos
+- `src/inngest/x-news/1-ingest/` -> source-account ingest (`accounts.ts`) + keyword ingest (`keywords.ts`)
 - `src/inngest/x-news/2-enrich/` -> enrich URLs and normalize tweets into headline/facts
 - `src/inngest/x-news/3-cluster/` -> assign + merge normalized-story clusters
+- `src/inngest/x-news/operations/` -> reusable ingest/enrich operations (fetch, shared pipeline steps)
+- `src/inngest/x-news/models/` -> Supabase table access (tweets, tweet_urls, tweet_images, tweet_videos)
+- `src/inngest/x-news/services/` -> third-party API integrations (TwitterAPI.io, URL fetch/readability, LLM normalizer)
+- `src/inngest/x-news/utils/` -> shared parsing/helpers used by ingest/enrich functions
 
 ## Story Output
 

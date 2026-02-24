@@ -1,6 +1,7 @@
 import { inngest } from "../../client";
 import { supabase } from "@/lib/supabase";
 import { recordFunctionRun } from "../../run-status";
+import { TweetsModel } from "../models";
 import { recomputeClusterStats } from "./cluster-db";
 import {
   buildCanonicalText,
@@ -27,16 +28,6 @@ type NormalizeEvent = {
   data: {
     tweetId?: string;
   };
-};
-
-type TweetRow = {
-  id: number;
-  tweet_id: string;
-  username: string | null;
-  tweet_time: string | null;
-  normalized_headline: string | null;
-  normalized_facts: unknown;
-  normalized_headline_embedding: unknown;
 };
 
 type ClusterRow = {
@@ -234,19 +225,7 @@ export const xNewsClusterAssign = inngest.createFunction(
       }
 
       const tweet = await step.run("load-normalized-tweet", async () => {
-        const { data, error } = await supabase
-          .from("tweets")
-          .select(
-            "id,tweet_id,username,tweet_time,normalized_headline,normalized_facts,normalized_headline_embedding"
-          )
-          .eq("tweet_id", tweetId)
-          .maybeSingle();
-
-        if (error) {
-          throw new Error(`Tweet lookup failed: ${error.message}`);
-        }
-
-        return (data ?? null) as TweetRow | null;
+        return TweetsModel.findNormalizedByTweetId(tweetId);
       });
 
       if (!tweet) {
@@ -341,16 +320,15 @@ export const xNewsClusterAssign = inngest.createFunction(
         });
 
         await step.run("persist-normalized-headline-embedding", async () => {
-          const { error } = await supabase
-            .from("tweets")
-            .update({
-              normalized_headline_embedding: stringifyVector(tweetEmbedding),
-            })
-            .eq("id", tweet.id);
-
-          if (error) {
-            throw new Error(`Tweet embedding update failed: ${error.message}`);
+          const embedding = stringifyVector(tweetEmbedding);
+          if (!embedding) {
+            throw new Error("Embedding generation returned an empty vector");
           }
+
+          await TweetsModel.updateNormalizedHeadlineEmbedding({
+            tweetDbId: tweet.id,
+            embedding,
+          });
         });
       }
 

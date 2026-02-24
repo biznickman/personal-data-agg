@@ -1,5 +1,5 @@
 import { Readability } from "@mozilla/readability";
-import { supabase } from "@/lib/supabase";
+import { TweetUrlsModel } from "../models";
 
 type UrlProcessResult = {
   id: number;
@@ -86,40 +86,33 @@ export async function processTweetUrlById(id: number, url: string): Promise<UrlP
     const html = await fetchHtml(url);
     const readable = await extractReadableText(html);
 
-    const { error } = await supabase
-      .from("tweet_urls")
-      .update({
-        url_content: readable ?? "Could not extract readable content",
-        raw_url_content: html,
-      })
-      .eq("id", id);
-
-    if (error) {
-      throw new Error(`tweet_urls update failed: ${error.message}`);
-    }
+    await TweetUrlsModel.updateContent({
+      id,
+      urlContent: readable ?? "Could not extract readable content",
+      rawUrlContent: html,
+    });
 
     return { id, ok: true };
   } catch (error) {
     const message = error instanceof Error ? error.message : "Unknown error";
 
     // Persist failure text so the row doesn't get stuck forever.
-    const { error: updateError } = await supabase
-      .from("tweet_urls")
-      .update({
-        url_content: `Error fetching content: ${message}`,
-        raw_url_content: null,
-      })
-      .eq("id", id);
-
-    if (updateError) {
+    try {
+      await TweetUrlsModel.updateContent({
+        id,
+        urlContent: `Error fetching content: ${message}`,
+        rawUrlContent: null,
+      });
+    } catch (updateError) {
+      const updateMessage =
+        updateError instanceof Error ? updateError.message : String(updateError);
       return {
         id,
         ok: false,
-        error: `${message}; failed to persist error: ${updateError.message}`,
+        error: `${message}; failed to persist error: ${updateMessage}`,
       };
     }
 
     return { id, ok: false, error: message };
   }
 }
-
