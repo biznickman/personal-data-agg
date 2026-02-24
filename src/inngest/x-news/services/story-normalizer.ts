@@ -2,7 +2,7 @@ import {
   buildNormalizationSystemPrompt,
   buildNormalizationUserPrompt,
   type NormalizationUrlContext,
-} from "./normalize-prompt";
+} from "../utils/normalize-prompt";
 
 type NormalizerProvider = "openrouter" | "portkey";
 

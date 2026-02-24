@@ -1,28 +1,17 @@
 import { inngest } from "../../client";
-import { supabase } from "@/lib/supabase";
 import { recordFunctionRun } from "../../run-status";
 import {
   normalizeStory,
   type NormalizedStory,
-} from "./normalize-llm";
-import type { NormalizationUrlContext } from "./normalize-prompt";
+} from "../services/story-normalizer";
+import type { NormalizationUrlContext } from "../utils/normalize-prompt";
+import { TweetUrlsModel, TweetsModel, type TweetUrlContextRow } from "../models";
 
 type NormalizeEvent = {
   data: {
     tweetId?: string;
     reason?: string;
   };
-};
-
-type TweetRow = {
-  tweet_id: string;
-  tweet_text: string | null;
-  username: string | null;
-};
-
-type TweetUrlRow = {
-  url: string | null;
-  url_content: string | null;
 };
 
 const MAX_URL_CONTEXTS = 3;
@@ -36,7 +25,7 @@ function isUsableUrlContent(value: string | null): value is string {
   return true;
 }
 
-function toUrlContexts(rows: TweetUrlRow[]): NormalizationUrlContext[] {
+function toUrlContexts(rows: TweetUrlContextRow[]): NormalizationUrlContext[] {
   return rows
     .filter((row) => typeof row.url === "string" && isUsableUrlContent(row.url_content))
     .slice(0, MAX_URL_CONTEXTS)
@@ -84,16 +73,7 @@ export const xNewsNormalize = inngest.createFunction(
       }
 
       const tweet = await step.run("load-tweet", async () => {
-        const { data, error } = await supabase
-          .from("tweets")
-          .select("tweet_id,tweet_text,username")
-          .eq("tweet_id", tweetId)
-          .maybeSingle();
-
-        if (error) {
-          throw new Error(`Supabase tweet lookup failed: ${error.message}`);
-        }
-        return (data ?? null) as TweetRow | null;
+        return TweetsModel.findByTweetId(tweetId);
       });
 
       if (!tweet) {
@@ -135,17 +115,7 @@ export const xNewsNormalize = inngest.createFunction(
       }
 
       const urlRows = await step.run("load-url-contexts", async () => {
-        const { data, error } = await supabase
-          .from("tweet_urls")
-          .select("url,url_content")
-          .eq("tweet_id", tweet.tweet_id)
-          .not("url_content", "is", null)
-          .order("created_at", { ascending: true });
-
-        if (error) {
-          throw new Error(`Supabase URL lookup failed: ${error.message}`);
-        }
-        return (data ?? []) as TweetUrlRow[];
+        return TweetUrlsModel.listContextsByTweetId(tweet.tweet_id);
       });
 
       const urlContexts = toUrlContexts(urlRows);
@@ -159,22 +129,11 @@ export const xNewsNormalize = inngest.createFunction(
       });
 
       await step.run("write-normalization", async () => {
-        const payloadToSave: {
-          normalized_headline: string;
-          normalized_facts: string[];
-        } = {
-          normalized_headline: normalized.normalizedHeadline,
-          normalized_facts: normalized.normalizedFacts,
-        };
-
-        const { error } = await supabase
-          .from("tweets")
-          .update(payloadToSave)
-          .eq("tweet_id", tweet.tweet_id);
-
-        if (error) {
-          throw new Error(`Supabase normalization update failed: ${error.message}`);
-        }
+        await TweetsModel.updateNormalization({
+          tweetId: tweet.tweet_id,
+          normalizedHeadline: normalized.normalizedHeadline,
+          normalizedFacts: normalized.normalizedFacts,
+        });
       });
 
       await step.sendEvent("emit-normalized-event", {

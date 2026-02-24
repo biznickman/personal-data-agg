@@ -1,20 +1,13 @@
 import { inngest } from "../../client";
-import { supabase } from "@/lib/supabase";
 import { recordFunctionRun } from "../../run-status";
-import { processTweetUrlById } from "./url-content";
+import { TweetUrlsModel } from "../models";
+import { processTweetUrlById } from "../services/url-content";
 
 type EnrichUrlEvent = {
   data: {
     tweetUrlId?: number;
     url?: string;
   };
-};
-
-type TweetUrlRow = {
-  id: number;
-  tweet_id: string | null;
-  url: string | null;
-  url_content: string | null;
 };
 
 /**
@@ -56,17 +49,7 @@ export const xNewsEnrichUrls = inngest.createFunction(
       }
 
       const row = await step.run("load-url-row", async () => {
-        const { data, error } = await supabase
-          .from("tweet_urls")
-          .select("id,tweet_id,url,url_content")
-          .eq("id", tweetUrlId)
-          .maybeSingle();
-
-        if (error) {
-          throw new Error(`Supabase lookup failed: ${error.message}`);
-        }
-
-        return (data ?? null) as TweetUrlRow | null;
+        return TweetUrlsModel.findById(tweetUrlId);
       });
 
       if (!row) {

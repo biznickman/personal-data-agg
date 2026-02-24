@@ -1,60 +1,20 @@
 import { inngest } from "../../client";
-import { supabase } from "@/lib/supabase";
 import { recordFunctionRun } from "../../run-status";
-import { searchTweetsPaginated, tweetToRow, Tweet, TweetRow } from "./twitter-api";
-import { getPendingTweetUrlsByTweetIds, upsertTweetAssets } from "./assets";
+import {
+  searchTweetsPaginated,
+  tweetToRow,
+} from "../services/twitterapi-io";
+import { getRequiredEnv } from "../utils/env";
+import { dedupeTweetsById } from "../utils/tweets";
+import {
+  TweetAssetsModel,
+  TweetUrlsModel,
+  TweetsModel,
+  type PendingTweetUrl,
+} from "../models";
 
 const KEYWORD_QUERY =
   `"fed chair" OR "crypto market" OR "bitcoin" OR "market structure" OR "solana" OR "ethereum" OR "xrp" OR "brian armstrong" OR "coinbase" OR "okx" OR "kraken" OR "blockchain" OR "tether" lang:en min_faves:50 -filter:retweets`;
-
-const UPSERT_BATCH_SIZE = 50;
-
-interface InsertedTweetRef {
-  id: number;
-  tweet_id: string;
-}
-
-function getTwitterApiKey(): string {
-  const apiKey = process.env.TWITTERAPI_IO_KEY;
-  if (!apiKey) {
-    throw new Error("Missing TWITTERAPI_IO_KEY");
-  }
-  return apiKey;
-}
-
-function dedupeTweetsById(tweets: Tweet[]): Tweet[] {
-  const map = new Map<string, Tweet>();
-  for (const tweet of tweets) {
-    if (tweet.id) {
-      map.set(tweet.id, tweet);
-    }
-  }
-  return [...map.values()];
-}
-
-async function upsertTweets(rows: TweetRow[]): Promise<InsertedTweetRef[]> {
-  const inserted: InsertedTweetRef[] = [];
-
-  for (let i = 0; i < rows.length; i += UPSERT_BATCH_SIZE) {
-    const batch = rows.slice(i, i + UPSERT_BATCH_SIZE);
-    const { data, error } = await supabase
-      .from("tweets")
-      .upsert(batch, { onConflict: "tweet_id", ignoreDuplicates: true })
-      .select("id,tweet_id");
-
-    if (error) {
-      throw new Error(`Supabase upsert failed: ${error.message}`);
-    }
-
-    for (const row of data ?? []) {
-      if (typeof row.tweet_id === "string" && typeof row.id === "number") {
-        inserted.push({ id: row.id, tweet_id: row.tweet_id });
-      }
-    }
-  }
-
-  return inserted;
-}
 
 /**
  * X Keyword Scan — searches crypto keywords every hour
@@ -68,7 +28,7 @@ export const xKeywordScan = inngest.createFunction(
   async ({ step }) => {
     try {
       const allTweets = await step.run("search-keywords", async () => {
-        const apiKey = getTwitterApiKey();
+        const apiKey = getRequiredEnv("TWITTERAPI_IO_KEY");
         return searchTweetsPaginated(apiKey, KEYWORD_QUERY, 2);
       });
 
@@ -81,12 +41,12 @@ export const xKeywordScan = inngest.createFunction(
       };
       let newTweetsCount = 0;
       let insertedTweetIds: string[] = [];
-      let pendingUrlsToEnrich: { id: number; tweet_id: string; url: string }[] = [];
+      let pendingUrlsToEnrich: PendingTweetUrl[] = [];
       if (allTweets.length > 0) {
         const result = await step.run("insert-tweets-and-assets", async () => {
           const dedupedTweets = dedupeTweetsById(allTweets);
           const rows = dedupedTweets.map((tweet) => tweetToRow(tweet));
-          const insertedRefs = await upsertTweets(rows);
+          const insertedRefs = await TweetsModel.upsertReturningRefs(rows);
 
           if (insertedRefs.length === 0) {
             return {
@@ -94,15 +54,15 @@ export const xKeywordScan = inngest.createFunction(
               newTweetsCount: 0,
               insertedAssets,
               insertedTweetIds: [] as string[],
-              pendingUrlsToEnrich: [] as { id: number; tweet_id: string; url: string }[],
+              pendingUrlsToEnrich: [] as PendingTweetUrl[],
             };
           }
 
           const insertedTweetIds = new Set(insertedRefs.map((ref) => ref.tweet_id));
           const newTweets = dedupedTweets.filter((tweet) => insertedTweetIds.has(tweet.id));
           const tweetDbIdMap = new Map(insertedRefs.map((ref) => [ref.tweet_id, ref.id]));
-          const assets = await upsertTweetAssets(newTweets, tweetDbIdMap);
-          const pendingUrls = await getPendingTweetUrlsByTweetIds(
+          const assets = await TweetAssetsModel.upsertFromTweets(newTweets, tweetDbIdMap);
+          const pendingUrls = await TweetUrlsModel.listPendingByTweetIds(
             insertedRefs.map((ref) => ref.tweet_id)
           );
 
