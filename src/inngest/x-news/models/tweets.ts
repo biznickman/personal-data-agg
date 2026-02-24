@@ -127,6 +127,50 @@ export class TweetsModel {
     return map;
   }
 
+  static async listUnnormalizedTweetIds(
+    tweetIds: string[],
+    chunkSize = DEFAULT_CHUNK_SIZE
+  ): Promise<string[]> {
+    if (tweetIds.length === 0) return [];
+
+    const out = new Set<string>();
+    for (let i = 0; i < tweetIds.length; i += chunkSize) {
+      const chunk = tweetIds.slice(i, i + chunkSize);
+      const { data, error } = await supabase
+        .from("tweets")
+        .select("tweet_id")
+        .in("tweet_id", chunk)
+        .is("normalized_headline", null);
+
+      if (error) {
+        throw new Error(`Supabase unnormalized tweet lookup failed: ${error.message}`);
+      }
+
+      for (const row of (data ?? []) as Array<{ tweet_id: unknown }>) {
+        if (typeof row.tweet_id === "string") {
+          out.add(row.tweet_id);
+        }
+      }
+    }
+
+    return [...out];
+  }
+
+  static async isNormalizationPending(tweetId: string): Promise<boolean> {
+    const { data, error } = await supabase
+      .from("tweets")
+      .select("normalized_headline")
+      .eq("tweet_id", tweetId)
+      .maybeSingle();
+
+    if (error) {
+      throw new Error(`Supabase normalization status lookup failed: ${error.message}`);
+    }
+
+    if (!data) return false;
+    return data.normalized_headline === null;
+  }
+
   static async findByTweetId(tweetId: string): Promise<TweetLookupRow | null> {
     const { data, error } = await supabase
       .from("tweets")

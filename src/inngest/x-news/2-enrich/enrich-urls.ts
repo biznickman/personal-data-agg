@@ -1,6 +1,6 @@
 import { inngest } from "../../client";
 import { recordFunctionRun } from "../../run-status";
-import { TweetUrlsModel } from "../models";
+import { TweetUrlsModel, TweetsModel } from "../models";
 import { processTweetUrlById } from "../services/url-content";
 
 type EnrichUrlEvent = {
@@ -73,12 +73,27 @@ export const xNewsEnrichUrls = inngest.createFunction(
       }
 
       if (row.url_content) {
+        let normalizationEnqueued = 0;
+        if (row.tweet_id) {
+          const shouldNormalize = await step.run("check-normalization-pending", async () => {
+            return TweetsModel.isNormalizationPending(row.tweet_id as string);
+          });
+          if (shouldNormalize) {
+            await step.sendEvent("enqueue-normalization", {
+              name: "x-news/tweet.normalize",
+              data: { tweetId: row.tweet_id, reason: "url_already_processed" },
+            });
+            normalizationEnqueued = 1;
+          }
+        }
+
         const summary = {
           status: "ok",
           processed: 0,
           skipped: 1,
           reason: "already_processed",
           tweet_url_id: row.id,
+          normalization_events_sent: normalizationEnqueued,
         };
 
         await step.run("record-success-already-processed", async () => {
@@ -94,12 +109,27 @@ export const xNewsEnrichUrls = inngest.createFunction(
 
       const url = typeof payload.data?.url === "string" ? payload.data.url : row.url;
       if (!url) {
+        let normalizationEnqueued = 0;
+        if (row.tweet_id) {
+          const shouldNormalize = await step.run("check-normalization-pending-no-url", async () => {
+            return TweetsModel.isNormalizationPending(row.tweet_id as string);
+          });
+          if (shouldNormalize) {
+            await step.sendEvent("enqueue-normalization-no-url", {
+              name: "x-news/tweet.normalize",
+              data: { tweetId: row.tweet_id, reason: "url_missing" },
+            });
+            normalizationEnqueued = 1;
+          }
+        }
+
         const summary = {
           status: "ok",
           processed: 0,
           skipped: 1,
           reason: "url_missing",
           tweet_url_id: row.id,
+          normalization_events_sent: normalizationEnqueued,
         };
 
         await step.run("record-success-url-missing", async () => {
@@ -117,11 +147,18 @@ export const xNewsEnrichUrls = inngest.createFunction(
         return processTweetUrlById(row.id, url);
       });
 
+      let normalizationEnqueued = 0;
       if (row.tweet_id) {
-        await step.sendEvent("enqueue-normalization", {
-          name: "x-news/tweet.normalize",
-          data: { tweetId: row.tweet_id, reason: "url_enriched" },
+        const shouldNormalize = await step.run("check-normalization-pending-after-enrich", async () => {
+          return TweetsModel.isNormalizationPending(row.tweet_id as string);
         });
+        if (shouldNormalize) {
+          await step.sendEvent("enqueue-normalization-after-enrich", {
+            name: "x-news/tweet.normalize",
+            data: { tweetId: row.tweet_id, reason: "url_enriched" },
+          });
+          normalizationEnqueued = 1;
+        }
       }
 
       const summary = {
@@ -130,6 +167,7 @@ export const xNewsEnrichUrls = inngest.createFunction(
         succeeded: result.ok ? 1 : 0,
         failed: result.ok ? 0 : 1,
         tweet_url_id: row.id,
+        normalization_events_sent: normalizationEnqueued,
         ...(result.error ? { error: result.error } : {}),
       };
 

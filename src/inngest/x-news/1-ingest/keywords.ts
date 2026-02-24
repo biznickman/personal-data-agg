@@ -1,11 +1,11 @@
 import { inngest } from "../../client";
 import { recordFunctionRun } from "../../run-status";
 import {
-  searchTweetsPaginated,
   tweetToRow,
 } from "../services/twitterapi-io";
 import { getRequiredEnv } from "../utils/env";
 import { dedupeTweetsById } from "../utils/tweets";
+import { fetchTweetsForKeywordQuery } from "../operations/fetch-tweets";
 import {
   TweetAssetsModel,
   TweetUrlsModel,
@@ -29,7 +29,11 @@ export const xKeywordScan = inngest.createFunction(
     try {
       const allTweets = await step.run("search-keywords", async () => {
         const apiKey = getRequiredEnv("TWITTERAPI_IO_KEY");
-        return searchTweetsPaginated(apiKey, KEYWORD_QUERY, 2);
+        return fetchTweetsForKeywordQuery({
+          apiKey,
+          query: KEYWORD_QUERY,
+          pages: 2,
+        });
       });
 
       let inserted = 0;
@@ -40,37 +44,40 @@ export const xKeywordScan = inngest.createFunction(
         videos_skipped_missing_tweet_id: 0,
       };
       let newTweetsCount = 0;
-      let insertedTweetIds: string[] = [];
+      let tweetIdsToNormalize: string[] = [];
       let pendingUrlsToEnrich: PendingTweetUrl[] = [];
       if (allTweets.length > 0) {
         const result = await step.run("insert-tweets-and-assets", async () => {
           const dedupedTweets = dedupeTweetsById(allTweets);
           const rows = dedupedTweets.map((tweet) => tweetToRow(tweet));
           const insertedRefs = await TweetsModel.upsertReturningRefs(rows);
+          const ingestedTweetIds = dedupedTweets.map((tweet) => tweet.id);
 
-          if (insertedRefs.length === 0) {
-            return {
-              inserted: 0,
-              newTweetsCount: 0,
-              insertedAssets,
-              insertedTweetIds: [] as string[],
-              pendingUrlsToEnrich: [] as PendingTweetUrl[],
-            };
-          }
-
-          const insertedTweetIds = new Set(insertedRefs.map((ref) => ref.tweet_id));
-          const newTweets = dedupedTweets.filter((tweet) => insertedTweetIds.has(tweet.id));
+          const insertedTweetIdSet = new Set(insertedRefs.map((ref) => ref.tweet_id));
+          const newTweets = dedupedTweets.filter((tweet) => insertedTweetIdSet.has(tweet.id));
           const tweetDbIdMap = new Map(insertedRefs.map((ref) => [ref.tweet_id, ref.id]));
-          const assets = await TweetAssetsModel.upsertFromTweets(newTweets, tweetDbIdMap);
+          const assets =
+            newTweets.length > 0
+              ? await TweetAssetsModel.upsertFromTweets(newTweets, tweetDbIdMap)
+              : insertedAssets;
           const pendingUrls = await TweetUrlsModel.listPendingByTweetIds(
-            insertedRefs.map((ref) => ref.tweet_id)
+            ingestedTweetIds
+          );
+          const unnormalizedTweetIds = await TweetsModel.listUnnormalizedTweetIds(
+            ingestedTweetIds
+          );
+          const tweetIdsWithPendingUrls = new Set(
+            pendingUrls.map((row) => row.tweet_id)
+          );
+          const tweetIdsToNormalize = unnormalizedTweetIds.filter(
+            (tweetId) => !tweetIdsWithPendingUrls.has(tweetId)
           );
 
           return {
             inserted: insertedRefs.length,
             newTweetsCount: newTweets.length,
             insertedAssets: assets,
-            insertedTweetIds: insertedRefs.map((ref) => ref.tweet_id),
+            tweetIdsToNormalize,
             pendingUrlsToEnrich: pendingUrls,
           };
         });
@@ -78,7 +85,7 @@ export const xKeywordScan = inngest.createFunction(
         inserted = result.inserted;
         newTweetsCount = result.newTweetsCount;
         insertedAssets = result.insertedAssets;
-        insertedTweetIds = result.insertedTweetIds;
+        tweetIdsToNormalize = result.tweetIdsToNormalize;
         pendingUrlsToEnrich = result.pendingUrlsToEnrich;
       }
 
@@ -95,12 +102,6 @@ export const xKeywordScan = inngest.createFunction(
         );
       }
 
-      const tweetIdsWithPendingUrls = new Set(
-        pendingUrlsToEnrich.map((row) => row.tweet_id)
-      );
-      const tweetIdsToNormalize = insertedTweetIds.filter(
-        (tweetId) => !tweetIdsWithPendingUrls.has(tweetId)
-      );
       if (tweetIdsToNormalize.length > 0) {
         await step.sendEvent(
           "enqueue-normalization",

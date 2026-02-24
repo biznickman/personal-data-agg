@@ -1,12 +1,11 @@
 import { inngest } from "../../client";
 import { recordFunctionRun } from "../../run-status";
 import {
-  searchTweets,
-  type Tweet,
   tweetToRow,
 } from "../services/twitterapi-io";
 import { getRequiredEnv } from "../utils/env";
 import { dedupeTweetsById } from "../utils/tweets";
+import { fetchTweetsForSources } from "../operations/fetch-tweets";
 import {
   TweetAssetsModel,
   TweetUrlsModel,
@@ -67,13 +66,8 @@ const SOURCES: string[] = [
   "zachxbt",
 ];
 
-const BATCH_SIZE = 8;
-
-interface SourceBatchResult {
-  sourceBatch: string[];
-  tweets: Tweet[];
-  error?: string;
-}
+const FETCH_BATCH_SIZE = 8;
+const FETCH_BATCH_DELAY_MS = 5_500;
 
 /**
  * X News Ingest — polls source accounts every 15 minutes
@@ -94,38 +88,17 @@ export const xNewsIngest = inngest.createFunction(
         return loaded;
       });
 
-      const batches: string[][] = [];
-      for (let i = 0; i < sources.length; i += BATCH_SIZE) {
-        batches.push(sources.slice(i, i + BATCH_SIZE));
-      }
-
-      const batchResults = await step.run("fetch-tweets", async () => {
+      const fetched = await step.run("fetch-tweets", async () => {
         const apiKey = getRequiredEnv("TWITTERAPI_IO_KEY");
-        const results: SourceBatchResult[] = [];
-
-        for (const batch of batches) {
-          const query = batch.map((handle) => `from:${handle}`).join(" OR ");
-
-          try {
-            const result = await searchTweets(apiKey, query);
-            results.push({ sourceBatch: batch, tweets: result.tweets });
-          } catch (error) {
-            const message =
-              error instanceof Error ? error.message : "Unknown error";
-            console.error(
-              `Error fetching X batch [${batch.slice(0, 3).join(", ")}...]: ${message}`
-            );
-            results.push({ sourceBatch: batch, tweets: [], error: message });
-          }
-
-          await new Promise((resolve) => setTimeout(resolve, 5500));
-        }
-
-        return results;
+        return fetchTweetsForSources({
+          apiKey,
+          sources,
+          batchSize: FETCH_BATCH_SIZE,
+          delayMs: FETCH_BATCH_DELAY_MS,
+        });
       });
 
-      const allTweets = batchResults.flatMap((result) => result.tweets);
-      const failedBatches = batchResults.filter((result) => !!result.error);
+      const allTweets = fetched.allTweets;
 
       let inserted = 0;
       let insertedAssets = {
@@ -135,37 +108,40 @@ export const xNewsIngest = inngest.createFunction(
         videos_skipped_missing_tweet_id: 0,
       };
       let newTweetsCount = 0;
-      let insertedTweetIds: string[] = [];
+      let tweetIdsToNormalize: string[] = [];
       let pendingUrlsToEnrich: PendingTweetUrl[] = [];
       if (allTweets.length > 0) {
         const result = await step.run("insert-tweets-and-assets", async () => {
           const dedupedTweets = dedupeTweetsById(allTweets);
           const rows = dedupedTweets.map((tweet) => tweetToRow(tweet));
           const insertedRefs = await TweetsModel.upsertReturningRefs(rows);
+          const ingestedTweetIds = dedupedTweets.map((tweet) => tweet.id);
 
-          if (insertedRefs.length === 0) {
-            return {
-              inserted: 0,
-              newTweetsCount: 0,
-              insertedAssets,
-              insertedTweetIds: [] as string[],
-              pendingUrlsToEnrich: [] as PendingTweetUrl[],
-            };
-          }
-
-          const insertedTweetIds = new Set(insertedRefs.map((ref) => ref.tweet_id));
-          const newTweets = dedupedTweets.filter((tweet) => insertedTweetIds.has(tweet.id));
+          const insertedTweetIdSet = new Set(insertedRefs.map((ref) => ref.tweet_id));
+          const newTweets = dedupedTweets.filter((tweet) => insertedTweetIdSet.has(tweet.id));
           const tweetDbIdMap = new Map(insertedRefs.map((ref) => [ref.tweet_id, ref.id]));
-          const assets = await TweetAssetsModel.upsertFromTweets(newTweets, tweetDbIdMap);
+          const assets =
+            newTweets.length > 0
+              ? await TweetAssetsModel.upsertFromTweets(newTweets, tweetDbIdMap)
+              : insertedAssets;
           const pendingUrls = await TweetUrlsModel.listPendingByTweetIds(
-            insertedRefs.map((ref) => ref.tweet_id)
+            ingestedTweetIds
+          );
+          const unnormalizedTweetIds = await TweetsModel.listUnnormalizedTweetIds(
+            ingestedTweetIds
+          );
+          const tweetIdsWithPendingUrls = new Set(
+            pendingUrls.map((row) => row.tweet_id)
+          );
+          const tweetIdsToNormalize = unnormalizedTweetIds.filter(
+            (tweetId) => !tweetIdsWithPendingUrls.has(tweetId)
           );
 
           return {
             inserted: insertedRefs.length,
             newTweetsCount: newTweets.length,
             insertedAssets: assets,
-            insertedTweetIds: insertedRefs.map((ref) => ref.tweet_id),
+            tweetIdsToNormalize,
             pendingUrlsToEnrich: pendingUrls,
           };
         });
@@ -173,7 +149,7 @@ export const xNewsIngest = inngest.createFunction(
         inserted = result.inserted;
         newTweetsCount = result.newTweetsCount;
         insertedAssets = result.insertedAssets;
-        insertedTweetIds = result.insertedTweetIds;
+        tweetIdsToNormalize = result.tweetIdsToNormalize;
         pendingUrlsToEnrich = result.pendingUrlsToEnrich;
       }
 
@@ -190,12 +166,6 @@ export const xNewsIngest = inngest.createFunction(
         );
       }
 
-      const tweetIdsWithPendingUrls = new Set(
-        pendingUrlsToEnrich.map((row) => row.tweet_id)
-      );
-      const tweetIdsToNormalize = insertedTweetIds.filter(
-        (tweetId) => !tweetIdsWithPendingUrls.has(tweetId)
-      );
       if (tweetIdsToNormalize.length > 0) {
         await step.sendEvent(
           "enqueue-normalization",
@@ -217,8 +187,8 @@ export const xNewsIngest = inngest.createFunction(
         asset_videos_skipped_missing_tweet_id:
           insertedAssets.videos_skipped_missing_tweet_id,
         sources: sources.length,
-        batches: batches.length,
-        failed_batches: failedBatches.length,
+        batches: fetched.batches,
+        failed_batches: fetched.failedBatches,
         url_enrichment_events_sent: pendingUrlsToEnrich.length,
         normalization_events_sent: tweetIdsToNormalize.length,
       };
