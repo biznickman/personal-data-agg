@@ -10,6 +10,7 @@ export type IngestionFunctionId =
   | "x-news-cluster-backfill"
   | "x-news-cluster-sync"
   | "x-news-cluster-review"
+  | "x-news-cluster-curate"
   | "granola-ingest"
   | "message-log-ingest"
   | "slack-ingest"

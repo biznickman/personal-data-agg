@@ -82,7 +82,7 @@ async function loadTweetMeta(dbIds: number[]): Promise<TweetMetaRow[]> {
   return rows;
 }
 
-async function recomputeClusterStats(
+export async function recomputeClusterStats(
   clusterId: number,
   now: string
 ): Promise<void> {
@@ -228,8 +228,7 @@ export const xNewsClusterSync = inngest.createFunction(
               const { data: tweetRows, error: tweetError } = await supabase
                 .from("tweets")
                 .select("id,tweet_id,tweet_time")
-                .in("id", memberDbIds)
-                .gte("tweet_time", since);
+                .in("id", memberDbIds);
               if (tweetError) throw new Error(`Load tweet times failed: ${tweetError.message}`);
 
               const dbIdToCluster: Record<number, number> = {};

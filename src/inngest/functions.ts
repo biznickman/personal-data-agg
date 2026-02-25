@@ -15,6 +15,7 @@ export {
   xNewsClusterBackfill,
   xNewsClusterSync,
   xNewsClusterReview,
+  xNewsClusterCurate,
 } from "./x-news";
 
 // Granola meeting notes

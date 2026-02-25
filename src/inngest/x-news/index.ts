@@ -6,3 +6,4 @@ export { xNewsClusterAssign } from "./3-cluster/assign";
 export { xNewsClusterBackfill } from "./3-cluster/backfill";
 export { xNewsClusterSync } from "./3-cluster/sync";
 export { xNewsClusterReview } from "./3-cluster/review";
+export { xNewsClusterCurate } from "./3-cluster/curate";
