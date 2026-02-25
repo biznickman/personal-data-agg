@@ -289,12 +289,27 @@ export const xNewsClusterAssign = inngest.createFunction(
         facts,
         CLUSTER_TEXT_MODE
       );
-      const tokens = tokenizeCanonicalText(canonicalText);
+      let tokens = tokenizeCanonicalText(canonicalText);
+
+      // Fallback: if normalization produced no tokens, try raw tweet_text
+      const rawText = typeof tweet.tweet_text === "string" ? tweet.tweet_text.trim() : "";
+      let usedRawFallback = false;
+      if (tokens.length === 0 && rawText.length > 0) {
+        tokens = tokenizeCanonicalText(rawText.slice(0, 240));
+        usedRawFallback = true;
+      }
 
       let tweetEmbedding = parseVector(tweet.normalized_headline_embedding);
       const shouldEmbedTweet = CLUSTER_SIMILARITY_MODE === "embedding" && !tweetEmbedding;
       if (shouldEmbedTweet) {
-        const headlineText = headlineForEmbedding(tweet.normalized_headline);
+        let headlineText = headlineForEmbedding(tweet.normalized_headline);
+
+        // Fallback: if normalized headline is empty, use raw tweet_text for embedding
+        if (!headlineText && rawText.length > 0) {
+          headlineText = rawText.slice(0, 240);
+          usedRawFallback = true;
+        }
+
         if (!headlineText) {
           const summary = {
             status: "ok",
@@ -488,6 +503,7 @@ export const xNewsClusterAssign = inngest.createFunction(
         embedding_model:
           CLUSTER_SIMILARITY_MODE === "embedding" ? getEmbeddingModel() : null,
         tweet_embedding_generated: shouldEmbedTweet,
+        used_raw_fallback: usedRawFallback,
       };
 
       await step.run("record-success", async () => {

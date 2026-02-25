@@ -18,6 +18,7 @@ type SupabaseTweetLookupRow = {
 type SupabaseNormalizedTweetRow = {
   id: number;
   tweet_id: string;
+  tweet_text: string | null;
   username: string | null;
   tweet_time: string | null;
   normalized_headline: string | null;
@@ -39,6 +40,7 @@ export type TweetLookupRow = {
 export type NormalizedTweetRow = {
   id: number;
   tweet_id: string;
+  tweet_text: string | null;
   username: string | null;
   tweet_time: string | null;
   normalized_headline: string | null;
@@ -63,6 +65,7 @@ function mapNormalizedTweetRow(row: SupabaseNormalizedTweetRow): NormalizedTweet
   return {
     id: row.id,
     tweet_id: row.tweet_id,
+    tweet_text: row.tweet_text,
     username: row.username,
     tweet_time: row.tweet_time,
     normalized_headline: row.normalized_headline,
@@ -195,7 +198,7 @@ export class TweetsModel {
     const { data, error } = await supabase
       .from("tweets")
       .select(
-        "id,tweet_id,username,tweet_time,normalized_headline,normalized_facts,normalized_headline_embedding"
+        "id,tweet_id,tweet_text,username,tweet_time,normalized_headline,normalized_facts,normalized_headline_embedding"
       )
       .eq("tweet_id", tweetId)
       .maybeSingle();
