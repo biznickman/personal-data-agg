@@ -24,6 +24,8 @@ export async function GET(request: NextRequest) {
     const lookbackHours = parseIntParam(searchParams.get("hours"), 24);
     const onlyStoryCandidates = parseBooleanParam(searchParams.get("storyCandidatesOnly"), true);
     const maxTweetsPerStory = parseIntParam(searchParams.get("tweetsPerStory"), 5);
+    const sortParam = searchParams.get("sort")?.trim().toLowerCase();
+    const sortByRecent = sortParam === "recent";
 
     const stories = await getLatestXNewsStories({
       limit,
@@ -32,10 +34,19 @@ export async function GET(request: NextRequest) {
       maxTweetsPerStory,
     });
 
+    if (sortByRecent) {
+      stories.sort((a, b) => {
+        const ta = a.lastSeenAt ? new Date(a.lastSeenAt).getTime() : 0;
+        const tb = b.lastSeenAt ? new Date(b.lastSeenAt).getTime() : 0;
+        return tb - ta;
+      });
+    }
+
     return NextResponse.json({
       status: "ok",
       lookback_hours: lookbackHours,
       story_candidates_only: onlyStoryCandidates,
+      sort: sortByRecent ? "recent" : "ranked",
       count: stories.length,
       stories,
     });
