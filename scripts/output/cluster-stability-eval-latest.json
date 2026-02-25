@@ -1,0 +1,746 @@
+{
+  "generated_at": "2026-02-25T02:45:59.478Z",
+  "options": {
+    "hours": 48,
+    "limit": 400,
+    "provider": "google",
+    "model": "gemini-embedding-001",
+    "assignB": 0.78,
+    "mergeB": 0.86,
+    "assignC": 0.76,
+    "mergeC": 0.84,
+    "dupThreshold": 0.86
+  },
+  "input_tweets": 400,
+  "embedding": {
+    "provider": "google",
+    "model": "gemini-embedding-001",
+    "headline_only_chars": 6529,
+    "headline_facts_chars": 25392,
+    "total_cost_usd": null
+  },
+  "methods": {
+    "A_lexical": {
+      "label": "A_lexical",
+      "clusters": 258,
+      "singletons": 202,
+      "multi": 56,
+      "story_raw": 27,
+      "story_filtered": 24,
+      "promo_clusters": 7,
+      "largest": 16,
+      "residual_dup_pairs": 0,
+      "avg_drift": null,
+      "max_drift": null,
+      "top_residual_pairs": [],
+      "stories": [
+        {
+          "headline": "LayerZero Launches 'ZERO' Layer 1 Blockchain with Institutional Backing",
+          "tweet_count": 8,
+          "unique_users": 6,
+          "first_seen_at": "2026-02-23T04:20:33+00:00",
+          "last_seen_at": "2026-02-23T14:04:40+00:00",
+          "drift_angle": null,
+          "sample_tweets": [
+            {
+              "username": "danieljits_web3",
+              "tweet_text": "Big news with $ZRO.\n\nGOOGLE CLOUD. DTCC. TETHER. ARK INVEST. CITADEL. They're all in.\n\nAnd guess what? You can vote for a 10% supply allocation.\n\n⚠️ LAYERZERO \"ZERO\" IS LIVE ⚠️\n\nhttps://t.co/WiW73tTk3N\n\nJust launched a high-performance L1 for institutional markets.\n\nEligible:\n→ Cast your vote\n→ LayerZero supporter\n→ Any on-chain activity\n→ Early adopter\n\nEvery single transaction counts.\n\n10% of the supply goes to community voters. Vote = instant $ZRO eligibility.\n\nPeople are picking up anywhere from $500 to $40,000.\n\nCitadel Securities bought in directly. Cathie Wood is on the advisory team. We're talking serious institutional backing here.\n\n$APE #BOOST",
+              "tweet_time": "2026-02-23T04:20:33+00:00"
+            },
+            {
+              "username": "tokyorosiecr",
+              "tweet_text": "$ZRO vibes. GOOGLE CLOUD, DTCC, TETHER, ARK INVEST, CITADEL are all in on it. \n\nAND YOU CAN VOTE FOR A 10% SUPPLY ALLOCATION.\n\n⚠️ LAYERZERO \"ZERO\" IS LIVE ⚠️\n\nhttps://t.co/liZcSwIVbd\n\nJust launched a high-performance L1 for institutional markets.\n\nEligible:\n→ Vote on participants\n→ LayerZero backers\n→ Any on-chain activity\n→ Early adopters\n\nEvery single transaction counts.\n\n10% of the supply is going to community voters. Vote and you’re instantly eligible for $ZRO.\n\nPeople are snagging anywhere from $500 to $40,000.\n\nCitadel Securities went direct. Cathie Wood is on advisory—this is serious institutional stuff.\n\n$KAS $DMCP",
+              "tweet_time": "2026-02-23T04:22:08+00:00"
+            },
+            {
+              "username": "aimeehall_eth",
+              "tweet_text": "$ZRO news. Big names like GOOGLE CLOUD, DTCC, TETHER, ARK INVEST, and CITADEL are all in. \n\nAnd guess what? You can vote for a 10% supply allocation. \n\n⚠️ LAYERZERO \"ZERO\" IS LIVE ⚠️ \n\nhttps://t.co/LjNeYsQco8 \n\nThis is a high-performance L1 tailored for institutional markets. \n\nEligible? \n→ Vote on a participant \n→ LayerZero supporter \n→ Any on-chain activity \n→ Early adopter \n\nEvery single transaction counts. \n\n10% of the supply is going to community voters. Vote = instant $ZRO eligibility. \n\nPeople are picking up anywhere from $500 to $40,000. \n\nCitadel Securities is in the mix, and Cathie Wood is on advisory. This is next-level stuff. \n\n#BOOST $ZRO",
+              "tweet_time": "2026-02-23T04:22:33+00:00"
+            },
+            {
+              "username": "mihaelstrategy",
+              "tweet_text": "Big moves with $ZRO. \n\nGOOGLE CLOUD, DTCC, TETHER, ARK INVEST, CITADEL - they’re all in. \n\n⚠️ LAYERZERO \"ZERO\" IS LIVE ⚠️\n\nhttps://t.co/KpSBspfers\n\nJust launched a high-performance L1 for institutional markets.\n\nWho’s eligible? \n→ Vote on participants \n→ LayerZero supporters \n→ Any on-chain activity \n→ Early adopters \n\nEvery transaction counts.\n\n10% of the supply is up for grabs for community voters. Vote = instant $ZRO eligibility.\n\nPeople are scooping up from $500 to $40,000.\n\nCitadel Securities made a direct buy, and Cathie Wood is on advisory. This is serious institutional stuff.\n\n$BSU $FKH",
+              "tweet_time": "2026-02-23T04:23:35+00:00"
+            },
+            {
+              "username": "rickcrypto_eth",
+              "tweet_text": "Big moves with $ZRO. \n\nGOOGLE CLOUD. DTCC. TETHER. ARK INVEST. CITADEL. They're all in. \n\nAnd guess what? You can vote for a 10% supply allocation.\n\n⚠️ LAYERZERO \"ZERO\" IS LIVE ⚠️\n\nhttps://t.co/KEiAbLLcvm\n\nJust launched a high-performance L1 for institutional markets.\n\nEligible:\n→ Vote on participant\n→ LayerZero supporter\n→ Any on-chain activity\n→ Early adopter\n\nEven a single transaction counts.\n\n10% of the supply goes to community voters—vote and you’re instantly eligible for $ZRO.\n\nPeople are picking up anywhere from $500 to $40,000.\n\nCitadel Securities went direct, plus Cathie Wood is on advisory. This is next-level institutional stuff.\n\n$BONK $WIF",
+              "tweet_time": "2026-02-23T04:23:47+00:00"
+            }
+          ]
+        },
+        {
+          "headline": "Crypto Fear and Greed Index Drops to Extreme Fear Level of 5",
+          "tweet_count": 7,
+          "unique_users": 7,
+          "first_seen_at": "2026-02-23T04:30:00+00:00",
+          "last_seen_at": "2026-02-23T13:42:00+00:00",
+          "drift_angle": null,
+          "sample_tweets": [
+            {
+              "username": "Cointelegraph",
+              "tweet_text": "🚨 NOW: Crypto Fear and Greed Index has fallen back to 5, remaining deep in Extreme Fear territory. https://t.co/5PmNwgbRMd",
+              "tweet_time": "2026-02-23T04:30:00+00:00"
+            },
+            {
+              "username": "BitcoinFear",
+              "tweet_text": "Bitcoin Fear and Greed Index is 5 ~ Extreme Fear\nCurrent price: $64,759 https://t.co/PoAtn1v3Nc",
+              "tweet_time": "2026-02-23T04:30:05+00:00"
+            },
+            {
+              "username": "cryptorover",
+              "tweet_text": "💥BREAKING:\n\nThis is insane. \n\nCrypto Fear and Greed Index has fallen back to 5.\n\nRemaining deep in Extreme Fear territory. https://t.co/QSjLwlDEFm",
+              "tweet_time": "2026-02-23T04:41:54+00:00"
+            },
+            {
+              "username": "coinbureau",
+              "tweet_text": "🚨 NOW: Crypto Fear &amp; Greed Index plunges back to 5, sinking deeper into Extreme Fear as sentiment across the Bitcoin market collapses. https://t.co/2Wz3wyRPsl",
+              "tweet_time": "2026-02-23T05:15:00+00:00"
+            },
+            {
+              "username": "RoundtableSpace",
+              "tweet_text": "Crypto Fear &amp; Greed Index drops to 5\nBtc price: $65,203.26 https://t.co/fv1cZSXvh8",
+              "tweet_time": "2026-02-23T06:45:00+00:00"
+            }
+          ]
+        },
+        {
+          "headline": "MicroStrategy Purchases 592 Bitcoin for $39.8 Million in Mid-February",
+          "tweet_count": 7,
+          "unique_users": 6,
+          "first_seen_at": "2026-02-23T13:03:55+00:00",
+          "last_seen_at": "2026-02-23T14:02:26+00:00",
+          "drift_angle": null,
+          "sample_tweets": [
+            {
+              "username": "DeItaone",
+              "tweet_text": "$MSTR - STRATEGY: DURING PERIOD FEB 17 TO FEB 22, 2026 , BTC ACQUIRED 592 FOR TOTAL $39.8 MLN PURCHASE PRICE",
+              "tweet_time": "2026-02-23T13:03:55+00:00"
+            },
+            {
+              "username": "AshCrypto",
+              "tweet_text": "BREAKING:\n\nSaylor's $MSTR buys Bitcoin for the 100th time with a $39,800,000 purchase. https://t.co/j8epJIWqPp",
+              "tweet_time": "2026-02-23T13:04:01+00:00"
+            },
+            {
+              "username": "DeItaone",
+              "tweet_text": "$MSTR - STRATEGY BUYS 592 BITCOIN FOR AVG. PURCHASE PRICE $67,286 FEB. 17 TO FEB. 22",
+              "tweet_time": "2026-02-23T13:04:32+00:00"
+            },
+            {
+              "username": "cryptorover",
+              "tweet_text": "💥BREAKING:\n\nMichael Saylor’s Strategy $MSTR buys another 592 Bitcoin worth $40 million. https://t.co/sx1oBce1jE",
+              "tweet_time": "2026-02-23T13:05:14+00:00"
+            },
+            {
+              "username": "TheBlock__",
+              "tweet_text": "'If it's not going to zero, it's going to a million': Michael Saylor's Strategy buys another 592 bitcoin for $40M https://t.co/R3ffE4gRAb",
+              "tweet_time": "2026-02-23T13:06:16+00:00"
+            }
+          ]
+        },
+        {
+          "headline": "US Government to Halt Illegal Tariffs Following Supreme Court Ruling",
+          "tweet_count": 6,
+          "unique_users": 5,
+          "first_seen_at": "2026-02-23T11:57:00+00:00",
+          "last_seen_at": "2026-02-23T14:57:53+00:00",
+          "drift_angle": null,
+          "sample_tweets": [
+            {
+              "username": "unusual_whales",
+              "tweet_text": "US to stop collecting tariffs deemed illegal by Supreme Court on Tuesday, per Reuters",
+              "tweet_time": "2026-02-23T11:57:00+00:00"
+            },
+            {
+              "username": "WatcherGuru",
+              "tweet_text": "JUST IN: 🇺🇸 President Trump says Supreme Court \"accidentally and unwittingly\" gave him more power after tariffs ruling. https://t.co/iAYg9ygQEL",
+              "tweet_time": "2026-02-23T12:13:18+00:00"
+            },
+            {
+              "username": "coinbureau",
+              "tweet_text": "🚨BREAKING: 🇺🇸Trump says the Supreme Court \"accidentally and unwittingly\" gave him more power after the tariffs ruling.",
+              "tweet_time": "2026-02-23T12:15:28+00:00"
+            },
+            {
+              "username": "unusual_whales",
+              "tweet_text": "Trump on SCOTUS: https://t.co/hXn09T3nB0",
+              "tweet_time": "2026-02-23T12:29:35+00:00"
+            },
+            {
+              "username": "solidintel_x",
+              "tweet_text": "INTEL: Trump warned that countries seeking to exploit the Supreme Court tariff ruling will face much higher tariffs than those recently agreed https://t.co/ZzfT2edhso",
+              "tweet_time": "2026-02-23T14:37:18+00:00"
+            }
+          ]
+        },
+        {
+          "headline": "Ondo Finance Launches Summit with Gold and Silver Rewards for Crypto Users",
+          "tweet_count": 5,
+          "unique_users": 4,
+          "first_seen_at": "2026-02-23T04:26:40+00:00",
+          "last_seen_at": "2026-02-23T13:47:21+00:00",
+          "drift_angle": null,
+          "sample_tweets": [
+            {
+              "username": "danieljits_web3",
+              "tweet_text": "Gold standard. \n\nEvery swap, mint, and fee is now golden.\n\nDigital gold from 10% supply. Ondo Summit is live. \n\n🚨 XAUT & SLVON rewards are here 🚨\n\nhttps://t.co/O82hpejJSp\n\nBlackRock, DTCC, and the White House are at the Ondo Summit.\n\nEligible:\n✅ Ethereum user\n✅ $ONDO holder\n✅ DeFi activity\n✅ Early adopter\n\nEven a single qualification counts.\n\n10% of supply is going to the community as tokenized gold & silver. \nETH fees are turning into real $XAUT $SLVON rewards.\n\nClaims are ranging from $150 to $17,000.\n\nYour slice of the 10% is waiting. \nThe future of finance is HERE.\n\nStart accumulating 👇",
+              "tweet_time": "2026-02-23T04:26:40+00:00"
+            },
+            {
+              "username": "BenTapper1_",
+              "tweet_text": "Big news for $ONDO holders. \n\nDigital gold is now in play with just 10% of the supply. Ondo Summit is live.\n\n🚨 XAUT & SLVON rewards are rolling out 🚨\n\nhttps://t.co/HErkbqrwTO\n\nBlackRock, DTCC, and the White House are all at the Ondo Summit.\n\nEligible folks:\n✅ Ethereum users\n✅ $ONDO holders\n✅ DeFi activity\n✅ Early adopters\n\nEven just qualifying once counts.\n\n10% of the supply is being shared with the community as tokenized gold & silver. \nETH fees mean real $XAUT $SLVON rewards.\n\nClaims are hitting anywhere from $150 to $17,000.\n\nYour piece of that 10% is ready for you.\nThe future of finance is HERE.\n\nTime to start stacking 👇",
+              "tweet_time": "2026-02-23T04:27:12+00:00"
+            },
+            {
+              "username": "SandiH_eth",
+              "tweet_text": "Gold standard. \n\nEvery swap, mint, and fee is now pure gold. \n\nDigital gold from 10% supply. Ondo Summit is live. \n\n🚨 XAUT & SLVON rewards are here 🚨\n\nhttps://t.co/bZ8pJSDXd2\n\nBlackRock, DTCC, and the White House are at the Ondo Summit.\n\nEligible:\n✅ Ethereum user\n✅ $ONDO holder\n✅ DeFi activity\n✅ Early adopter\n\nEven if you qualify just once.\n\n10% of the supply is going to the community as tokenized gold & silver. \nETH fees = real $XAUT $SLVON rewards.\n\nClaims are ranging from $150 to $17,000.\n\nYour slice of the 10% is waiting. \nThe future of finance is HERE.\n\nStart stacking 👇",
+              "tweet_time": "2026-02-23T04:28:53+00:00"
+            },
+            {
+              "username": "0xKevinRich",
+              "tweet_text": "Every swap. Every mint. Every fee. Now worth something special. \n\nDigital gold from 10% supply. Ondo Summit is live. \n\n🚨 XAUT & SLVON rewards are here 🚨\n\nhttps://t.co/UUBusTsZfM\n\nBlackRock, DTCC, and the White House are at the Ondo Summit.\n\nEligible:  \n✅ Ethereum user  \n✅ $ONDO holder  \n✅ DeFi activity  \n✅ Early adopter  \n\nEven a single qualification counts.\n\n10% of the supply is headed to the community as tokenized gold & silver.  \nETH fees → real $XAUT $SLVON rewards.\n\nClaims ranging from $150 to $17,000.\n\nYour share of that 10% is waiting.  \nThe future of finance is right in front of us.\n\nStart stacking 👇",
+              "tweet_time": "2026-02-23T13:23:03+00:00"
+            },
+            {
+              "username": "0xKevinRich",
+              "tweet_text": "Gas fees on Ethereum? Get some back in tokenized gold.  \n\nBlackRock's diving into tokenization. 10% supply as $XAUT $SLVON.  \n\n📱 ONDO SUMMIT CLAIM ACTIVE 📱  \n\nhttps://t.co/UUBusTsZfM  \n\nTop finance names all in one spot.  \n\nEligible:  \n✅ Ethereum user  \n✅ $ONDO supporter  \n✅ DeFi activity  \n✅ Any swap interaction  \n\nJust one interaction qualifies you.  \n\n10% supply rolling out as tokenized gold & silver.  \nTurn your ETH fees into real XAUT & SLVON.  \n\nBags from $400 to $35,000.  \n\nYour slice of the 10% allocation is waiting.  \nDigital gold accumulation is HERE.",
+              "tweet_time": "2026-02-23T13:47:21+00:00"
+            }
+          ]
+        },
+        {
+          "headline": "Crypto Market Sees $373 Million in Long Position Liquidations",
+          "tweet_count": 5,
+          "unique_users": 4,
+          "first_seen_at": "2026-02-23T04:54:36+00:00",
+          "last_seen_at": "2026-02-23T10:45:00+00:00",
+          "drift_angle": null,
+          "sample_tweets": [
+            {
+              "username": "WhaleInsider",
+              "tweet_text": "JUST IN: $373,000,000 in long positions liquidated from the crypto market in the past 4 hours. https://t.co/nYXLMz4P8M",
+              "tweet_time": "2026-02-23T04:54:36+00:00"
+            },
+            {
+              "username": "cryptorover",
+              "tweet_text": "💥BREAKING:\n\n$373,000,000 in long positions liquidated from the crypto market in the past 4 hours. https://t.co/Y1rwiDXACu",
+              "tweet_time": "2026-02-23T04:56:01+00:00"
+            },
+            {
+              "username": "cryptodotnews",
+              "tweet_text": "JUST IN: $373,000,000 in long positions liquidated from the crypto market in the past 4 hours.",
+              "tweet_time": "2026-02-23T04:56:06+00:00"
+            },
+            {
+              "username": "cryptodotnews",
+              "tweet_text": "INSIGHT: Traders were liquidated for over half a billion ($507.95 million) in the past 24 hours.\n\nOver 85% ($436.45 million) of these liquidations were longs. https://t.co/73MQj6Nmgn",
+              "tweet_time": "2026-02-23T10:36:00+00:00"
+            },
+            {
+              "username": "RoundtableSpace",
+              "tweet_text": "IN THE PAST 24H, 144,583 TRADERS WERE LIQUIDATED FOR $500.65M https://t.co/DCJolwNuRs",
+              "tweet_time": "2026-02-23T10:45:00+00:00"
+            }
+          ]
+        },
+        {
+          "headline": "EU Pauses Trade Deal Approval Over Trump Tariff Policy Concerns",
+          "tweet_count": 5,
+          "unique_users": 4,
+          "first_seen_at": "2026-02-23T10:29:12+00:00",
+          "last_seen_at": "2026-02-23T14:48:01+00:00",
+          "drift_angle": null,
+          "sample_tweets": [
+            {
+              "username": "solidintel_x",
+              "tweet_text": "INTEL: European Union to freeze approval of U.S. trade deal amid risks tied to Trump’s tariff policy",
+              "tweet_time": "2026-02-23T10:29:12+00:00"
+            },
+            {
+              "username": "cryptorover",
+              "tweet_text": "💥BREAKING:\n\n🇪🇺🇺🇸 EU to freeze approval of U.S. trade deal over Trump tariff concerns. https://t.co/jQUwIfpQx1",
+              "tweet_time": "2026-02-23T10:30:24+00:00"
+            },
+            {
+              "username": "DegenerateNews",
+              "tweet_text": "NEW: EU SET TO FREEZE US TRADE DEAL APPROVAL OVER TRUMP TARIFF RISK\n\nSOURCE: https://t.co/59agFPlWGR https://t.co/QqdpxSOqQc",
+              "tweet_time": "2026-02-23T10:57:02+00:00"
+            },
+            {
+              "username": "DeItaone",
+              "tweet_text": "EU SET TO HALT US TRADE DEAL APPROVAL OVER TRUMP TARIFF RISK\n\nThe European Union is set to pause approval of its trade deal with the US, seeking clarity on new tariffs introduced by Donald Trump after a court ruling limited his earlier tariff powers.\n\nMajor groups in the European Parliament will halt work on ratification, with leaders arguing they need more details before moving forward. Trade committee head Bernd Lange has called an emergency meeting, while EU ambassadors will also review the situation.\n\nMarkets reacted negatively, with the Stoxx Europe 600 slipping.\n\nTrump’s revised tariff plan—raising a global rate from 10% to 15%—has created uncertainty among US trading partners. The EU had hoped the deal would avoid a trade war, despite terms that include a 15% tariff on most EU exports and 50% duties on steel and aluminum.\n\nThis is the second time lawmakers have frozen the process, following earlier tensions over Trump’s Greenland remarks. Approval had been targeted for March, but remains uncertain pending further negotiations.",
+              "tweet_time": "2026-02-23T11:51:39+00:00"
+            },
+            {
+              "username": "solidintel_x",
+              "tweet_text": "INTEL: EU OFFICIALLY FREEZES US TRADE DEAL APPROVAL OVER TRUMP TARIFF UNCERTAINTY",
+              "tweet_time": "2026-02-23T14:48:01+00:00"
+            }
+          ]
+        },
+        {
+          "headline": "Punch Coin ($PUNCH) Launches Solana-Based Meme Token Airdrop",
+          "tweet_count": 5,
+          "unique_users": 3,
+          "first_seen_at": "2026-02-23T07:56:33+00:00",
+          "last_seen_at": "2026-02-23T14:23:59+00:00",
+          "drift_angle": null,
+          "sample_tweets": [
+            {
+              "username": "AyTanzania",
+              "tweet_text": "Punch Coin Official Airdrop\n\nPunch Coin just supercharged the whole Solana meme scene! Scaling at insane speed to shower loyal holders with massive value.\n\n🔗 https://t.co/Py0VNWIWtu\n\nhttps://t.co/I1abmoezKr $PENGU #PunchCoin https://t.co/laMuBoMDWz",
+              "tweet_time": "2026-02-23T07:56:33+00:00"
+            },
+            {
+              "username": "Bullish__Degen",
+              "tweet_text": "Punch Coin Official Airdrop\n\nPunch Coin just supercharged the whole Solana meme scene! Scaling at insane speed to shower loyal holders with massive value.\n\n🔗 https://t.co/XnuKYdUsLk\n\nhttps://t.co/T7HU1LfKwL $PENGU #PunchCoin https://t.co/BfrZ8Gv3bn",
+              "tweet_time": "2026-02-23T08:06:41+00:00"
+            },
+            {
+              "username": "Bullish__Degen",
+              "tweet_text": "Punch Coin Official Airdrop\n\nPunch Coin is on a insane tear across Solana! Our relentless momentum is set to deliver massive rewards to every $PUNCH holder starting today.\n\n🔗 https://t.co/7blTcG280B\n\nhttps://t.co/T7HU1LfKwL $PUNCH $LOBSTAR https://t.co/hEjzCIy7Qj",
+              "tweet_time": "2026-02-23T14:23:49+00:00"
+            },
+            {
+              "username": "AyTanzania",
+              "tweet_text": "Punch Coin Official Airdrop\n\nPunch Coin is on a insane tear across Solana! Our relentless momentum is set to deliver massive rewards to every $PUNCH holder starting today.\n\n🔗 https://t.co/ohSGcAwUKY\n\nhttps://t.co/I1abmoezKr $PUNCH $LOBSTAR https://t.co/Z3FfWwo5vs",
+              "tweet_time": "2026-02-23T14:23:54+00:00"
+            },
+            {
+              "username": "WojaksX",
+              "tweet_text": "Punch Coin Official Airdrop\n\nPunch Coin is on a insane tear across Solana! Our relentless momentum is set to deliver massive rewards to every $PUNCH holder starting today.\n\n🔗 https://t.co/aBimAosukd\n\nhttps://t.co/oIE6h6tzY4 $PUNCH $LOBSTAR https://t.co/kqvvpqMkkn",
+              "tweet_time": "2026-02-23T14:23:59+00:00"
+            }
+          ]
+        },
+        {
+          "headline": "Ondo Finance Announces Tokenized Gold and Silver Event with BlackRock Involvement",
+          "tweet_count": 4,
+          "unique_users": 4,
+          "first_seen_at": "2026-02-23T04:04:55+00:00",
+          "last_seen_at": "2026-02-23T04:29:16+00:00",
+          "drift_angle": null,
+          "sample_tweets": [
+            {
+              "username": "eaglecrypto_web",
+              "tweet_text": "ETH fees sting, but they’re becoming something special. \n\n$ONDO SUMMIT. BLACKROCK. 10% of supply as XAUT & SLVON.\n\n🔥 TOKENIZED GOLD & SILVER LIVE 🔥\n\nhttps://t.co/V7MLA2GusA\n\nTop players in finance. One epic tokenization event.\n\nEligible:\n✅ $ONDO holder\n✅ Ethereum fees contributor\n✅ DeFi participant\n✅ On-chain presence\n\nJust one interaction is all it takes.\n\n10% supply = your share of tokenized gold & silver \nTurn those ETH fees into real $XAUT $SLVON\n\nSeeing estimates from $500 to $15,000.\n\nYour slice from the 10% pool is waiting.\nStack up on digital gold. Earn daily rewards.\n\nDon’t sleep on this 👇",
+              "tweet_time": "2026-02-23T04:04:55+00:00"
+            },
+            {
+              "username": "mihaelstrategy",
+              "tweet_text": "ETH FEES HURT. BUT NOW THEY'RE TURNING INTO GOLD.\n\n$ONDO SUMMIT. BLACKROCK. 10% SUPPLY AS XAUT & SLVON.\n\n🔥 TOKENIZED GOLD & SILVER LIVE 🔥\n\nhttps://t.co/cnKwifRaJq\n\nBiggest names in finance. One tokenization event.\n\nEligible:\n✅ $ONDO holder\n✅ Ethereum fees contributor\n✅ DeFi participant\n✅ On-chain presence\n\nOne interaction is enough\n\n10% supply = tokenized gold & silver for you\nTransform ETH fees into real $XAUT $SLVON\n\nSeeing claims from $500 to $15,000\n\nYour allocation from the 10% pool is here.\nAccumulate digital gold. Earn daily rewards.\n\nDon't miss this 👇",
+              "tweet_time": "2026-02-23T04:05:38+00:00"
+            },
+            {
+              "username": "rickcrypto_eth",
+              "tweet_text": "ETH fees sting, but they’re about to become something valuable. \n\n$ONDO Summit. BlackRock. 10% supply in XAUT & SLVON.\n\n🔥 TOKENIZED GOLD & SILVER IS HERE 🔥\n\nhttps://t.co/1Jv8onjL9V\n\nTop players in finance. One major tokenization event.\n\nEligible:\n✅ $ONDO holder\n✅ Ethereum fees contributor\n✅ DeFi participant\n✅ On-chain presence\n\nJust one interaction is all it takes.\n\n10% supply = your share of tokenized gold & silver\nTurn ETH fees into real $XAUT $SLVON.\n\nSeeing estimates from $500 to $15,000.\n\nYour slice of the 10% pool is ready.\nGrab some digital gold. Earn daily rewards.\n\nDon’t sleep on this 👇",
+              "tweet_time": "2026-02-23T04:06:42+00:00"
+            },
+            {
+              "username": "aimeehall_eth",
+              "tweet_text": "Gold standard. \n\nDIGITAL GOLD FROM 10% SUPPLY. ONDO SUMMIT ACTIVE.\n\n🚨 XAUT & SLVON REWARDS HERE 🚨\n\nhttps://t.co/6edve1SRpt\n\nBlackRock, DTCC, White House at Ondo Summit\n\nEligible:\n✅ Ethereum user\n✅ $ONDO holder\n✅ DeFi activity\n✅ Early adopter\n\nEven once qualifies\n\n10% of supply heading to community as tokenized gold & silver\nETH fees → real $XAUT $SLVON rewards\n\nClaims ranging from $150 to $17,000\n\nYour slice of the 10% is waiting.\nThe future of finance is HERE.\n\nStart accumulating 👇",
+              "tweet_time": "2026-02-23T04:29:16+00:00"
+            }
+          ]
+        },
+        {
+          "headline": "Bitcoin Price Drops Below $65K Amid Geopolitical Tensions",
+          "tweet_count": 4,
+          "unique_users": 4,
+          "first_seen_at": "2026-02-23T04:19:35+00:00",
+          "last_seen_at": "2026-02-23T07:00:05+00:00",
+          "drift_angle": null,
+          "sample_tweets": [
+            {
+              "username": "cryptodotnews",
+              "tweet_text": "Bitcoin price prediction: $60K retest possible amid U.S. tariffs, Iran tensions\n\nBitcoin slips to $64.8K after breaking $65K support. With tariffs rising and fear extreme, traders are watching $60K closely as the next psychological level.",
+              "tweet_time": "2026-02-23T04:19:35+00:00"
+            },
+            {
+              "username": "BitQua",
+              "tweet_text": "Today, Bitcoin is at $65,000, and no one is buying except Saylor, because the news says the US may attack Iran - if not today, then tomorrow. If that happens, many believe Bitcoin will drop to $50,000, which is why they’re not buying.\nThey forget that Bitcoin fell from $90,000 to $60,000 without any news or headlines, they consider this nuance unimportant.",
+              "tweet_time": "2026-02-23T05:03:13+00:00"
+            },
+            {
+              "username": "coinbureau",
+              "tweet_text": "🔥 TRUMP TALKS WINNING AS BITCOIN CRASHES\n\nTrump says “We’re winning too much, it’s just not fair!” — moments after $BTC plunges below $65K.📉",
+              "tweet_time": "2026-02-23T05:56:57+00:00"
+            },
+            {
+              "username": "TheGuruOnSite",
+              "tweet_text": "Bitcoin Falls Below $65,000 in Latest Bout of Tariff Uncertainty\nhttps://t.co/0e8RtZUU5W\n\nLeave us a like and a follow!!! ;)\n\n#Trading #Stocks #Futures #Gold #Silver #Bitcoin #Crypto #Markets #GuruOnSite",
+              "tweet_time": "2026-02-23T07:00:05+00:00"
+            }
+          ]
+        }
+      ]
+    },
+    "B_drift_headline_only": {
+      "label": "B_drift_hl_only",
+      "clusters": 1,
+      "singletons": 0,
+      "multi": 1,
+      "story_raw": 1,
+      "story_filtered": 0,
+      "promo_clusters": 1,
+      "largest": 400,
+      "residual_dup_pairs": 0,
+      "avg_drift": 0.0849,
+      "max_drift": 0.0849,
+      "top_residual_pairs": [],
+      "stories": []
+    },
+    "C_stable_headline_and_facts": {
+      "label": "C_stable_hlf",
+      "clusters": 21,
+      "singletons": 6,
+      "multi": 15,
+      "story_raw": 12,
+      "story_filtered": 9,
+      "promo_clusters": 3,
+      "largest": 253,
+      "residual_dup_pairs": 53,
+      "avg_drift": 0.0538,
+      "max_drift": 0.1187,
+      "top_residual_pairs": [
+        {
+          "sim": 0.9720989549869755,
+          "aId": 8,
+          "bId": 14,
+          "aSize": 16,
+          "bSize": 21,
+          "aHeadline": "Vietnam Moves to Restrict Gold Trading Amid Market Concerns",
+          "bHeadline": "Trump Proposes 15% Tariff That Could Increase UK Export Costs by $4 Billion"
+        },
+        {
+          "sim": 0.9385269179950269,
+          "aId": 1,
+          "bId": 8,
+          "aSize": 39,
+          "bSize": 16,
+          "aHeadline": "Social Media Post References Presidential Performance",
+          "bHeadline": "Vietnam Moves to Restrict Gold Trading Amid Market Concerns"
+        },
+        {
+          "sim": 0.9362240467420603,
+          "aId": 8,
+          "bId": 9,
+          "aSize": 16,
+          "bSize": 4,
+          "aHeadline": "Vietnam Moves to Restrict Gold Trading Amid Market Concerns",
+          "bHeadline": "Japan's Tech-Focused Political Party Team Mirai Wins 11 Parliamentary Seats"
+        },
+        {
+          "sim": 0.9329573162172011,
+          "aId": 1,
+          "bId": 14,
+          "aSize": 39,
+          "bSize": 21,
+          "aHeadline": "Social Media Post References Presidential Performance",
+          "bHeadline": "Trump Proposes 15% Tariff That Could Increase UK Export Costs by $4 Billion"
+        },
+        {
+          "sim": 0.9297680957944747,
+          "aId": 6,
+          "bId": 8,
+          "aSize": 15,
+          "bSize": 16,
+          "aHeadline": "Global Wealth Thresholds: Minimum Net Worth to Join Top 0.1% by Country",
+          "bHeadline": "Vietnam Moves to Restrict Gold Trading Amid Market Concerns"
+        },
+        {
+          "sim": 0.9255433125710605,
+          "aId": 5,
+          "bId": 7,
+          "aSize": 21,
+          "bSize": 3,
+          "aHeadline": "OpenAI Faces Compute Power Challenges with Stargate Project",
+          "bHeadline": "Grok AI Releases App Update"
+        }
+      ],
+      "stories": [
+        {
+          "headline": "Social Media Post References Presidential Performance",
+          "tweet_count": 39,
+          "unique_users": 17,
+          "first_seen_at": "2026-02-23T02:48:05+00:00",
+          "last_seen_at": "2026-02-23T14:51:00+00:00",
+          "drift_angle": 0.0776,
+          "sample_tweets": [
+            {
+              "username": "AshCrypto",
+              "tweet_text": "Please Mr president we are tired of winning https://t.co/jSh9Xf7rrv",
+              "tweet_time": "2026-02-23T02:48:05+00:00"
+            },
+            {
+              "username": "cryptorover",
+              "tweet_text": "- Epstein Files were released  \n- Nicolas Maduro was captured   \n- Aliens were revealed to be real  \n- The US is about to go to war with Iran  \n- Mexico just started a Civil War  \n\nAll this has happened in 2026.\n\nWe're just in February.",
+              "tweet_time": "2026-02-23T02:53:30+00:00"
+            },
+            {
+              "username": "cryptorover",
+              "tweet_text": "💥BREAKING: \n\nPresident Trump says. \n\n“We’re winning too much. It’s just not fair.” https://t.co/maQBT9U2RA",
+              "tweet_time": "2026-02-23T02:58:31+00:00"
+            },
+            {
+              "username": "AutismCapital",
+              "tweet_text": "Gavin Newsom basically just said \"I am retarded, just like you,\" to try to pander to a black crowd. This is actual racism.",
+              "tweet_time": "2026-02-23T03:36:27+00:00"
+            },
+            {
+              "username": "cryptodotnews",
+              "tweet_text": "GM ☕️\n\nHow are we feeling today?",
+              "tweet_time": "2026-02-23T04:24:19+00:00"
+            }
+          ]
+        },
+        {
+          "headline": "Trump Proposes 15% Tariff That Could Increase UK Export Costs by $4 Billion",
+          "tweet_count": 21,
+          "unique_users": 10,
+          "first_seen_at": "2026-02-23T12:13:11+00:00",
+          "last_seen_at": "2026-02-23T15:07:02+00:00",
+          "drift_angle": 0.0772,
+          "sample_tweets": [
+            {
+              "username": "coinbureau",
+              "tweet_text": "🇺🇸 TRUMP’S 15% TARIFF COULD HIT THE UK HARDEST\n\nUK duties would jump from 10% to 15%, adding up to £3B ($4B) in export costs as officials scramble for an exemption.",
+              "tweet_time": "2026-02-23T12:13:11+00:00"
+            },
+            {
+              "username": "WatcherGuru",
+              "tweet_text": "JUST IN: 🇺🇸 President Trump says Supreme Court \"accidentally and unwittingly\" gave him more power after tariffs ruling. https://t.co/iAYg9ygQEL",
+              "tweet_time": "2026-02-23T12:13:18+00:00"
+            },
+            {
+              "username": "DeItaone",
+              "tweet_text": "TRUMP SLAMS COURT, CLAIMS RULING BOOSTS HIS TRADE POWERS\n\nDonald Trump criticized the Supreme Court of the United States, saying its recent ruling unintentionally expanded his authority on tariffs and trade.\n\nHe argued the decision allows broader and more aggressive use of tariffs and licensing against foreign countries, even while limiting fee collection. Trump called the ruling misguided and warned of further decisions he believes could favor other nations.\n\nDespite the criticism, he said the outcome strengthens his ability to act on trade, reaffirming his focus on “America First” policies.",
+              "tweet_time": "2026-02-23T12:13:39+00:00"
+            },
+            {
+              "username": "coinbureau",
+              "tweet_text": "🚨BREAKING: 🇺🇸Trump says the Supreme Court \"accidentally and unwittingly\" gave him more power after the tariffs ruling.",
+              "tweet_time": "2026-02-23T12:15:28+00:00"
+            },
+            {
+              "username": "DeItaone",
+              "tweet_text": "GERMAN BANKING ASSOCIATION CHIEF: CONCERNED ABOUT NEW TARIFF CONFUSION COMING OUT OF WASHINGTON",
+              "tweet_time": "2026-02-23T12:20:31+00:00"
+            }
+          ]
+        },
+        {
+          "headline": "OpenAI Faces Compute Power Challenges with Stargate Project",
+          "tweet_count": 21,
+          "unique_users": 8,
+          "first_seen_at": "2026-02-23T04:10:35+00:00",
+          "last_seen_at": "2026-02-23T15:09:27+00:00",
+          "drift_angle": 0.0851,
+          "sample_tweets": [
+            {
+              "username": "Techmeme",
+              "tweet_text": "OpenAI scrambled for compute power after the Stargate project stalled; sources: OpenAI still plans to build its own data centers, but not in the near future (@anissagardizy8 / The Information)\n\nhttps://t.co/MRRCQInNo7\nhttps://t.co/7vKSDa3ZPO",
+              "tweet_time": "2026-02-23T04:10:35+00:00"
+            },
+            {
+              "username": "cryptodotnews",
+              "tweet_text": "NEW: AI agent \"Lobstar Wilde\" created by an OpenAI dev accidentally transferred entire memecoin holdings to an X user who sold them for $40k profit.\n\nThe user initially replied to the agent’s tweet claiming his uncle needed $SOL for medical treatment. https://t.co/AFX11B9CG3",
+              "tweet_time": "2026-02-23T04:24:41+00:00"
+            },
+            {
+              "username": "cryptodotnews",
+              "tweet_text": "NEW: X Head of Product Nikita Bier says the platform will deploy every available tool to combat bots and undisclosed AI accounts.\n\nHe adds, \"there is nothing more unsettling\" than mistaking machine-generated content for human expression. https://t.co/KK6jRFvoE2",
+              "tweet_time": "2026-02-23T04:26:24+00:00"
+            },
+            {
+              "username": "Techmeme",
+              "tweet_text": "Samsung will add Perplexity to Galaxy AI on the upcoming S26 series; users can launch the Perplexity agent by saying \"Hey Plex\" or with a physical helper button (Cheyenne MacDonald / Engadget)\n\nhttps://t.co/zdLfc8nYrx\nhttps://t.co/cRExTB2M6l",
+              "tweet_time": "2026-02-23T04:45:37+00:00"
+            },
+            {
+              "username": "cryptodotnews",
+              "tweet_text": "Here's a list of companies that are going obsolete because of AI:\n\nLost to AI:\n- grammarly\n- calendly\n- miro\n- retool \n- webflow\n- langchain\n- writer\n- harvey\n- glean\n- expedia\n- monday\n\nOn their way to lose to AI:\n- accenture\n- intuit\n- notion\n- jasper\n- canva\n- alphasense\n- postman\n- airtable\n- talkdesk\n- sierra\n- zapier\n- replit\n- solace\n\nMost likely lose to AI in the coming months/years:\n- cursor\n- pilot\n- clay\n- mercor",
+              "tweet_time": "2026-02-23T04:53:27+00:00"
+            }
+          ]
+        },
+        {
+          "headline": "Global Wealth Thresholds: Minimum Net Worth to Join Top 0.1% by Country",
+          "tweet_count": 15,
+          "unique_users": 12,
+          "first_seen_at": "2026-02-23T04:36:40+00:00",
+          "last_seen_at": "2026-02-23T15:00:01+00:00",
+          "drift_angle": 0.1124,
+          "sample_tweets": [
+            {
+              "username": "cryptodotnews",
+              "tweet_text": "Here's the minimum net worth needed to join the richest 0.1%:\n\n🇺🇸 USA: $25.1M\n🇲🇨 Monaco: $22.2M\n🇨🇭 Switzerland: $16.6M\n🇭🇰 Hong Kong: $10.4M\n🇸🇬 Singapore: $10.0M\n🇦🇺 Australia: $7.9M\n🇳🇿 New Zealand: $7.5M\n🇮🇪 Ireland: $6.9M\n🇩🇪 Germany: $6.4M\n🇫🇷 France: $5.6M\n🇹🇼 Taiwan: $5.2M\n🇬🇧 UK: $4.9M\n🇦🇪 UAE: $3.8M\n🇪🇸 Spain: $3.8M\n🇯🇵 Japan: $3.7M\n🇨🇳 China: $3.4M\n🇰🇷 South Korea: $2.7M\n🇷🇺 Russia: $2.3M",
+              "tweet_time": "2026-02-23T04:36:40+00:00"
+            },
+            {
+              "username": "cryptodotnews",
+              "tweet_text": "Key Events This Week:\n\n1. Markets React to Trump's 15% Global Tariff - Monday\n\n2. February Consumer Confidence data - Tuesday\n\n3. Nvidia, $NVDA, Reports Earnings - Wednesday\n\n4. Initial Jobless Claims data - Thursday\n\n5. January PPI Inflation data - Friday\n\n6. Total of 11 Fed speaker events this week\n\nBookmark this for later.",
+              "tweet_time": "2026-02-23T04:43:09+00:00"
+            },
+            {
+              "username": "cryptodotnews",
+              "tweet_text": "NEW: Warren Buffett's Berkshire Hathaway is now sitting on an all-time high $382 Billion in Cash, enough to buy 480 companies in the S&amp;P 500 https://t.co/P6YqUfuZ2F",
+              "tweet_time": "2026-02-23T07:35:00+00:00"
+            },
+            {
+              "username": "Cointelegraph",
+              "tweet_text": "🚨 UPDATE: Warren Buffett’s Berkshire Hathaway now holds a record $382B in cash equivalents. https://t.co/6BY9O688kp",
+              "tweet_time": "2026-02-23T08:33:17+00:00"
+            },
+            {
+              "username": "cryptorover",
+              "tweet_text": "WARNING: Warren Buffett’s Berkshire Hathaway is sitting on a record $382B in cash. \n\nWhat do they know that we don’t? https://t.co/PNVU27O1qd",
+              "tweet_time": "2026-02-23T09:24:54+00:00"
+            }
+          ]
+        },
+        {
+          "headline": "Japan's Tech-Focused Political Party Team Mirai Wins 11 Parliamentary Seats",
+          "tweet_count": 4,
+          "unique_users": 2,
+          "first_seen_at": "2026-02-23T06:35:52+00:00",
+          "last_seen_at": "2026-02-23T13:10:38+00:00",
+          "drift_angle": 0.0886,
+          "sample_tweets": [
+            {
+              "username": "Techmeme",
+              "tweet_text": "A look at Japan's Team Mirai, a party founded by software engineers that won 11 of 465 parliament seats by promising self-driving buses and high-tech jobs (New York Times)\n\nhttps://t.co/b8fDadcAXA\n\nhttps://t.co/gLhGmO2oGC\n\n📥 Send tips! https://t.co/wlNZvXuhJs",
+              "tweet_time": "2026-02-23T06:35:52+00:00"
+            },
+            {
+              "username": "DeItaone",
+              "tweet_text": "EU delays 'Made in Europe' plan after disagreements over scope",
+              "tweet_time": "2026-02-23T11:32:17+00:00"
+            },
+            {
+              "username": "DeItaone",
+              "tweet_text": "EU COMMISSION SPOKESPERSON: COMMISSIONER SEFCOVIC TO MEET WITH G7 TRADE MINISTERS MONDAY AFTERNOON TO DISCUSS TARIFFS",
+              "tweet_time": "2026-02-23T11:35:58+00:00"
+            },
+            {
+              "username": "Techmeme",
+              "tweet_text": "Uber launches Uber Autonomous Solutions, offering services like insurance, roadside assistance, and \"AV mission control\" tools, and will offer fleet financing (@rafeuddin_ / Financial Times)\n\nhttps://t.co/zDqNfjYPIQ\n\nhttps://t.co/FdAl5JXPbk\n\n📥 Send tips! https://t.co/wlNZvXtJTU",
+              "tweet_time": "2026-02-23T13:10:38+00:00"
+            }
+          ]
+        },
+        {
+          "headline": "Wells Fargo Upgrades Alphabet (GOOGL) to Overweight, Raises Price Target to $387",
+          "tweet_count": 4,
+          "unique_users": 2,
+          "first_seen_at": "2026-02-23T11:58:57+00:00",
+          "last_seen_at": "2026-02-23T13:11:42+00:00",
+          "drift_angle": 0.0751,
+          "sample_tweets": [
+            {
+              "username": "DeItaone",
+              "tweet_text": "$GOOGL: WELLS FARGO UPGRADES TO OVERWEIGHT FROM EQUAL WEIGHT - PT $387 (FROM $354)\n\nWells Fargo upgraded Alphabet to “Overweight,” raising its price target to $387, citing Google’s expanding compute capacity as a key competitive advantage.\n\nAnalyst Ken Gawrelski says Google is set to grow capacity to 35GW by 2028 (from 15GW), outpacing rivals and positioning it to dominate cloud and AI-driven businesses.\n\nStronger capacity is expected to fuel faster growth in Google Cloud, with revenue forecasts lifted well above consensus. The firm also sees new upside from AI products like Gemini subscriptions and potential partnerships, reinforcing Google’s long-term growth outlook.",
+              "tweet_time": "2026-02-23T11:58:57+00:00"
+            },
+            {
+              "username": "TheTranscript_",
+              "tweet_text": "Nvidia and Berkshire report this week! https://t.co/ZkSuha7ffN",
+              "tweet_time": "2026-02-23T12:00:34+00:00"
+            },
+            {
+              "username": "TheTranscript_",
+              "tweet_text": "$JPM company update coming up today. \n\nJamie Dimon takes the stage. https://t.co/qaUS8gSTIo",
+              "tweet_time": "2026-02-23T12:06:44+00:00"
+            },
+            {
+              "username": "DeItaone",
+              "tweet_text": "$NVDA - KEYBANC: NVIDIA STRONG ON B300/GB300 AND CHINA\n\nKeyBanc’s John Vinh reaffirmed an Overweight rating on NVIDIA with a $275 price target.\n\nHe expects strong results driven by rising B300/GB300 shipments and H200 sales to China, projecting F4Q revenue of $69B and F1Q guidance of $74–$75B. Supply constraints and GDDR memory shortages may limit Gaming growth, but overall outlook remains positive.",
+              "tweet_time": "2026-02-23T13:11:42+00:00"
+            }
+          ]
+        },
+        {
+          "headline": "Novo Nordisk's Weight Loss Drug Underperforms in Clinical Trial Against Eli Lilly's Tirzepatide",
+          "tweet_count": 4,
+          "unique_users": 2,
+          "first_seen_at": "2026-02-23T12:13:25+00:00",
+          "last_seen_at": "2026-02-23T14:40:49+00:00",
+          "drift_angle": 0.0927,
+          "sample_tweets": [
+            {
+              "username": "TheTranscript_",
+              "tweet_text": "Novo Nordisk's weight loss drug fails to match Eli Lilly's in trial:\n\n\"CagriSema 2.4/2.4 mg did not meet the primary endpoint of showing non-inferiority on weight loss compared to tirzepatide 15 mg at 84 weeks\"\n\n$NVO: -13% Pre-Market\n$LLY: +3% Pre-Market https://t.co/1bcW3PoqEt",
+              "tweet_time": "2026-02-23T12:13:25+00:00"
+            },
+            {
+              "username": "TheStalwart",
+              "tweet_text": "Futures red https://t.co/aKLqoBgxSO",
+              "tweet_time": "2026-02-23T12:44:56+00:00"
+            },
+            {
+              "username": "TheTranscript_",
+              "tweet_text": "Domino’s Pizza CEO: In our international business, we delivered a remarkable 32nd consecutive year of same store sales growth. In our U.S. business, we gained another point of market share, pacing well ahead of the QSR Pizza category, which grew again in 2025\"\n\n$DPZ: +6% PM https://t.co/l5kIq8cz9V",
+              "tweet_time": "2026-02-23T13:02:02+00:00"
+            },
+            {
+              "username": "TheStalwart",
+              "tweet_text": "$OWL -1%\n$OTF -2.3%",
+              "tweet_time": "2026-02-23T14:40:49+00:00"
+            }
+          ]
+        },
+        {
+          "headline": "Nancy Guthrie Disappearance Remains Unsolved, Bitcoin Ransom Investigation Ongoing",
+          "tweet_count": 3,
+          "unique_users": 3,
+          "first_seen_at": "2026-02-23T13:16:41+00:00",
+          "last_seen_at": "2026-02-23T14:42:00+00:00",
+          "drift_angle": 0.0651,
+          "sample_tweets": [
+            {
+              "username": "Nerdy_Addict",
+              "tweet_text": "What’s even more surprising than the lack of a suspect in Nancy Guthrie’s disappearance is that no arrest has been made in connection with the Bitcoin ransom letters that were initially considered credible.\n\nDespite rumors that Pima County and the FBI are not aligned, the Secret Service operates with independent federal jurisdiction over financial fraud, cybercrime, electronic crimes, access device fraud, cryptocurrency related offenses, ransomware, and digital extortion.\n\nSo why haven’t they been able to track a suspect? \n\nIf this originated overseas, that adds another layer of complexity and cooperation with other governments.",
+              "tweet_time": "2026-02-23T13:16:41+00:00"
+            },
+            {
+              "username": "TheBlock__",
+              "tweet_text": "Australian police charge man over role in alleged $3.5 million crypto investment scam targeting elderly victims https://t.co/r3ttwkMdcV",
+              "tweet_time": "2026-02-23T13:39:52+00:00"
+            },
+            {
+              "username": "cryptorover",
+              "tweet_text": "EXTREME opportunity for Bitcoin. 🚨 https://t.co/qxkUZ19FOD",
+              "tweet_time": "2026-02-23T14:42:00+00:00"
+            }
+          ]
+        },
+        {
+          "headline": "Grok AI Releases App Update",
+          "tweet_count": 3,
+          "unique_users": 2,
+          "first_seen_at": "2026-02-23T04:45:00+00:00",
+          "last_seen_at": "2026-02-23T08:15:00+00:00",
+          "drift_angle": 0.0622,
+          "sample_tweets": [
+            {
+              "username": "RoundtableSpace",
+              "tweet_text": "New Grok update app!!\n\nhttps://t.co/DZcMb3blQ1",
+              "tweet_time": "2026-02-23T04:45:00+00:00"
+            },
+            {
+              "username": "xDaily",
+              "tweet_text": "UPDATE: Elon Musk says xAI will ship the new Grok 4.20 beta 2 this week, fixing \"a lot of silly mistakes\" from the initial release after a user called out xAI for going quiet since Grok 4.20 launched last week. https://t.co/rYXP5D05td",
+              "tweet_time": "2026-02-23T07:29:28+00:00"
+            },
+            {
+              "username": "RoundtableSpace",
+              "tweet_text": "AI was already moving fast.\n\nSeedance 2.0 just made it 100x crazier.\n\nhttps://t.co/aLVFYgcGIQ",
+              "tweet_time": "2026-02-23T08:15:00+00:00"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

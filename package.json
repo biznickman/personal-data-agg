@@ -10,6 +10,9 @@
     "stories:cluster-eval": "node scripts/cluster-threshold-eval.cjs",
     "stories:cluster-compare": "node scripts/cluster-compare.cjs",
     "stories:embedding-preview": "node scripts/embedding-story-preview.cjs",
+    "stories:stability-eval": "node scripts/cluster-stability-eval.cjs",
+    "stories:cluster-audit": "node scripts/cluster-audit.cjs",
+    "stories:embedding-eval": "node scripts/embedding-cluster-eval.cjs",
     "build": "next build --webpack",
     "start": "next start",
     "lint": "eslint"

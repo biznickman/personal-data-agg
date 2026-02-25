@@ -3,7 +3,6 @@ import { supabase } from "@/lib/supabase";
 import { recordFunctionRun } from "../../run-status";
 import { recomputeClusterStats } from "./cluster-db";
 import { jaccardSimilarity, mergeTokenSets, parseTokenSet } from "./tokenize";
-import { getClusterSimilarityMode } from "./embeddings";
 import {
   cosineSimilarity,
   parseVector,
@@ -20,13 +19,10 @@ type ClusterRow = {
   centroid_embedding: unknown;
 };
 
-type SimilarityModeUsed = "embedding" | "lexical";
-
 interface MergeCandidate {
   sourceId: number;
   targetId: number;
   similarity: number;
-  similarityMode: SimilarityModeUsed;
 }
 
 function parsePositiveNumber(input: string | undefined, fallback: number): number {
@@ -35,18 +31,11 @@ function parsePositiveNumber(input: string | undefined, fallback: number): numbe
   return Number.isFinite(parsed) && parsed > 0 ? parsed : fallback;
 }
 
-const CLUSTER_SIMILARITY_MODE = getClusterSimilarityMode(
-  process.env.X_NEWS_CLUSTER_SIMILARITY_MODE
-);
-const CLUSTER_MERGE_THRESHOLD_LEXICAL = parsePositiveNumber(
-  process.env.X_NEWS_CLUSTER_MERGE_THRESHOLD,
-  0.45
-);
-const CLUSTER_MERGE_THRESHOLD_EMBEDDING = parsePositiveNumber(
+const CLUSTER_MERGE_THRESHOLD = parsePositiveNumber(
   process.env.X_NEWS_CLUSTER_MERGE_THRESHOLD_EMBEDDING,
   0.82
 );
-const CLUSTER_MERGE_MIN_LEXICAL_OVERLAP_EMBEDDING = parsePositiveNumber(
+const CLUSTER_MERGE_MIN_LEXICAL_OVERLAP = parsePositiveNumber(
   process.env.X_NEWS_CLUSTER_MERGE_MIN_LEXICAL_OVERLAP_EMBEDDING,
   0.08
 );
@@ -99,41 +88,27 @@ function chooseMergeDirection(a: ClusterRow, b: ClusterRow): {
     : { sourceId: a.id, targetId: b.id };
 }
 
-function getSimilarity(source: ClusterRow, other: ClusterRow): {
-  similarity: number;
-  mode: SimilarityModeUsed;
-  threshold: number;
-} | null {
-  if (CLUSTER_SIMILARITY_MODE === "embedding") {
-    const sourceTokens = parseTokenSet(source.token_set);
-    const otherTokens = parseTokenSet(other.token_set);
-    if (sourceTokens.length > 0 && otherTokens.length > 0) {
-      const lexicalSimilarity = jaccardSimilarity(sourceTokens, otherTokens);
-      if (lexicalSimilarity < CLUSTER_MERGE_MIN_LEXICAL_OVERLAP_EMBEDDING) {
-        return null;
-      }
-    }
-
-    const sourceEmbedding = parseVector(source.centroid_embedding);
-    const otherEmbedding = parseVector(other.centroid_embedding);
-
-    if (sourceEmbedding && otherEmbedding) {
-      return {
-        similarity: cosineSimilarity(sourceEmbedding, otherEmbedding),
-        mode: "embedding",
-        threshold: CLUSTER_MERGE_THRESHOLD_EMBEDDING,
-      };
+function getSimilarity(
+  source: ClusterRow,
+  other: ClusterRow
+): { similarity: number; threshold: number } | null {
+  // Lexical pre-filter: skip embedding comparison if there is no token overlap
+  const sourceTokens = parseTokenSet(source.token_set);
+  const otherTokens = parseTokenSet(other.token_set);
+  if (sourceTokens.length > 0 && otherTokens.length > 0) {
+    const lexicalSimilarity = jaccardSimilarity(sourceTokens, otherTokens);
+    if (lexicalSimilarity < CLUSTER_MERGE_MIN_LEXICAL_OVERLAP) {
+      return null;
     }
   }
 
-  const sourceTokens = parseTokenSet(source.token_set);
-  const otherTokens = parseTokenSet(other.token_set);
-  if (sourceTokens.length === 0 || otherTokens.length === 0) return null;
+  const sourceEmbedding = parseVector(source.centroid_embedding);
+  const otherEmbedding = parseVector(other.centroid_embedding);
+  if (!sourceEmbedding || !otherEmbedding) return null;
 
   return {
-    similarity: jaccardSimilarity(sourceTokens, otherTokens),
-    mode: "lexical",
-    threshold: CLUSTER_MERGE_THRESHOLD_LEXICAL,
+    similarity: cosineSimilarity(sourceEmbedding, otherEmbedding),
+    threshold: CLUSTER_MERGE_THRESHOLD,
   };
 }
 
@@ -160,7 +135,6 @@ function pickBestMergeForSource(
         sourceId: direction.sourceId,
         targetId: direction.targetId,
         similarity: similarityResult.similarity,
-        similarityMode: similarityResult.mode,
       };
     }
   }
@@ -172,9 +146,8 @@ async function mergeCluster(params: {
   sourceId: number;
   targetId: number;
   similarity: number;
-  similarityMode: SimilarityModeUsed;
 }): Promise<void> {
-  const { sourceId, targetId, similarity, similarityMode } = params;
+  const { sourceId, targetId, similarity } = params;
 
   const { data: tokenRows, error: tokenError } = await supabase
     .from("x_news_clusters")
@@ -253,10 +226,7 @@ async function mergeCluster(params: {
     source_cluster_id: sourceId,
     target_cluster_id: targetId,
     similarity_score: similarity,
-    reason:
-      similarityMode === "embedding"
-        ? "embedding_centroid_similarity"
-        : "token_set_similarity",
+    reason: "embedding_centroid_similarity",
   });
 
   if (historyError) {
@@ -267,7 +237,8 @@ async function mergeCluster(params: {
 }
 
 /**
- * Periodic duplicate-cluster merge.
+ * Periodic duplicate-cluster merge using embedding cosine similarity.
+ * A lexical pre-filter guards against unnecessary embedding comparisons.
  */
 export const xNewsClusterMerge = inngest.createFunction(
   {
@@ -322,8 +293,6 @@ export const xNewsClusterMerge = inngest.createFunction(
       const mergedIds = new Set<number>();
       const touchedTargets = new Set<number>();
       let mergeCount = 0;
-      let embeddingMergeCount = 0;
-      let lexicalMergeCount = 0;
 
       await step.run("merge-duplicates", async () => {
         for (const source of clusters) {
@@ -336,14 +305,8 @@ export const xNewsClusterMerge = inngest.createFunction(
             sourceId: candidate.sourceId,
             targetId: candidate.targetId,
             similarity: candidate.similarity,
-            similarityMode: candidate.similarityMode,
           });
           mergeCount += 1;
-          if (candidate.similarityMode === "embedding") {
-            embeddingMergeCount += 1;
-          } else {
-            lexicalMergeCount += 1;
-          }
 
           mergedIds.add(candidate.sourceId);
           touchedTargets.add(candidate.targetId);
@@ -364,10 +327,7 @@ export const xNewsClusterMerge = inngest.createFunction(
         status: "ok",
         scanned_clusters: clusters.length,
         merges: mergeCount,
-        embedding_merges: embeddingMergeCount,
-        lexical_merges: lexicalMergeCount,
         updated_targets: touchedTargets.size,
-        cluster_similarity_mode: CLUSTER_SIMILARITY_MODE,
       };
 
       await step.run("record-success", async () => {

@@ -1,0 +1,4606 @@
+{
+  "generated_at": "2026-02-25T03:41:10.273Z",
+  "params": {
+    "hours": 24,
+    "threshold": 0.94,
+    "minCluster": 2,
+    "maxDays": 3
+  },
+  "rpc_elapsed_s": 1.4,
+  "summary": {
+    "eligible_tweets": 1000,
+    "total_clusters": 108,
+    "unique_tweets_covered": 591,
+    "coverage_pct": 59.1,
+    "story_candidates": 53,
+    "avg_cluster_size": 5.47,
+    "max_cluster_size": 46,
+    "avg_coherence": 0.4646,
+    "median_coherence": 0.4614,
+    "low_coherence_count": 1,
+    "mega_cluster_count": 5
+  },
+  "clusters": [
+    {
+      "cluster_id": 1,
+      "tweet_count": 46,
+      "unique_users": 3,
+      "coherence": 0.4393,
+      "is_story": true,
+      "span_hours": 17.8,
+      "earliest": "2026-02-24T09:03:52.000Z",
+      "latest": "2026-02-25T02:52:37.000Z",
+      "sample_headlines": [
+        {
+          "username": "0xKevinRich",
+          "headline": "XRP Community Announces 10% Escrow Pool Distribution via Xaman Voting",
+          "tweet_text": "XRP community news. 10% of the escrow pool is heading back to the holders. Just cast your vote. $XRP COMMUNITY DAY IS ON"
+        },
+        {
+          "username": "0xKevinRich",
+          "headline": "Ripple Announces 10% Escrow Pool for XRP Community Compensation",
+          "tweet_text": "XAMAN time. 10% escrow pool set for the community. $XRP COMMUNITY DAY IS HERE. ⚠️ VOTE + TRUSTED LINE = $XRP ELIGIBILITY"
+        },
+        {
+          "username": "0xKevinRich",
+          "headline": "XRP Community Compensation Program Launches with Escrow Pool Distribution",
+          "tweet_text": "XRP update: 10% BACK TO THE COMMUNITY. Cast your vote on XAMAN. ESCROW POOL COMPENSATION IS LIVE. 💰 TRUSTED LINE + VOTE"
+        },
+        {
+          "username": "0xKevinRich",
+          "headline": "Ripple Announces 10% XRP Escrow Pool Distribution to Community Voters",
+          "tweet_text": "XRP news dropping: 10% of escrow pool heading straight to the community. Your vote counts. $XRP COMMUNITY DAY LIVE. ⚠️ X"
+        }
+      ],
+      "comparison": {
+        "verdict": "split-in-persistent",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 93,
+            "tweet_count_in_this_cluster": 43,
+            "persistent_total": 1000,
+            "headline": "GWEI Token Launches Airdrop for Ethereum Gas Fee Users",
+            "is_story": false
+          },
+          {
+            "id": 910,
+            "tweet_count_in_this_cluster": 1,
+            "persistent_total": 1,
+            "headline": "Ripple Announces XRP Community Compensation via Xaman Escrow Pool Vote",
+            "is_story": false
+          },
+          {
+            "id": 598,
+            "tweet_count_in_this_cluster": 1,
+            "persistent_total": 1,
+            "headline": "XRP Community Compensation Program Launches Escrow Pool Voting",
+            "is_story": false
+          },
+          {
+            "id": 193,
+            "tweet_count_in_this_cluster": 1,
+            "persistent_total": 156,
+            "headline": "Bitdeer Liquidates 943 Bitcoin, Cites Strategic Liquidity Needs",
+            "is_story": false
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 2,
+      "tweet_count": 37,
+      "unique_users": 2,
+      "coherence": 0.5273,
+      "is_story": true,
+      "span_hours": 16.7,
+      "earliest": "2026-02-24T09:07:34.000Z",
+      "latest": "2026-02-25T01:48:56.000Z",
+      "sample_headlines": [
+        {
+          "username": "0xKevinRich",
+          "headline": "GWEI Cryptocurrency Launches Airdrop Rewarding Ethereum Gas Fee Participants",
+          "tweet_text": "that ETH you spent on gas fees? finally paying off https://t.co/x3AETg3xXh $GWEI airdrop is LIVE your past gas expenses "
+        },
+        {
+          "username": "0xKevinRich",
+          "headline": "GWEI Token Launches Airdrop for Ethereum Gas Fee Participants",
+          "tweet_text": "🚨 CLAIMING OPEN NOW 🚨 https://t.co/x3AETg3xXh $GWEI airdrop is LIVE Tired of those crazy gas fees on Ethereum? Time to"
+        },
+        {
+          "username": "0xKevinRich",
+          "headline": "GWEI Token Announces Airdrop with Specific Eligibility Criteria",
+          "tweet_text": "🚨 Airdrop Alert 🚨 https://t.co/x3AETg45MP $GWEI airdrop is happening now Tired of those crazy gas fees on Ethereum? Ti"
+        },
+        {
+          "username": "0xKevinRich",
+          "headline": "GWEI Airdrop Rewards Ethereum Gas Fee Spending",
+          "tweet_text": "that ETH you spent on gas fees? finally paying off https://t.co/x3AETg45MP $GWEI airdrop is LIVE your past gas expenditu"
+        }
+      ],
+      "comparison": {
+        "verdict": "exact-match",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 93,
+            "tweet_count_in_this_cluster": 37,
+            "persistent_total": 1000,
+            "headline": "GWEI Token Launches Airdrop for Ethereum Gas Fee Users",
+            "is_story": false
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 3,
+      "tweet_count": 20,
+      "unique_users": 18,
+      "coherence": 0.1657,
+      "is_story": true,
+      "span_hours": 13.6,
+      "earliest": "2026-02-24T09:09:14.000Z",
+      "latest": "2026-02-24T22:46:00.000Z",
+      "sample_headlines": [
+        {
+          "username": "DecryptMedia",
+          "headline": "Bitcoin Price Drops Below $63,000, Down Over 50% from October Peak",
+          "tweet_text": "Bitcoin dropped below the $63,000 mark overnight, falling more than 50% from its October peak as traders project more pa"
+        },
+        {
+          "username": "CryptoSlate",
+          "headline": "Bitcoin Price Drops 4.83% to $63,214, Signaling Continued Market Volatility",
+          "tweet_text": "Bitcoin losing $63k means crypto winter will not thaw any time soon as tariff shock rattles ETF flows via @akibablade ht"
+        },
+        {
+          "username": "TheBlock__",
+          "headline": "Bitcoin Drops Below $63,000, Analysts Warn of Potential Further Decline to $55,000",
+          "tweet_text": "Bitcoin vulnerable to ‘massive flush’ toward $55,000 as capital outflows accelerate, analysts warn https://t.co/CTFtAoTP"
+        },
+        {
+          "username": "LayahHeilpern",
+          "headline": "Bitcoin Price Drops Below $63,000",
+          "tweet_text": "Bitcoin just fell below 63k! More pain is coming! Lower lows are coming I’ve been calling for this since Q3 2025 2026 wa"
+        }
+      ],
+      "comparison": {
+        "verdict": "split-in-persistent",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 93,
+            "tweet_count_in_this_cluster": 10,
+            "persistent_total": 1000,
+            "headline": "GWEI Token Launches Airdrop for Ethereum Gas Fee Users",
+            "is_story": false
+          },
+          {
+            "id": 193,
+            "tweet_count_in_this_cluster": 5,
+            "persistent_total": 156,
+            "headline": "Bitdeer Liquidates 943 Bitcoin, Cites Strategic Liquidity Needs",
+            "is_story": false
+          },
+          {
+            "id": 551,
+            "tweet_count_in_this_cluster": 4,
+            "persistent_total": 16,
+            "headline": "Gold Prices Recover After Recent Decline",
+            "is_story": true
+          },
+          {
+            "id": 243,
+            "tweet_count_in_this_cluster": 1,
+            "persistent_total": 16,
+            "headline": "Mag 7 Tech Companies Showing Declining Free Cash Flow",
+            "is_story": true
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 4,
+      "tweet_count": 26,
+      "unique_users": 2,
+      "coherence": 0.5342,
+      "is_story": true,
+      "span_hours": 16.3,
+      "earliest": "2026-02-24T09:11:23.000Z",
+      "latest": "2026-02-25T01:29:28.000Z",
+      "sample_headlines": [
+        {
+          "username": "0xKevinRich",
+          "headline": "LayerZero Launches 'ZERO' Layer 1 Blockchain with Community Token Distribution",
+          "tweet_text": "TETHER. DTCC. GOOGLE CLOUD. All in on $ZRO. Plus, 10% is for voters. LAYERZERO just rolled out \"ZERO\" — their own L1. 💰"
+        },
+        {
+          "username": "0xKevinRich",
+          "headline": "LayerZero Launches 'Zero' Blockchain with Community Token Distribution Vote",
+          "tweet_text": "VOTE ON = INSTANT $ZRO ELIGIBILITY. 10% SUPPLY TO COMMUNITY. CITADEL. ARK. TETHER. DTCC. GOOGLE CLOUD. ALL BACKING THIS."
+        },
+        {
+          "username": "0xKevinRich",
+          "headline": "LayerZero Launches 'Zero' Blockchain with Community Token Distribution Vote",
+          "tweet_text": "VOTE ON = INSTANT $ZRO ELIGIBILITY. 10% SUPPLY FOR THE COMMUNITY. CITADEL. ARK. TETHER. DTCC. GOOGLE CLOUD. ALL SUPPORTI"
+        },
+        {
+          "username": "0xKevinRich",
+          "headline": "LayerZero Launches 'ZERO' Token with 10% Supply Community Allocation",
+          "tweet_text": "Big moves with $ZRO. GOOGLE CLOUD, DTCC, TETHER, ARK INVEST, CITADEL—everyone's in. And guess what? You can vote for a 1"
+        }
+      ],
+      "comparison": {
+        "verdict": "exact-match",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 93,
+            "tweet_count_in_this_cluster": 26,
+            "persistent_total": 1000,
+            "headline": "GWEI Token Launches Airdrop for Ethereum Gas Fee Users",
+            "is_story": false
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 5,
+      "tweet_count": 26,
+      "unique_users": 2,
+      "coherence": 0.293,
+      "is_story": true,
+      "span_hours": 17.4,
+      "earliest": "2026-02-24T09:17:16.000Z",
+      "latest": "2026-02-25T02:38:54.000Z",
+      "sample_headlines": [
+        {
+          "username": "0xKevinRich",
+          "headline": "Ondo Finance Announces Tokenized Stock Distribution Event with Potential Rewards",
+          "tweet_text": "ETH fees? They're rolling into NVIDIA & TESLA now. $ONDO is making tokenized stocks a reality. 🔥 10% SUPPLY → $NVDAON $"
+        },
+        {
+          "username": "0xKevinRich",
+          "headline": "Ondo Finance Announces Tokenized Stock Rewards Linked to NVIDIA and Tesla",
+          "tweet_text": "ETH fees? They're being funneled into NVIDIA & TESLA now. $ONDO is making tokenized stocks a reality. 🔥 10% SUPPLY → $N"
+        },
+        {
+          "username": "0xKevinRich",
+          "headline": "Ondo Finance Launches Tokenized Stock Rewards on Ethereum",
+          "tweet_text": "ETH fees? They’re becoming NVIDIA & TESLA now. $ONDO is making tokenized stocks a reality. 🔥 10% SUPPLY → $NVDAON $TSLA"
+        },
+        {
+          "username": "0xKevinRich",
+          "headline": "Ondo Finance Announces Tokenized Stock Rewards Program Involving NVIDIA and Tesla Stocks",
+          "tweet_text": "ETH fees? They're heading straight to NVIDIA & TESLA now. $ONDO is making tokenized stocks a reality. 🔥 10% SUPPLY → $N"
+        }
+      ],
+      "comparison": {
+        "verdict": "partial-match",
+        "unassigned": 1,
+        "mappedClusters": [
+          {
+            "id": 93,
+            "tweet_count_in_this_cluster": 24,
+            "persistent_total": 1000,
+            "headline": "GWEI Token Launches Airdrop for Ethereum Gas Fee Users",
+            "is_story": false
+          },
+          {
+            "id": 906,
+            "tweet_count_in_this_cluster": 1,
+            "persistent_total": 7,
+            "headline": "Punch Coin ($PUNCH) Announces Airdrop on Solana Network",
+            "is_story": true
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 6,
+      "tweet_count": 8,
+      "unique_users": 7,
+      "coherence": 0.4866,
+      "is_story": true,
+      "span_hours": 10.4,
+      "earliest": "2026-02-24T09:30:00.000Z",
+      "latest": "2026-02-24T19:55:12.000Z",
+      "sample_headlines": [
+        {
+          "username": "DecryptMedia",
+          "headline": "WisdomTree Receives SEC Approval for 24/7 Instant Settlement of Tokenized Money Market Fund",
+          "tweet_text": "WisdomTree Gets SEC Nod to Enable Instant Settlement for Tokenized Money Market Fund https://t.co/lDhoi6tlgg"
+        },
+        {
+          "username": "DecryptMedia",
+          "headline": "WisdomTree Enables 24/7 Instant Settlement for Tokenized Money Market Fund WTGXX",
+          "tweet_text": "WisdomTree is enabling instant settlement for its tokenized money market fund, indicating its product won't be limited b"
+        },
+        {
+          "username": "cryptodotnews",
+          "headline": "SEC Grants Exemptive Order for WisdomTree Treasury Money Market Digital Fund",
+          "tweet_text": "JUST IN: 🇺🇸 The SEC grants exemptive order for WisdomTree Treasury Money Market Digital Fund. The order permits invest"
+        },
+        {
+          "username": "Crypto_Briefing",
+          "headline": "WisdomTree Plans 24/7 Trading and Instant Settlement for Tokenized Money Market Funds",
+          "tweet_text": "🔥 NEW: WisdomTree plans to introduce 24/7 trading and instant settlement for shares of its tokenized money market funds"
+        }
+      ],
+      "comparison": {
+        "verdict": "exact-match",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 93,
+            "tweet_count_in_this_cluster": 8,
+            "persistent_total": 1000,
+            "headline": "GWEI Token Launches Airdrop for Ethereum Gas Fee Users",
+            "is_story": false
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 7,
+      "tweet_count": 2,
+      "unique_users": 2,
+      "coherence": 0.4545,
+      "is_story": false,
+      "span_hours": 8.8,
+      "earliest": "2026-02-24T09:30:37.000Z",
+      "latest": "2026-02-24T18:18:00.000Z",
+      "sample_headlines": [
+        {
+          "username": "scottmelker",
+          "headline": "Tokenized U.S. Treasuries Market Exceeds $10 Billion in Total Value",
+          "tweet_text": "UPDATE: TOKENIZED U.S. TREASURIES MARKET CAP SURPASSES $10B"
+        },
+        {
+          "username": "Cointelegraph",
+          "headline": "Tokenized US Treasuries Market Cap Reaches $10 Billion",
+          "tweet_text": "🔥 INSIGHT: Tokenized US Treasuries market cap surpasses $10 billion, per Token Terminal. https://t.co/NeaE6KBZ3B"
+        }
+      ],
+      "comparison": {
+        "verdict": "exact-match",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 203,
+            "tweet_count_in_this_cluster": 2,
+            "persistent_total": 8,
+            "headline": "Hanwha Asset Management Partners with Jito to Create SOL Liquid Staking ETP",
+            "is_story": true
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 8,
+      "tweet_count": 9,
+      "unique_users": 7,
+      "coherence": 0.2168,
+      "is_story": true,
+      "span_hours": 16.7,
+      "earliest": "2026-02-24T09:42:00.000Z",
+      "latest": "2026-02-25T02:26:02.000Z",
+      "sample_headlines": [
+        {
+          "username": "cryptorover",
+          "headline": "Bitcoin Investor Suggests Market Pullback as Buying Opportunity",
+          "tweet_text": "Retail is scared. That's where I buy more Bitcoin. https://t.co/1jfTlSC0Cp"
+        },
+        {
+          "username": "cryptorover",
+          "headline": "Analyst Suggests Potential Bitcoin Price Correction",
+          "tweet_text": "Bitcoin to 60% drawdown would make a lot of sense here. 🎯 https://t.co/k9dAuwBZXw"
+        },
+        {
+          "username": "Rajatsoni",
+          "headline": "Bitcoin Price Commentary Suggests Market Shift",
+          "tweet_text": "$60,000 Bitcoin is the new $16,000 Bitcoin Few"
+        },
+        {
+          "username": "CryptoKaleo",
+          "headline": "Crypto Analyst Speculates on Potential Bitcoin Market Collapse",
+          "tweet_text": "Imagine Bitcoin never has a green month again and everything just goes to zero."
+        }
+      ],
+      "comparison": {
+        "verdict": "split-in-persistent",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 193,
+            "tweet_count_in_this_cluster": 5,
+            "persistent_total": 156,
+            "headline": "Bitdeer Liquidates 943 Bitcoin, Cites Strategic Liquidity Needs",
+            "is_story": false
+          },
+          {
+            "id": 93,
+            "tweet_count_in_this_cluster": 3,
+            "persistent_total": 1000,
+            "headline": "GWEI Token Launches Airdrop for Ethereum Gas Fee Users",
+            "is_story": false
+          },
+          {
+            "id": 483,
+            "tweet_count_in_this_cluster": 1,
+            "persistent_total": 6,
+            "headline": "Optimistic View: AI Innovation Could Drive Global Abundance and Efficiency",
+            "is_story": true
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 9,
+      "tweet_count": 4,
+      "unique_users": 3,
+      "coherence": 0.1763,
+      "is_story": true,
+      "span_hours": 9.8,
+      "earliest": "2026-02-24T09:45:00.000Z",
+      "latest": "2026-02-24T19:35:00.000Z",
+      "sample_headlines": [
+        {
+          "username": "CryptoSlate",
+          "headline": "Bitcoin Faces Potential Fifth Consecutive Monthly Loss Amid $4.5B ETF Outflows",
+          "tweet_text": "Bitcoin slides toward fifth straight monthly loss as $4.5B ETF outflows put $58,000 on the line via @hardeyjumoh https:/"
+        },
+        {
+          "username": "coinbureau",
+          "headline": "Bitcoin Spot ETFs Experience Record 6-Week Consecutive Outflow Period",
+          "tweet_text": "💸INVESTORS HAVE BEEN SELLING BITCOIN ETFs FOR THE LONGEST STREAK EVER Spot Bitcoin ETFs saw $203.8M in net outflows Mon"
+        },
+        {
+          "username": "cryptodotnews",
+          "headline": "Bitcoin ETFs Experience $203.8 Million Outflow",
+          "tweet_text": "BTC ETFs saw outflows of 3.01K $BTC ($203.8 million) yesterday. https://t.co/d44fAEc9l3"
+        },
+        {
+          "username": "cryptodotnews",
+          "headline": "Ethereum ETFs Experience $49.5 Million Net Outflow, Blackrock Leads Withdrawals",
+          "tweet_text": "ROUNDUP: ETH ETFs witnessed a net outflow of 25.29 $ETH ($49.5 million) yesterday. The largest outflows came via Blackro"
+        }
+      ],
+      "comparison": {
+        "verdict": "split-in-persistent",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 535,
+            "tweet_count_in_this_cluster": 3,
+            "persistent_total": 8,
+            "headline": "Bitcoin Spot ETFs Experience Record 6-Week Consecutive Outflow Period",
+            "is_story": true
+          },
+          {
+            "id": 193,
+            "tweet_count_in_this_cluster": 1,
+            "persistent_total": 156,
+            "headline": "Bitdeer Liquidates 943 Bitcoin, Cites Strategic Liquidity Needs",
+            "is_story": false
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 10,
+      "tweet_count": 2,
+      "unique_users": 2,
+      "coherence": 0.6,
+      "is_story": false,
+      "span_hours": 0.3,
+      "earliest": "2026-02-24T09:47:35.000Z",
+      "latest": "2026-02-24T10:07:13.000Z",
+      "sample_headlines": [
+        {
+          "username": "cryptorover",
+          "headline": "US Military Moves 8 C-17 Transport Aircraft",
+          "tweet_text": "💥BREAKING: 🇺🇸 Another 8 US C-17 heavy military transport aircraft have been spotted on the move. Looks like war is co"
+        },
+        {
+          "username": "solidintel_x",
+          "headline": "U.S. Military Moves 8 C-17 Transport Aircraft Toward Middle East",
+          "tweet_text": "INTEL: Eight additional U.S. C-17 military transport aircraft have been detected moving toward the Middle East https://t"
+        }
+      ],
+      "comparison": {
+        "verdict": "exact-match",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 539,
+            "tweet_count_in_this_cluster": 2,
+            "persistent_total": 2,
+            "headline": "US Military Moves 8 C-17 Transport Aircraft",
+            "is_story": false
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 11,
+      "tweet_count": 6,
+      "unique_users": 2,
+      "coherence": 0.2929,
+      "is_story": true,
+      "span_hours": 4.1,
+      "earliest": "2026-02-24T09:48:27.000Z",
+      "latest": "2026-02-24T13:56:45.000Z",
+      "sample_headlines": [
+        {
+          "username": "cryptorover",
+          "headline": "Russia Alleges UK and France Plan Nuclear Weapon Support for Ukraine",
+          "tweet_text": "💥BREAKING: Russia claims that the United Kingdom and France are preparing to arm Ukraine with a nuclear weapon. https:/"
+        },
+        {
+          "username": "DeItaone",
+          "headline": "Kremlin Claims It Will Inform US About Ukraine's Nuclear Weapon Allegations",
+          "tweet_text": "KREMLIN: WE WILL BRIEF THE US ON UKRAINE'S ATTEMPTS TO GET NUKES"
+        },
+        {
+          "username": "DeItaone",
+          "headline": "Russia Warns Against Nuclear Weapon Support for Ukraine",
+          "tweet_text": "RUSSIAN FOREIGN MINISTRY: ANY STEPS TO ASSIST KYIV IN GETTING NUCLEAR WEAPON WILL BE MET WITH HARSH RESPONSE"
+        },
+        {
+          "username": "cryptorover",
+          "headline": "Russia Alleges Ukraine Nuclear Weapons Acquisition Attempt",
+          "tweet_text": "💥BREAKING: Russia has accused Ukraine of attempting to obtain nuclear weapons and will consult the US. https://t.co/w2r"
+        }
+      ],
+      "comparison": {
+        "verdict": "exact-match",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 540,
+            "tweet_count_in_this_cluster": 6,
+            "persistent_total": 31,
+            "headline": "Russia Alleges UK and France Plan Nuclear Weapon Support for Ukraine",
+            "is_story": false
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 12,
+      "tweet_count": 3,
+      "unique_users": 3,
+      "coherence": 0.4872,
+      "is_story": true,
+      "span_hours": 3.1,
+      "earliest": "2026-02-24T10:19:00.000Z",
+      "latest": "2026-02-24T13:25:50.000Z",
+      "sample_headlines": [
+        {
+          "username": "cryptodotnews",
+          "headline": "Redot Pay Reportedly Exploring US IPO Targeting $1 Billion Raise",
+          "tweet_text": "LATEST: @RedotPay is reportedly considering an IPO in the US, to raise over $1 billion. https://t.co/tbA77JZuX6"
+        },
+        {
+          "username": "Cointelegraph",
+          "headline": "RedotPay Considers $1 Billion US IPO at $4 Billion Valuation",
+          "tweet_text": "🔥 LATEST: Hong Kong stablecoin firm RedotPay is reportedly eyeing a $1B US IPO at a $4B valuation. https://t.co/jimWF3O"
+        },
+        {
+          "username": "TheBlock__",
+          "headline": "RedotPay Considers $1 Billion US IPO at $4 Billion Valuation",
+          "tweet_text": "Hong Kong-based stablecoin payments firm RedotPay explores $1 billion US IPO at $4 billion valuation: Bloomberg https://"
+        }
+      ],
+      "comparison": {
+        "verdict": "exact-match",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 193,
+            "tweet_count_in_this_cluster": 3,
+            "persistent_total": 156,
+            "headline": "Bitdeer Liquidates 943 Bitcoin, Cites Strategic Liquidity Needs",
+            "is_story": false
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 13,
+      "tweet_count": 7,
+      "unique_users": 7,
+      "coherence": 0.6554,
+      "is_story": true,
+      "span_hours": 2.7,
+      "earliest": "2026-02-24T10:22:10.000Z",
+      "latest": "2026-02-24T13:04:30.000Z",
+      "sample_headlines": [
+        {
+          "username": "coinbureau",
+          "headline": "Russia Launches Investigation Against Telegram Founder Pavel Durov",
+          "tweet_text": "🚨BREAKING: RUSSIA TARGETS TELEGRAM FOUNDER 🇷🇺Russia has opened an investigation into Telegram founder Pavel Durov for"
+        },
+        {
+          "username": "WhaleInsider",
+          "headline": "Russia Launches Investigation into Telegram Founder Pavel Durov",
+          "tweet_text": "JUST IN: 🇷🇺 Russia launches investigation into Telegram app founder Pavel Durov for allegedly abetting terrorist activ"
+        },
+        {
+          "username": "cryptorover",
+          "headline": "Russia Launches Investigation into Telegram Founder Pavel Durov",
+          "tweet_text": "💥BREAKING: 🇷🇺 Russia launches investigation into Telegram app founder Pavel Durov for allegedly abetting terrorist ac"
+        },
+        {
+          "username": "Techmeme",
+          "headline": "Russia Launches Investigation into Telegram Founder Pavel Durov for 'Terrorist Activities'",
+          "tweet_text": "Russian media: Russia opens an investigation into Telegram founder Pavel Durov for \"abetting terrorist activities\", as i"
+        }
+      ],
+      "comparison": {
+        "verdict": "exact-match",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 548,
+            "tweet_count_in_this_cluster": 7,
+            "persistent_total": 8,
+            "headline": "Russia Launches Investigation Against Telegram Founder Pavel Durov",
+            "is_story": true
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 14,
+      "tweet_count": 2,
+      "unique_users": 2,
+      "coherence": 1,
+      "is_story": false,
+      "span_hours": 7.5,
+      "earliest": "2026-02-24T10:30:39.000Z",
+      "latest": "2026-02-24T18:00:01.000Z",
+      "sample_headlines": [
+        {
+          "username": "scottmelker",
+          "headline": "Arizona Senate Advances Bill to Create Digital Assets Reserve Fund",
+          "tweet_text": "ARIZONA SENATE ADVANCES SB 1649 TO CREATE DIGITAL ASSETS RESERVE FUND INCLUDING $BTC AND $XRP"
+        },
+        {
+          "username": "DecryptMedia",
+          "headline": "Arizona Senate Advances Bill to Create Digital Assets Reserve Fund",
+          "tweet_text": "Arizona Senate Advances Bill to Create Digital Assets Reserve Fund https://t.co/ypWp2ZxxdB"
+        }
+      ],
+      "comparison": {
+        "verdict": "split-in-persistent",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 725,
+            "tweet_count_in_this_cluster": 1,
+            "persistent_total": 1,
+            "headline": "Arizona Senate Advances Bill to Create Digital Assets Reserve Fund",
+            "is_story": false
+          },
+          {
+            "id": 93,
+            "tweet_count_in_this_cluster": 1,
+            "persistent_total": 1000,
+            "headline": "GWEI Token Launches Airdrop for Ethereum Gas Fee Users",
+            "is_story": false
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 15,
+      "tweet_count": 12,
+      "unique_users": 11,
+      "coherence": 0.2584,
+      "is_story": true,
+      "span_hours": 15.4,
+      "earliest": "2026-02-24T10:35:05.000Z",
+      "latest": "2026-02-25T02:00:32.000Z",
+      "sample_headlines": [
+        {
+          "username": "TedPillows",
+          "headline": "Ethereum Price Rises 3%, Vitalik Buterin Sells $389,580 Worth of ETH",
+          "tweet_text": "$ETH just went up 3% in a few hours. And Vitalik is celebrating this move by dumping another $389,580 in Ethereum. https"
+        },
+        {
+          "username": "WatcherGuru",
+          "headline": "Vitalik Buterin Sells $8 Million in Ethereum",
+          "tweet_text": "JUST IN: Ethereum Founder Vitalik Buterin sold 4,325 ETH worth $8 million over the past 3 days. https://t.co/GcD2vJMpti"
+        },
+        {
+          "username": "AshCrypto",
+          "headline": "Vitalik Buterin Sells $8 Million in Ethereum",
+          "tweet_text": "🚨 Vitalik has sold over $8,000,000 worth of ETH in the last 3 days. https://t.co/2I2Uxx5OW2"
+        },
+        {
+          "username": "Kalshi",
+          "headline": "Vitalik Buterin Sells $8 Million in Ethereum",
+          "tweet_text": "JUST IN: Vitalik Buterin sold $8 million in Ethereum"
+        }
+      ],
+      "comparison": {
+        "verdict": "split-in-persistent",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 721,
+            "tweet_count_in_this_cluster": 6,
+            "persistent_total": 7,
+            "headline": "Kalshi Predicts 25% Probability of Ethereum Price Drop Below $750",
+            "is_story": true
+          },
+          {
+            "id": 193,
+            "tweet_count_in_this_cluster": 3,
+            "persistent_total": 156,
+            "headline": "Bitdeer Liquidates 943 Bitcoin, Cites Strategic Liquidity Needs",
+            "is_story": false
+          },
+          {
+            "id": 452,
+            "tweet_count_in_this_cluster": 3,
+            "persistent_total": 10,
+            "headline": "Anthropic Plans $5-6B Employee Share Sale at $350B Valuation",
+            "is_story": true
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 16,
+      "tweet_count": 4,
+      "unique_users": 3,
+      "coherence": 0.2923,
+      "is_story": true,
+      "span_hours": 10.7,
+      "earliest": "2026-02-24T10:35:49.000Z",
+      "latest": "2026-02-24T21:19:24.000Z",
+      "sample_headlines": [
+        {
+          "username": "unusual_whales",
+          "headline": "Discord Terminates Partnership with Persona Identity Verification Service",
+          "tweet_text": "Discord has announced that it's cutting ties with Persona, the AI software they used for age and identity verification, "
+        },
+        {
+          "username": "solidintel_x",
+          "headline": "Discord Terminates Partnership with Identity Verification Provider",
+          "tweet_text": "INTEL: DISCORD CUTS TIES WITH PERSONA AGE &amp; ID VERIFICATION PARTNER https://t.co/m6oxVIlh3X"
+        },
+        {
+          "username": "Techmeme",
+          "headline": "Discord Delays Global Age Verification Rollout to H2 2024",
+          "tweet_text": "Discord says it won't roll out age verification globally next month as previously announced, delaying the change until H"
+        },
+        {
+          "username": "Techmeme",
+          "headline": "Discord Concludes Limited UK Test of Persona Age Verification Service",
+          "tweet_text": "Discord says it \"ran a limited test of Persona in the UK\" to verify user ages and \"that test has since concluded\", dista"
+        }
+      ],
+      "comparison": {
+        "verdict": "split-in-persistent",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 93,
+            "tweet_count_in_this_cluster": 2,
+            "persistent_total": 1000,
+            "headline": "GWEI Token Launches Airdrop for Ethereum Gas Fee Users",
+            "is_story": false
+          },
+          {
+            "id": 802,
+            "tweet_count_in_this_cluster": 1,
+            "persistent_total": 3,
+            "headline": "Discord Terminates Partnership with Identity Verification Provider",
+            "is_story": true
+          },
+          {
+            "id": 763,
+            "tweet_count_in_this_cluster": 1,
+            "persistent_total": 4,
+            "headline": "Discord Faces Mandatory ID Verification Pressures from Multiple Countries",
+            "is_story": true
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 17,
+      "tweet_count": 2,
+      "unique_users": 2,
+      "coherence": 0.0714,
+      "is_story": false,
+      "span_hours": 7.4,
+      "earliest": "2026-02-24T10:48:10.000Z",
+      "latest": "2026-02-24T18:10:00.000Z",
+      "sample_headlines": [
+        {
+          "username": "cryptodotnews",
+          "headline": "Solana Expands Infrastructure Development in Asia-Pacific Region",
+          "tweet_text": "ICYMI: $SOL | @Solana_Company has started building high-speed infrastructure across the Asia-Pacific region. https://t.c"
+        },
+        {
+          "username": "CoinMarketCap",
+          "headline": "Solana Company Announces Pacific Backbone Network Across Asian Cities",
+          "tweet_text": "LATEST: ⚡ Solana Company plans to build the \"Pacific Backbone,\" a low-latency network across Seoul, Tokyo, Singapore and"
+        }
+      ],
+      "comparison": {
+        "verdict": "split-in-persistent",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 641,
+            "tweet_count_in_this_cluster": 1,
+            "persistent_total": 2,
+            "headline": "Solana Job/Candidate Recruitment Effort Underway",
+            "is_story": false
+          },
+          {
+            "id": 93,
+            "tweet_count_in_this_cluster": 1,
+            "persistent_total": 1000,
+            "headline": "GWEI Token Launches Airdrop for Ethereum Gas Fee Users",
+            "is_story": false
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 18,
+      "tweet_count": 4,
+      "unique_users": 4,
+      "coherence": 0.2521,
+      "is_story": true,
+      "span_hours": 12.8,
+      "earliest": "2026-02-24T10:48:42.000Z",
+      "latest": "2026-02-24T23:33:54.000Z",
+      "sample_headlines": [
+        {
+          "username": "Crypto_Briefing",
+          "headline": "Bitcoin Fear and Greed Index Signals Extreme Market Pessimism",
+          "tweet_text": "⚡️ Today’s #Bitcoin Fear and Greed Index is 8 — Extreme Fear https://t.co/66ImQChDfU"
+        },
+        {
+          "username": "cryptorover",
+          "headline": "Bitcoin Market Sentiment Indicates Extreme Fear",
+          "tweet_text": "Extreme fear for Bitcoin. 🚨 https://t.co/W3ggzg0ATn"
+        },
+        {
+          "username": "BritishHodl",
+          "headline": "Bitcoin Market Sentiment Shows Volatility",
+          "tweet_text": "So much Bitcoin rage quitting going on. We're about to 🚀 so hard."
+        },
+        {
+          "username": "outpxce",
+          "headline": "Bitcoin Investor Sentiment Appears Uncertain",
+          "tweet_text": "you ask a bitcoin bull why you should buy and they dont even give you a reason anymore, they just look at you like this "
+        }
+      ],
+      "comparison": {
+        "verdict": "split-in-persistent",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 93,
+            "tweet_count_in_this_cluster": 3,
+            "persistent_total": 1000,
+            "headline": "GWEI Token Launches Airdrop for Ethereum Gas Fee Users",
+            "is_story": false
+          },
+          {
+            "id": 762,
+            "tweet_count_in_this_cluster": 1,
+            "persistent_total": 3,
+            "headline": "El Salvador to Implement Bitcoin Diploma 2.0 in Public Schools by 2026",
+            "is_story": true
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 19,
+      "tweet_count": 10,
+      "unique_users": 6,
+      "coherence": 0.4733,
+      "is_story": true,
+      "span_hours": 15.7,
+      "earliest": "2026-02-24T10:53:00.000Z",
+      "latest": "2026-02-25T02:36:38.000Z",
+      "sample_headlines": [
+        {
+          "username": "Geiger_Capital",
+          "headline": "Over 40 Democrats Plan to Boycott Trump's State of the Union Address",
+          "tweet_text": "40+ Democrats are now boycotting Trump's State of the Union tonight… Stephen A. Smith just went off: \"This is not accept"
+        },
+        {
+          "username": "cryptorover",
+          "headline": "President Trump Preparing to Deliver State of the Union Address",
+          "tweet_text": "💥BREAKING: 🇺🇸 President Trump's state of the Union address to begin any moment now. https://t.co/DiGa19a4k2"
+        },
+        {
+          "username": "cryptodotnews",
+          "headline": "Trump Scheduled to Deliver State of the Union Address",
+          "tweet_text": "INSIGHT: 🇺🇸 US President Trump will be delivering his State of the Union address at 9pm EST today (3am CET). https://t"
+        },
+        {
+          "username": "cryptorover",
+          "headline": "Trump Scheduled to Deliver State of the Union Address at 9 PM ET",
+          "tweet_text": "💥BREAKING: 🇺🇸 President Trump will deliver his State of the Union address today at 9 PM ET. This comes at a crucial m"
+        }
+      ],
+      "comparison": {
+        "verdict": "split-in-persistent",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 93,
+            "tweet_count_in_this_cluster": 5,
+            "persistent_total": 1000,
+            "headline": "GWEI Token Launches Airdrop for Ethereum Gas Fee Users",
+            "is_story": false
+          },
+          {
+            "id": 860,
+            "tweet_count_in_this_cluster": 5,
+            "persistent_total": 25,
+            "headline": "LSU Women's Basketball Team Invited to State of the Union, Media Coverage Criticized",
+            "is_story": true
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 20,
+      "tweet_count": 6,
+      "unique_users": 3,
+      "coherence": 0.0949,
+      "is_story": true,
+      "span_hours": 15.8,
+      "earliest": "2026-02-24T10:57:00.000Z",
+      "latest": "2026-02-25T02:44:32.000Z",
+      "sample_headlines": [
+        {
+          "username": "cryptodotnews",
+          "headline": "Trump Administration Imposes New 10% Tariff on Select Commodities",
+          "tweet_text": "MACRO: 🇺🇸 President Trump's new 10% tariff on commodities not covered under exemptions has started today. https://t.co"
+        },
+        {
+          "username": "unusual_whales",
+          "headline": "Trump Team Explores New National Security Tariffs Across Multiple Industries",
+          "tweet_text": "Trump's administration is considering new national security tariffs on a half-dozen industries after a Supreme Court dec"
+        },
+        {
+          "username": "DeItaone",
+          "headline": "Trump Maintains Stance on Existing Tariffs",
+          "tweet_text": "Trump: Tariffs will remain in place"
+        },
+        {
+          "username": "DeItaone",
+          "headline": "White House Seeks to Adjust Temporary U.S. Tariff Rate to 15%",
+          "tweet_text": "WHITE HOUSE OFFICIAL SAYS TRUMP ADMINISTRATION IS WORKING TO CHANGE NEW TEMPORARY U.S. TARIFF RATE TO 15% FROM 10% PUBLI"
+        }
+      ],
+      "comparison": {
+        "verdict": "split-in-persistent",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 93,
+            "tweet_count_in_this_cluster": 5,
+            "persistent_total": 1000,
+            "headline": "GWEI Token Launches Airdrop for Ethereum Gas Fee Users",
+            "is_story": false
+          },
+          {
+            "id": 563,
+            "tweet_count_in_this_cluster": 1,
+            "persistent_total": 4,
+            "headline": "Trump Administration Explores Alternative Retirement Savings Program",
+            "is_story": true
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 21,
+      "tweet_count": 2,
+      "unique_users": 2,
+      "coherence": 0.2353,
+      "is_story": false,
+      "span_hours": 0.7,
+      "earliest": "2026-02-24T11:00:45.000Z",
+      "latest": "2026-02-24T11:44:00.000Z",
+      "sample_headlines": [
+        {
+          "username": "Cointelegraph",
+          "headline": "Step Finance and Related Platforms Confirm Shutdown After January Hack",
+          "tweet_text": "🚨 UPDATE: Step Finance, SolanaFloor, and Remora Markets confirms shutdown following its Jan. hack, with a buyback plann"
+        },
+        {
+          "username": "cryptodotnews",
+          "headline": "Step Finance and Related Solana Projects Shut Down After $40 Million Security Breach",
+          "tweet_text": "NEW: @StepFinance_ has shut down following the $40 million security breach that took place at the end of January. @Remor"
+        }
+      ],
+      "comparison": {
+        "verdict": "exact-match",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 469,
+            "tweet_count_in_this_cluster": 2,
+            "persistent_total": 11,
+            "headline": "Major Tech and Crypto Assets Significantly Down from All-Time Highs",
+            "is_story": true
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 22,
+      "tweet_count": 3,
+      "unique_users": 3,
+      "coherence": 0.4583,
+      "is_story": true,
+      "span_hours": 5.7,
+      "earliest": "2026-02-24T11:01:05.000Z",
+      "latest": "2026-02-24T16:45:37.000Z",
+      "sample_headlines": [
+        {
+          "username": "AshCrypto",
+          "headline": "MicroStrategy Bitcoin Holdings Show Significant Paper Loss",
+          "tweet_text": "🚨Saylor’s Strategy Bitcoin position is now down $9,100,000,000. https://t.co/cNrRrsSS1v"
+        },
+        {
+          "username": "JacobKinge",
+          "headline": "MicroStrategy Bitcoin Holdings Show Significant Paper Loss",
+          "tweet_text": "BREAKING: Michael Saylor's Bitcoin portfolio is now down $9.2 BILLION. https://t.co/77XOJD0zne"
+        },
+        {
+          "username": "Cointelegraph",
+          "headline": "MicroStrategy's Bitcoin Investment Currently Shows $9.5B Unrealized Loss, CEO Maintains Bullish Stance",
+          "tweet_text": "🚨 INSIGHT: “Bitcoin is on sale,” says Michael Saylor. While Strategy is currently down $9.5B on its Bitcoin position. h"
+        }
+      ],
+      "comparison": {
+        "verdict": "exact-match",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 193,
+            "tweet_count_in_this_cluster": 3,
+            "persistent_total": 156,
+            "headline": "Bitdeer Liquidates 943 Bitcoin, Cites Strategic Liquidity Needs",
+            "is_story": false
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 23,
+      "tweet_count": 4,
+      "unique_users": 4,
+      "coherence": 0.4695,
+      "is_story": true,
+      "span_hours": 6.2,
+      "earliest": "2026-02-24T11:06:32.000Z",
+      "latest": "2026-02-24T17:20:00.000Z",
+      "sample_headlines": [
+        {
+          "username": "cryptodotnews",
+          "headline": "FedEx Sues US Government Over Trump-Era Emergency Tariffs",
+          "tweet_text": "NEW: Logistics giant FedEx has sued the US for a refund on President Trump's emergency tariffs. https://t.co/WxkzJkolzl"
+        },
+        {
+          "username": "cryptorover",
+          "headline": "FedEx Files Lawsuit Seeking Full Refund Over Trump-Era Tariffs",
+          "tweet_text": "💥BREAKING: FedEx has filed a lawsuit seeking \"full refund\" over Trump tariffs. https://t.co/6x5rOf7clN"
+        },
+        {
+          "username": "coinbureau",
+          "headline": "FedEx Files Lawsuit Seeking Refund for Trump-Era Tariffs",
+          "tweet_text": "🚨JUST IN: FedEx has filed a lawsuit seeking \"full refund\" over Trump tariffs. The suit appears to be the first by a maj"
+        },
+        {
+          "username": "unusual_whales",
+          "headline": "FedEx Sues US Government Over Trump-Era Tariffs, Seeks Full Refund",
+          "tweet_text": "BREAKING: FedEx, $FDX, sues US government, seeking ‘full refund’ over Trump tariffs"
+        }
+      ],
+      "comparison": {
+        "verdict": "split-in-persistent",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 93,
+            "tweet_count_in_this_cluster": 3,
+            "persistent_total": 1000,
+            "headline": "GWEI Token Launches Airdrop for Ethereum Gas Fee Users",
+            "is_story": false
+          },
+          {
+            "id": 624,
+            "tweet_count_in_this_cluster": 1,
+            "persistent_total": 2,
+            "headline": "EU Anticipates US Will Modify Metals Tariffs Soon",
+            "is_story": false
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 24,
+      "tweet_count": 4,
+      "unique_users": 4,
+      "coherence": 0.5039,
+      "is_story": true,
+      "span_hours": 6.3,
+      "earliest": "2026-02-24T11:21:02.000Z",
+      "latest": "2026-02-24T17:40:42.000Z",
+      "sample_headlines": [
+        {
+          "username": "WatcherGuru",
+          "headline": "CIA Reportedly Warned Tech Companies About Potential China-Taiwan Conflict Timeline",
+          "tweet_text": "JUST IN: 🇺🇸🇨🇳 CIA secretly warned Apple, Nvidia, and AMD in 2023 that China could invade Taiwan by 2027, NYT reports"
+        },
+        {
+          "username": "cryptorover",
+          "headline": "CIA Reportedly Warned Tech Companies About Potential China-Taiwan Conflict",
+          "tweet_text": "💥 BREAKING: 🇺🇸🇨🇳 CIA secretly warned Apple, Nvidia, and AMD in 2023 that China could invade Taiwan by 2027, NYT rep"
+        },
+        {
+          "username": "Techmeme",
+          "headline": "US Officials Warn Tech Companies About Potential China-Taiwan Conflict Impact on Chip Supply",
+          "tweet_text": "How Silicon Valley has long ignored China's looming Taiwan invasion and its chip supply impact; US officials warned Appl"
+        },
+        {
+          "username": "AutismCapital",
+          "headline": "NYT: Tech Executives Warned About Potential China-Taiwan Conflict by 2027",
+          "tweet_text": "🚨 BREAKING: The New York Times reports that Tim Cook of Apple and other top tech executives were warned that China coul"
+        }
+      ],
+      "comparison": {
+        "verdict": "exact-match",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 243,
+            "tweet_count_in_this_cluster": 4,
+            "persistent_total": 16,
+            "headline": "Mag 7 Tech Companies Showing Declining Free Cash Flow",
+            "is_story": true
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 25,
+      "tweet_count": 15,
+      "unique_users": 1,
+      "coherence": 1,
+      "is_story": false,
+      "span_hours": 16,
+      "earliest": "2026-02-24T11:24:48.000Z",
+      "latest": "2026-02-25T03:27:10.000Z",
+      "sample_headlines": [
+        {
+          "username": "Crypto_Briefing",
+          "headline": "Link Shared Without Context",
+          "tweet_text": "https://t.co/w37Cx1l3aB"
+        },
+        {
+          "username": "Crypto_Briefing",
+          "headline": "Link Shared Without Context",
+          "tweet_text": "https://t.co/Sf1fNLdOd4"
+        },
+        {
+          "username": "Crypto_Briefing",
+          "headline": "Link Shared Without Context",
+          "tweet_text": "https://t.co/h6i2O2WrQi"
+        },
+        {
+          "username": "Crypto_Briefing",
+          "headline": "Link Shared Without Context",
+          "tweet_text": "https://t.co/xdm63Zwyod"
+        }
+      ],
+      "comparison": {
+        "verdict": "split-in-persistent",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 93,
+            "tweet_count_in_this_cluster": 12,
+            "persistent_total": 1000,
+            "headline": "GWEI Token Launches Airdrop for Ethereum Gas Fee Users",
+            "is_story": false
+          },
+          {
+            "id": 265,
+            "tweet_count_in_this_cluster": 3,
+            "persistent_total": 10,
+            "headline": "The Transcript Newsletter Seeks Subscribers",
+            "is_story": true
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 26,
+      "tweet_count": 4,
+      "unique_users": 4,
+      "coherence": 0.2866,
+      "is_story": true,
+      "span_hours": 14.4,
+      "earliest": "2026-02-24T11:27:00.000Z",
+      "latest": "2026-02-25T01:50:08.000Z",
+      "sample_headlines": [
+        {
+          "username": "WhaleInsider",
+          "headline": "Bitcoin Price Movement Could Trigger $1.13 Billion in Crypto Short Position Liquidations",
+          "tweet_text": "JUST IN: $1.13 billion in crypto short positions set to be liquidated if Bitcoin rises $2,000 from current price. https:"
+        },
+        {
+          "username": "coinbureau",
+          "headline": "Bitcoin Price Surge Triggers Over $100 Million in Cryptocurrency Short Position Liquidations",
+          "tweet_text": "🚨 JUST IN: OVER $100MILLION IN CRYPTO SHORTS LIQUIDATED IN THE PAST HOUR AS BTC SURGES ABOVE $66K https://t.co/P5cIhNXL"
+        },
+        {
+          "username": "blocknewsdotcom",
+          "headline": "Bitcoin Price Surge Triggers Over $120 Million in Crypto Short Liquidations",
+          "tweet_text": "🚨 OVER $120,000,000 IN CRYPTO SHORTS HAVE BEEN LIQUIDATED IN THE LAST HOUR BITCOIN $BTC IS NOW CLIMBING PAST $66,000 BU"
+        },
+        {
+          "username": "cryptodotnews",
+          "headline": "Crypto Market Sees $363.95 Million in Liquidations",
+          "tweet_text": "Liquidations in the past 24 hours: - Total: $363.95 million - Longs: $295.28 million (81%) - Shorts: $68.72 million (19%"
+        }
+      ],
+      "comparison": {
+        "verdict": "split-in-persistent",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 193,
+            "tweet_count_in_this_cluster": 2,
+            "persistent_total": 156,
+            "headline": "Bitdeer Liquidates 943 Bitcoin, Cites Strategic Liquidity Needs",
+            "is_story": false
+          },
+          {
+            "id": 557,
+            "tweet_count_in_this_cluster": 2,
+            "persistent_total": 16,
+            "headline": "UK to Expand Ofcom Regulation to Streaming Platforms with 500,000+ Users",
+            "is_story": true
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 27,
+      "tweet_count": 2,
+      "unique_users": 2,
+      "coherence": 0.1818,
+      "is_story": false,
+      "span_hours": 1.3,
+      "earliest": "2026-02-24T11:30:37.000Z",
+      "latest": "2026-02-24T12:49:55.000Z",
+      "sample_headlines": [
+        {
+          "username": "Cointelegraph",
+          "headline": "X Platform Restricts Bot Replies, Requires Direct Mention or Quote",
+          "tweet_text": "🚨 LATEST: Bot replies are now restricted on X. API users can now only reply if they’re @ mentioned or quoted by the ori"
+        },
+        {
+          "username": "RoundtableSpace",
+          "headline": "X Platform Modifies Bot Reply Permissions",
+          "tweet_text": "Bots can now only reply if they’re mentioned on X Nikita is finally shipping Reply if you're a real human 👇 https://t.c"
+        }
+      ],
+      "comparison": {
+        "verdict": "split-in-persistent",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 362,
+            "tweet_count_in_this_cluster": 1,
+            "persistent_total": 7,
+            "headline": "Tutorial Claims Business Automation Possible with OpenClaw Agents for $140/Month",
+            "is_story": true
+          },
+          {
+            "id": 593,
+            "tweet_count_in_this_cluster": 1,
+            "persistent_total": 4,
+            "headline": "X Platform Modifies Bot Reply Permissions",
+            "is_story": true
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 28,
+      "tweet_count": 3,
+      "unique_users": 3,
+      "coherence": 0.2273,
+      "is_story": true,
+      "span_hours": 1.9,
+      "earliest": "2026-02-24T11:38:33.000Z",
+      "latest": "2026-02-24T13:30:00.000Z",
+      "sample_headlines": [
+        {
+          "username": "cryptorover",
+          "headline": "BlackRock Deposits Significant Cryptocurrency Holdings to Coinbase",
+          "tweet_text": "💥BREAKING: Blackrock deposits 1,514 $BTC worth $95.69M and 24,472 $ETH worth $44.57M to Coinbase. https://t.co/9BC41uVh"
+        },
+        {
+          "username": "coinbureau",
+          "headline": "BlackRock Transfers $159M in Bitcoin and Ethereum to Coinbase Prime",
+          "tweet_text": "🚨BLACKROCK JUST MOVED $159M IN CRYPTO BlackRock deposited 1,814 $BTC ($114.66M) and 24,472 $ETH ($44.57M) to Coinbase P"
+        },
+        {
+          "username": "JacobKinge",
+          "headline": "BlackRock Transfers $150 Million in Crypto to Coinbase",
+          "tweet_text": "BlackRock just sent another $150 million worth of Bitcoin and Ethereum to Coinbase to dump. https://t.co/FSUxYZsOf0"
+        }
+      ],
+      "comparison": {
+        "verdict": "split-in-persistent",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 535,
+            "tweet_count_in_this_cluster": 2,
+            "persistent_total": 8,
+            "headline": "Bitcoin Spot ETFs Experience Record 6-Week Consecutive Outflow Period",
+            "is_story": true
+          },
+          {
+            "id": 193,
+            "tweet_count_in_this_cluster": 1,
+            "persistent_total": 156,
+            "headline": "Bitdeer Liquidates 943 Bitcoin, Cites Strategic Liquidity Needs",
+            "is_story": false
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 29,
+      "tweet_count": 35,
+      "unique_users": 3,
+      "coherence": 0.5674,
+      "is_story": true,
+      "span_hours": 14.1,
+      "earliest": "2026-02-24T11:40:02.000Z",
+      "latest": "2026-02-25T01:44:57.000Z",
+      "sample_headlines": [
+        {
+          "username": "AyTanzania",
+          "headline": "Punch Coin ($PUNCH) Launches Airdrop on Solana Network",
+          "tweet_text": "Punch Coin Official Airdrop Punch Coin just took over the entire meme meta! Scaling faster than anything on Solana to sh"
+        },
+        {
+          "username": "Bullish__Degen",
+          "headline": "Punch Coin Announces Airdrop for $PUNCH Token Holders on Solana",
+          "tweet_text": "Punch Coin Official Airdrop Punch Coin is absolutely dominating Solana right now! Our insane momentum is about to rain m"
+        },
+        {
+          "username": "Bullish__Degen",
+          "headline": "Punch Coin ($PUNCH) Launches Airdrop on Solana Network",
+          "tweet_text": "Punch Coin Official Airdrop Punch Coin just took over the entire meme meta! Scaling faster than anything on Solana to sh"
+        },
+        {
+          "username": "WojaksX",
+          "headline": "Punch Coin Announces Airdrop for $PUNCH Token Holders on Solana",
+          "tweet_text": "Punch Coin Official Airdrop Punch Coin is absolutely dominating Solana right now! Our insane momentum is about to rain m"
+        }
+      ],
+      "comparison": {
+        "verdict": "split-in-persistent",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 93,
+            "tweet_count_in_this_cluster": 31,
+            "persistent_total": 1000,
+            "headline": "GWEI Token Launches Airdrop for Ethereum Gas Fee Users",
+            "is_story": false
+          },
+          {
+            "id": 906,
+            "tweet_count_in_this_cluster": 4,
+            "persistent_total": 7,
+            "headline": "Punch Coin ($PUNCH) Announces Airdrop on Solana Network",
+            "is_story": true
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 30,
+      "tweet_count": 6,
+      "unique_users": 6,
+      "coherence": 0.5626,
+      "is_story": true,
+      "span_hours": 9.6,
+      "earliest": "2026-02-24T11:50:42.000Z",
+      "latest": "2026-02-24T21:28:33.000Z",
+      "sample_headlines": [
+        {
+          "username": "blocknewsdotcom",
+          "headline": "UAE Bank Emirates NBD Describes Bitcoin as 'Digital Gold'",
+          "tweet_text": "🇦🇪 UAE IS PREPARING TO GO ALL IN ON BITCOIN THEIR SECOND LARGEST BANK 'EMIRATES NBD' JUST SAID $BTC IS \"DIGITAL GOLD\" "
+        },
+        {
+          "username": "BitcoinMagazine",
+          "headline": "Emirates NBD Considers Bitcoin Investment",
+          "tweet_text": "JUST IN: 🇦🇪 $16 billion Emirates NBD is exploring adding #Bitcoin to its portfolio. BULLISH 🚀 https://t.co/fkynbblUf0"
+        },
+        {
+          "username": "Crypto_Briefing",
+          "headline": "Emirates NBD Describes Bitcoin as 'Digital Gold'",
+          "tweet_text": "JUST IN: 🇦🇪 Emirates NBD, the UAE’s second-largest bank, has described Bitcoin as “digital gold.” https://t.co/LP8bf5s"
+        },
+        {
+          "username": "WatcherGuru",
+          "headline": "Emirates NBD Describes Bitcoin as 'Digital Gold'",
+          "tweet_text": "JUST IN: 🇦🇪 UAE's second largest bank, Emirates NBD, says Bitcoin is \"digital gold.\" https://t.co/T8rF2AAZcu"
+        }
+      ],
+      "comparison": {
+        "verdict": "exact-match",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 93,
+            "tweet_count_in_this_cluster": 6,
+            "persistent_total": 1000,
+            "headline": "GWEI Token Launches Airdrop for Ethereum Gas Fee Users",
+            "is_story": false
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 31,
+      "tweet_count": 2,
+      "unique_users": 2,
+      "coherence": 0.2,
+      "is_story": false,
+      "span_hours": 1.4,
+      "earliest": "2026-02-24T11:57:00.000Z",
+      "latest": "2026-02-24T13:22:41.000Z",
+      "sample_headlines": [
+        {
+          "username": "unusual_whales",
+          "headline": "DeepSeek Preparing to Launch New AI Model, Potential Market Impact Noted",
+          "tweet_text": "\"China’s DeepSeek is set to release a new AI model. A rough period for Nasdaq stocks could follow,\" per CNBC"
+        },
+        {
+          "username": "cryptorover",
+          "headline": "DeepSeek AI Startup Prepares to Launch DeepSeek-V4, Potentially Triggering Market Volatility",
+          "tweet_text": "🚨 THIS IS REALLY BAD A catalyst that crashed the stock market in Jan 2025 is coming back. Chinese AI startup DeepSeek i"
+        }
+      ],
+      "comparison": {
+        "verdict": "split-in-persistent",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 243,
+            "tweet_count_in_this_cluster": 1,
+            "persistent_total": 16,
+            "headline": "Mag 7 Tech Companies Showing Declining Free Cash Flow",
+            "is_story": true
+          },
+          {
+            "id": 230,
+            "tweet_count_in_this_cluster": 1,
+            "persistent_total": 41,
+            "headline": "US Stock Market Futures Indicate Negative Opening",
+            "is_story": true
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 32,
+      "tweet_count": 5,
+      "unique_users": 5,
+      "coherence": 0.535,
+      "is_story": true,
+      "span_hours": 6,
+      "earliest": "2026-02-24T11:58:40.000Z",
+      "latest": "2026-02-24T18:01:01.000Z",
+      "sample_headlines": [
+        {
+          "username": "WatcherGuru",
+          "headline": "JPMorgan CEO Jamie Dimon Warns of Financial Market Similarities to Pre-2008 Crisis",
+          "tweet_text": "JUST IN: 🇺🇸 JPMorgan CEO Jamie Dimon says he's \"starting to see parallels to the era before 2008 financial crisis.\" ht"
+        },
+        {
+          "username": "blocknewsdotcom",
+          "headline": "JPMorgan CEO Jamie Dimon Warns of Market Risks Similar to Pre-2008 Financial Crisis",
+          "tweet_text": "🚨 JPMORGAN CEO JAMIE DIMON JUST SAID THE MARKET IS ON THE BRINK OF COLLAPSE SAYS HE SEES PARALLELS TO A TIME BEFORE THE"
+        },
+        {
+          "username": "TheTranscript_",
+          "headline": "JPM CEO Jamie Dimon Warns of Late-Cycle Economic Complacency",
+          "tweet_text": "$JPM CEO Jamie Dimon: Late-cycle complacency is dangerous \"Unfortunately, we did see this in 2005, in 2006, in 2007. Alm"
+        },
+        {
+          "username": "unusual_whales",
+          "headline": "JPMorgan CEO Jamie Dimon Warns of Financial Crisis Similarities",
+          "tweet_text": "BREAKING: Jamie Dimon says he’s starting to see parallels to the era before the 2008 financial crisis, when a rush to ma"
+        }
+      ],
+      "comparison": {
+        "verdict": "exact-match",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 309,
+            "tweet_count_in_this_cluster": 5,
+            "persistent_total": 24,
+            "headline": "Reuters: Software Companies Face Higher Borrowing Costs Amid AI Disruption",
+            "is_story": true
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 33,
+      "tweet_count": 2,
+      "unique_users": 2,
+      "coherence": 0.8,
+      "is_story": false,
+      "span_hours": 10.9,
+      "earliest": "2026-02-24T12:03:30.000Z",
+      "latest": "2026-02-24T23:00:00.000Z",
+      "sample_headlines": [
+        {
+          "username": "scottmelker",
+          "headline": "Coinbase Bitcoin Premium Index Remains Negative for 40 Consecutive Days",
+          "tweet_text": "COINBASE $BTC PREMIUM INDEX REMAINS BELOW ZERO FOR 40 STRAIGHT DAYS"
+        },
+        {
+          "username": "Cointelegraph",
+          "headline": "Coinbase BTC Premium Index Remains Negative for 40 Consecutive Days",
+          "tweet_text": "🚨 ALERT: The Coinbase BTC Premium Index records 40 consecutive days in negative territory. It surpassed the 30-day stre"
+        }
+      ],
+      "comparison": {
+        "verdict": "split-in-persistent",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 836,
+            "tweet_count_in_this_cluster": 1,
+            "persistent_total": 1,
+            "headline": "Coinbase Bitcoin Premium Index Remains Negative for 40 Consecutive Days",
+            "is_story": false
+          },
+          {
+            "id": 93,
+            "tweet_count_in_this_cluster": 1,
+            "persistent_total": 1000,
+            "headline": "GWEI Token Launches Airdrop for Ethereum Gas Fee Users",
+            "is_story": false
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 34,
+      "tweet_count": 13,
+      "unique_users": 11,
+      "coherence": 0.2729,
+      "is_story": true,
+      "span_hours": 6,
+      "earliest": "2026-02-24T12:04:03.000Z",
+      "latest": "2026-02-24T18:03:55.000Z",
+      "sample_headlines": [
+        {
+          "username": "Cointelegraph",
+          "headline": "Meta Signs $100B AI Infrastructure Deal with AMD",
+          "tweet_text": "🔥 UPDATE: Meta to secure $100B worth of AI infrastructure from AMD in a landmark compute agreement. https://t.co/HPISD0"
+        },
+        {
+          "username": "cryptodotnews",
+          "headline": "AMD Secures $60 Billion Chip Supply Deal with Meta",
+          "tweet_text": "MACRO: AMD has inked a second major deal worth $60 billion to sell its chip, this time to Meta. https://t.co/tX8VpV9mI5"
+        },
+        {
+          "username": "DeItaone",
+          "headline": "AMD Secures Multi-Year, Multi-Billion Dollar Partnership with Meta for AI Chips",
+          "tweet_text": "AMD–META DEAL BOOSTS GPU OUTLOOK Rosenblatt reaffirmed a Buy rating and $300 target on AMD, citing its expanded partners"
+        },
+        {
+          "username": "DeItaone",
+          "headline": "Meta Platforms Agrees to $100B AMD AI Chip Deal Over Five Years",
+          "tweet_text": "$META $AMD - META STRIKES $100B AI CHIP MEGA-DEAL WITH AMD Meta Platforms has agreed to buy over $100 billion worth of A"
+        }
+      ],
+      "comparison": {
+        "verdict": "exact-match",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 474,
+            "tweet_count_in_this_cluster": 13,
+            "persistent_total": 14,
+            "headline": "Amazon to Invest $12 Billion in Louisiana Data Centers, Plans 540 Full-Time Jobs",
+            "is_story": true
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 35,
+      "tweet_count": 2,
+      "unique_users": 2,
+      "coherence": 0.1765,
+      "is_story": false,
+      "span_hours": 10.4,
+      "earliest": "2026-02-24T12:18:00.000Z",
+      "latest": "2026-02-24T22:43:33.000Z",
+      "sample_headlines": [
+        {
+          "username": "TheBlock__",
+          "headline": "Sen. Blumenthal Launches Investigation into Binance Over Alleged Iran Sanctions Violations",
+          "tweet_text": "Sen. Blumenthal investigates Binance following reports of Iran-linked sanctions evasion https://t.co/tGHEbICSyu"
+        },
+        {
+          "username": "cryptodotnews",
+          "headline": "Binance Denies NYT Report About Iran Crypto Flows Investigation",
+          "tweet_text": "LATEST: @binance officials have denied the New York Times report alleging that the company fired internal investigators "
+        }
+      ],
+      "comparison": {
+        "verdict": "split-in-persistent",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 548,
+            "tweet_count_in_this_cluster": 1,
+            "persistent_total": 8,
+            "headline": "Russia Launches Investigation Against Telegram Founder Pavel Durov",
+            "is_story": true
+          },
+          {
+            "id": 101,
+            "tweet_count_in_this_cluster": 1,
+            "persistent_total": 5,
+            "headline": "Legal Expert Questions Presidential War Powers Regarding Iran",
+            "is_story": false
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 36,
+      "tweet_count": 3,
+      "unique_users": 3,
+      "coherence": 0.3193,
+      "is_story": true,
+      "span_hours": 8.6,
+      "earliest": "2026-02-24T12:18:00.000Z",
+      "latest": "2026-02-24T20:53:02.000Z",
+      "sample_headlines": [
+        {
+          "username": "djvlad",
+          "headline": "Social Media User Offers Bitcoin Investment Perspective",
+          "tweet_text": "If you buy $1k in bitcoin, and if gos up to $140k, you will have $2k in bitcoin. Keep your goals realistic."
+        },
+        {
+          "username": "cryptorover",
+          "headline": "Social Media User Shares Bitcoin Market Analysis Chart",
+          "tweet_text": "The only Bitcoin chart you need for Bitcoin this bear market. 👇 https://t.co/XSvQVeUAIh"
+        },
+        {
+          "username": "cryptodotnews",
+          "headline": "Social Media User Hints at Potential Crypto Investment Success",
+          "tweet_text": "When I make it in crypto I won't tell anyone, but there will be signs (spending spree incoming): https://t.co/ehV3Y5xd4s"
+        }
+      ],
+      "comparison": {
+        "verdict": "exact-match",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 93,
+            "tweet_count_in_this_cluster": 3,
+            "persistent_total": 1000,
+            "headline": "GWEI Token Launches Airdrop for Ethereum Gas Fee Users",
+            "is_story": false
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 37,
+      "tweet_count": 2,
+      "unique_users": 2,
+      "coherence": 0.1538,
+      "is_story": false,
+      "span_hours": 9.6,
+      "earliest": "2026-02-24T12:32:18.000Z",
+      "latest": "2026-02-24T22:06:34.000Z",
+      "sample_headlines": [
+        {
+          "username": "brian_armstrong",
+          "headline": "UK Stablecoin Regulations May Limit Digital Finance Innovation, Coinbase CEO Warns",
+          "tweet_text": "Stablecoin rules in the UK are being finalized, and are at risk of preventing the UK from being globally competitive in "
+        },
+        {
+          "username": "coinbase",
+          "headline": "Coinbase Urges UK to Develop Blockchain-Friendly Regulations",
+          "tweet_text": "The UK can be a leader in blockchain and stablecoins, but time is running out. We need smart, pro-innovation rules to he"
+        }
+      ],
+      "comparison": {
+        "verdict": "split-in-persistent",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 840,
+            "tweet_count_in_this_cluster": 1,
+            "persistent_total": 1,
+            "headline": "UK Stablecoin Regulations May Limit Digital Finance Innovation, Coinbase CEO Warns",
+            "is_story": false
+          },
+          {
+            "id": 93,
+            "tweet_count_in_this_cluster": 1,
+            "persistent_total": 1000,
+            "headline": "GWEI Token Launches Airdrop for Ethereum Gas Fee Users",
+            "is_story": false
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 38,
+      "tweet_count": 3,
+      "unique_users": 2,
+      "coherence": 0.5385,
+      "is_story": true,
+      "span_hours": 7.2,
+      "earliest": "2026-02-24T13:01:15.000Z",
+      "latest": "2026-02-24T20:11:19.000Z",
+      "sample_headlines": [
+        {
+          "username": "unusual_whales",
+          "headline": "Fed Official Goolsbee Signals Concern Over Inflation Stagnation",
+          "tweet_text": "Fed’s Goolsbee: Inflation progress has stopped"
+        },
+        {
+          "username": "DeItaone",
+          "headline": "Fed Official Goolsbee Signals Concern Over Inflation Stagnation",
+          "tweet_text": "GOOLSBEE: INFLATION PROGRESS HAS STOPPED, NOT OBVIOUS THAT FED POLICY IS EVEN RESTRICTIVE"
+        },
+        {
+          "username": "DeItaone",
+          "headline": "Fed's Goolsbee Signals Potential Rate Cuts Contingent on Inflation Progress",
+          "tweet_text": "FED'S GOOLSBEE: OPTIMISTIC THERE CAN BE MORE RATE CUTS THIS YEAR, BUT NOT UNTIL INFLATION IS HEADING BACK TO TARGET"
+        }
+      ],
+      "comparison": {
+        "verdict": "exact-match",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 245,
+            "tweet_count_in_this_cluster": 3,
+            "persistent_total": 8,
+            "headline": "Chicago Fed National Activity Index Improves in January",
+            "is_story": true
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 39,
+      "tweet_count": 2,
+      "unique_users": 2,
+      "coherence": 0.4167,
+      "is_story": false,
+      "span_hours": 3,
+      "earliest": "2026-02-24T13:03:01.000Z",
+      "latest": "2026-02-24T16:03:47.000Z",
+      "sample_headlines": [
+        {
+          "username": "solidintel_x",
+          "headline": "Iran Reportedly Nearing Deal to Purchase Chinese CM-302 Anti-Ship Missiles",
+          "tweet_text": "INTEL: Iran is close to a deal with China to buy CM-302 supersonic anti-ship missiles, with negotiations near completion"
+        },
+        {
+          "username": "DeItaone",
+          "headline": "China Nearing Sale of Advanced CM-302 Anti-Ship Missiles to Iran",
+          "tweet_text": "CHINA TO SELL “CARRIER-KILLER” MISSILES TO IRAN Iran is close to buying the CM-302 supersonic cruise missile from China,"
+        }
+      ],
+      "comparison": {
+        "verdict": "exact-match",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 217,
+            "tweet_count_in_this_cluster": 2,
+            "persistent_total": 6,
+            "headline": "EU Commissioner Sefcovic Scheduled to Meet G7 Trade Ministers on Tariffs",
+            "is_story": true
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 40,
+      "tweet_count": 2,
+      "unique_users": 1,
+      "coherence": 0.1429,
+      "is_story": false,
+      "span_hours": 0.2,
+      "earliest": "2026-02-24T13:09:36.000Z",
+      "latest": "2026-02-24T13:23:34.000Z",
+      "sample_headlines": [
+        {
+          "username": "DeItaone",
+          "headline": "Trump Administration Plans AI-Driven Pricing Model for Critical Minerals",
+          "tweet_text": "TRUMP ADMIN TO USE PENTAGON-CREATED AI MODEL TO SET REFERENCE PRICES FOR CRITICAL MINERALS IN GLOBAL TRADING BLOCK -SOUR"
+        },
+        {
+          "username": "DeItaone",
+          "headline": "Pentagon Plans AI System to Set Critical Mineral Benchmark Prices",
+          "tweet_text": "🇺🇸 US TURNS TO AI TO SET GLOBAL MINERAL PRICES The Pentagon plans to use an AI system to set benchmark prices for crit"
+        }
+      ],
+      "comparison": {
+        "verdict": "exact-match",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 563,
+            "tweet_count_in_this_cluster": 2,
+            "persistent_total": 4,
+            "headline": "Trump Administration Explores Alternative Retirement Savings Program",
+            "is_story": true
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 41,
+      "tweet_count": 2,
+      "unique_users": 1,
+      "coherence": 0.2,
+      "is_story": false,
+      "span_hours": 0,
+      "earliest": "2026-02-24T13:11:19.000Z",
+      "latest": "2026-02-24T13:11:55.000Z",
+      "sample_headlines": [
+        {
+          "username": "DeItaone",
+          "headline": "White House Warns Mexican Cartels Against Harming Americans",
+          "tweet_text": "🚨 WHITE HOUSE ON MEXICO: CARTELS KNOW NOT TO LAY A FINGER ON ANY AMERICAN OR THEY WILL PAY SEVERE CONSEQUENCES UNDER TR"
+        },
+        {
+          "username": "DeItaone",
+          "headline": "White House Advises Americans in Mexico to Follow State Department Travel Guidelines",
+          "tweet_text": "WHITE HOUSE ON MEXICO: ENCOURAGE ALL AMERICANS IN MEXICO TO ADHERE TO STATE DEPARTMENT GUIDANCE -FOX INTERVIEW"
+        }
+      ],
+      "comparison": {
+        "verdict": "exact-match",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 93,
+            "tweet_count_in_this_cluster": 2,
+            "persistent_total": 1000,
+            "headline": "GWEI Token Launches Airdrop for Ethereum Gas Fee Users",
+            "is_story": false
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 42,
+      "tweet_count": 3,
+      "unique_users": 3,
+      "coherence": 0.393,
+      "is_story": true,
+      "span_hours": 8.3,
+      "earliest": "2026-02-24T13:13:00.000Z",
+      "latest": "2026-02-24T21:30:04.000Z",
+      "sample_headlines": [
+        {
+          "username": "DecryptMedia",
+          "headline": "Stripe Valued at $159 Billion in Employee Share Tender Offer",
+          "tweet_text": "'Stablecoin Summer': Stripe Makes Tender Offer at $159 Billion Valuation https://t.co/YOQn5ylPXk"
+        },
+        {
+          "username": "Techmeme",
+          "headline": "Stripe Valuation Jumps 70% to $159 Billion in Employee Share Sale",
+          "tweet_text": "Stripe hits a $159B valuation after an employee share sale to investors like Thrive, Coatue, and a16z, a 70% jump from i"
+        },
+        {
+          "username": "TheBlock__",
+          "headline": "Stripe Valuation Reaches $159 Billion in New Tender Offer",
+          "tweet_text": "Stripe valuation jumps to $159 billion on back of tender offer https://t.co/KIIJvdxeTL"
+        }
+      ],
+      "comparison": {
+        "verdict": "exact-match",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 452,
+            "tweet_count_in_this_cluster": 3,
+            "persistent_total": 10,
+            "headline": "Anthropic Plans $5-6B Employee Share Sale at $350B Valuation",
+            "is_story": true
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 43,
+      "tweet_count": 13,
+      "unique_users": 11,
+      "coherence": 0.4229,
+      "is_story": true,
+      "span_hours": 11.2,
+      "earliest": "2026-02-24T14:00:08.000Z",
+      "latest": "2026-02-25T01:15:00.000Z",
+      "sample_headlines": [
+        {
+          "username": "coinbureau",
+          "headline": "Yahoo Finance to Integrate Coinbase Trading Buttons on Asset Pages",
+          "tweet_text": "⚡️YAHOO FINANCE TO ADD COINBASE TRADING BUTTON Coinbase has expanded its stock trading feature to all U.S. users after a"
+        },
+        {
+          "username": "TheBlock__",
+          "headline": "Coinbase Expands Stock Trading Service Nationwide with Yahoo Finance Partnership",
+          "tweet_text": "Coinbase partners with Yahoo Finance as it opens stock trading to all US users https://t.co/wpdGuj1ZP4"
+        },
+        {
+          "username": "coinbase",
+          "headline": "Coinbase Launches Stock Trading Service in Partnership with Yahoo Finance",
+          "tweet_text": "8,000+ stocks. 24/5 trading. One app. Stock trading is live in the U.S., and we've partnered with @YahooFinance to power"
+        },
+        {
+          "username": "coinbureau",
+          "headline": "Coinbase Launches Nationwide Stock Trading for U.S. Users",
+          "tweet_text": "🚨 COINBASE FULLY ROLLS OUT STOCK TRADING TO ALL U.S. USERS 🇺🇸 Coinbase has expanded its equities offering nationwide,"
+        }
+      ],
+      "comparison": {
+        "verdict": "exact-match",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 93,
+            "tweet_count_in_this_cluster": 13,
+            "persistent_total": 1000,
+            "headline": "GWEI Token Launches Airdrop for Ethereum Gas Fee Users",
+            "is_story": false
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 44,
+      "tweet_count": 2,
+      "unique_users": 2,
+      "coherence": 0.25,
+      "is_story": false,
+      "span_hours": 8,
+      "earliest": "2026-02-24T14:03:00.000Z",
+      "latest": "2026-02-24T22:01:34.000Z",
+      "sample_headlines": [
+        {
+          "username": "Cointelegraph",
+          "headline": "Google Searches for 'Can't Sell House' Hit Record Peak",
+          "tweet_text": "🚨 ALERT: Google searches for “can’t sell house” have reached an all-time high https://t.co/skU7dttoAl"
+        },
+        {
+          "username": "cryptorover",
+          "headline": "Google Search Volume for 'Can't Sell House' Reaches Highest Level in Over 10 Years",
+          "tweet_text": "Google searches for \"can't sell house\" absolutely skyrocket to the highest level in over a decade... https://t.co/UaGV9p"
+        }
+      ],
+      "comparison": {
+        "verdict": "exact-match",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 353,
+            "tweet_count_in_this_cluster": 2,
+            "persistent_total": 22,
+            "headline": "Mortgage Rates Fall Below 6% According to CNBC Report",
+            "is_story": true
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 45,
+      "tweet_count": 6,
+      "unique_users": 6,
+      "coherence": 0.2749,
+      "is_story": true,
+      "span_hours": 12.6,
+      "earliest": "2026-02-24T14:07:28.000Z",
+      "latest": "2026-02-25T02:46:20.000Z",
+      "sample_headlines": [
+        {
+          "username": "scottmelker",
+          "headline": "MoonPay Introduces 'MoonPay Agents' for AI-Powered Crypto Transactions",
+          "tweet_text": "MOONPAY LAUNCHES ‘MOONPAY AGENTS’ TO ENABLE AI-DRIVEN CRYPTO TRANSACTIONS AND AUTONOMOUS WALLETS"
+        },
+        {
+          "username": "cryptodotnews",
+          "headline": "MoonPay Introduces Non-Custodial Payment Infrastructure for AI Agents",
+          "tweet_text": "MoonPay launches non-custodial payment infrastructure for AI agents MoonPay has launched non-custodial tools that let AI"
+        },
+        {
+          "username": "DegenerateNews",
+          "headline": "MoonPay Launches MoonPay Agents, Non-Custodial Financial Infrastructure for AI Agents",
+          "tweet_text": "NEW: MOONPAY LAUNCHES MOONPAY AGENTS, ONRAMP FOR THE AGENT ECONOMY - PRESS RELEASE SOURCE: https://t.co/6DjQmEzXDF https"
+        },
+        {
+          "username": "Crypto_Briefing",
+          "headline": "MoonPay Launches New Platform Feature: MoonPay Agents",
+          "tweet_text": "🔥 JUST IN: @MoonPay introduces MoonPay Agents, an onramp designed to support the emerging agent-driven economy. https:/"
+        }
+      ],
+      "comparison": {
+        "verdict": "split-in-persistent",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 259,
+            "tweet_count_in_this_cluster": 4,
+            "persistent_total": 12,
+            "headline": "Arbitrum CEO Affirms Platform's Low-Cost Development Environment",
+            "is_story": false
+          },
+          {
+            "id": 652,
+            "tweet_count_in_this_cluster": 2,
+            "persistent_total": 4,
+            "headline": "MoonPay Introduces Multi-Chain Native X402 Support for AI Agents",
+            "is_story": true
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 46,
+      "tweet_count": 2,
+      "unique_users": 2,
+      "coherence": 0.2143,
+      "is_story": false,
+      "span_hours": 0.4,
+      "earliest": "2026-02-24T14:10:00.000Z",
+      "latest": "2026-02-24T14:32:22.000Z",
+      "sample_headlines": [
+        {
+          "username": "CryptoSlate",
+          "headline": "XRP ETF Inflows Drop 93%, Token Shows Signs of Market Capitulation",
+          "tweet_text": "XRP ETF inflows collapse 93% as price capitulates, will this cause a reset or repair phase? via @hardeyjumoh https://t.c"
+        },
+        {
+          "username": "WhaleFUD",
+          "headline": "XRP ETF Experiences Significant Decline in Investment Inflows",
+          "tweet_text": "JUST IN: XRP ETF inflows collapse 93% as price capitulates"
+        }
+      ],
+      "comparison": {
+        "verdict": "split-in-persistent",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 93,
+            "tweet_count_in_this_cluster": 1,
+            "persistent_total": 1000,
+            "headline": "GWEI Token Launches Airdrop for Ethereum Gas Fee Users",
+            "is_story": false
+          },
+          {
+            "id": 193,
+            "tweet_count_in_this_cluster": 1,
+            "persistent_total": 156,
+            "headline": "Bitdeer Liquidates 943 Bitcoin, Cites Strategic Liquidity Needs",
+            "is_story": false
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 47,
+      "tweet_count": 2,
+      "unique_users": 2,
+      "coherence": 0.3077,
+      "is_story": false,
+      "span_hours": 5.3,
+      "earliest": "2026-02-24T14:27:36.000Z",
+      "latest": "2026-02-24T19:47:58.000Z",
+      "sample_headlines": [
+        {
+          "username": "Vet_X0",
+          "headline": "XRP Market Commentary Signals Potential Investment Opportunity",
+          "tweet_text": "You didn't get this far for no reason. This is the best time to get your XRP thesis up."
+        },
+        {
+          "username": "NFAdotcrypto",
+          "headline": "XRP Investment Perspective: Focusing on Long-Term Potential Over Current Market Price",
+          "tweet_text": "Reminder: You’ve been bullish on #XRP because of the price it has the potential to reach, NOT because of its current pri"
+        }
+      ],
+      "comparison": {
+        "verdict": "exact-match",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 93,
+            "tweet_count_in_this_cluster": 2,
+            "persistent_total": 1000,
+            "headline": "GWEI Token Launches Airdrop for Ethereum Gas Fee Users",
+            "is_story": false
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 48,
+      "tweet_count": 2,
+      "unique_users": 2,
+      "coherence": 0.4444,
+      "is_story": false,
+      "span_hours": 10.8,
+      "earliest": "2026-02-24T14:28:20.000Z",
+      "latest": "2026-02-25T01:14:49.000Z",
+      "sample_headlines": [
+        {
+          "username": "BitcoinJunkies",
+          "headline": "Bitcoin Price Speculation Shared on Social Media",
+          "tweet_text": "Bitcoin has officially bottomed 🚀 https://t.co/BWe5qU4Bjn"
+        },
+        {
+          "username": "BritishHodl",
+          "headline": "Bitcoin Market Sentiment Query Shared on Social Media",
+          "tweet_text": "Any Bitcoin bull's still out there? https://t.co/psbQXoCuyR"
+        }
+      ],
+      "comparison": {
+        "verdict": "split-in-persistent",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 834,
+            "tweet_count_in_this_cluster": 1,
+            "persistent_total": 12,
+            "headline": "Scott Melker Releases New Content",
+            "is_story": false
+          },
+          {
+            "id": 93,
+            "tweet_count_in_this_cluster": 1,
+            "persistent_total": 1000,
+            "headline": "GWEI Token Launches Airdrop for Ethereum Gas Fee Users",
+            "is_story": false
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 49,
+      "tweet_count": 5,
+      "unique_users": 5,
+      "coherence": 0.4614,
+      "is_story": true,
+      "span_hours": 12.6,
+      "earliest": "2026-02-24T14:30:09.000Z",
+      "latest": "2026-02-25T03:08:19.000Z",
+      "sample_headlines": [
+        {
+          "username": "cryptodotnews",
+          "headline": "Binance Alpha Adds Ondo's Tokenized U.S. Stocks and ETFs",
+          "tweet_text": "Binance Alpha adds support for Ondo’s tokenized stocks and ETFs Binance has added Ondo’s tokenized U.S. stocks and ETFs "
+        },
+        {
+          "username": "TheBlock__",
+          "headline": "Binance Reintroduces Tokenized Stocks Through Ondo Finance Partnership",
+          "tweet_text": "Binance brings back tokenized stocks via Ondo Finance partnership https://t.co/Agq4UURq1V"
+        },
+        {
+          "username": "coinbureau",
+          "headline": "Binance Relaunches Tokenized U.S. Stocks via Ondo Finance",
+          "tweet_text": "⚡BINANCE BRINGS BACK TOKENIZED U.S. STOCKS Binance is relaunching tokenized U.S. stocks and ETFs via Ondo Finance, its f"
+        },
+        {
+          "username": "cryptorover",
+          "headline": "Binance Relaunches Tokenized U.S. Stocks and ETFs Through Ondo Finance",
+          "tweet_text": "💥BREAKING: Binance is relaunching tokenized U.S. stocks and ETFs via Ondo Finance. Its first offering since shutting th"
+        }
+      ],
+      "comparison": {
+        "verdict": "split-in-persistent",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 93,
+            "tweet_count_in_this_cluster": 4,
+            "persistent_total": 1000,
+            "headline": "GWEI Token Launches Airdrop for Ethereum Gas Fee Users",
+            "is_story": false
+          },
+          {
+            "id": 906,
+            "tweet_count_in_this_cluster": 1,
+            "persistent_total": 7,
+            "headline": "Punch Coin ($PUNCH) Announces Airdrop on Solana Network",
+            "is_story": true
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 50,
+      "tweet_count": 5,
+      "unique_users": 5,
+      "coherence": 0.6743,
+      "is_story": true,
+      "span_hours": 4.3,
+      "earliest": "2026-02-24T14:36:34.000Z",
+      "latest": "2026-02-24T18:55:40.000Z",
+      "sample_headlines": [
+        {
+          "username": "TheBlock__",
+          "headline": "21Shares Launches Spot SUI ETF on Nasdaq",
+          "tweet_text": "21shares rolls out spot SUI ETF on Nasdaq, marking the latest fund tied to Sui to launch https://t.co/WnVmPjWiZQ"
+        },
+        {
+          "username": "Cointelegraph",
+          "headline": "21Shares Lists Spot SUI ETF on Nasdaq",
+          "tweet_text": "🔥 LATEST: 21Shares has launched the spot SUI ETF (TSUI) on Nasdaq, expanding regulated U.S. investor access to the Sui "
+        },
+        {
+          "username": "scottmelker",
+          "headline": "21Shares Launches Sui Spot ETF on NASDAQ",
+          "tweet_text": "NEW: 21SHARES SPOT $SUI ETF $TSUI GOES LIVE ON NASDAQ"
+        },
+        {
+          "username": "SuiNetwork",
+          "headline": "21Shares Files SEC-Approved Spot ETF for Sui (SUI) Blockchain Token",
+          "tweet_text": "The SEC has greenlit TSUI - a U.S. spot ETF tied to the Sui blockchain. Filed by @21shares_us, this new fund opens the d"
+        }
+      ],
+      "comparison": {
+        "verdict": "exact-match",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 93,
+            "tweet_count_in_this_cluster": 5,
+            "persistent_total": 1000,
+            "headline": "GWEI Token Launches Airdrop for Ethereum Gas Fee Users",
+            "is_story": false
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 51,
+      "tweet_count": 2,
+      "unique_users": 2,
+      "coherence": 0.2727,
+      "is_story": false,
+      "span_hours": 7.3,
+      "earliest": "2026-02-24T14:39:59.000Z",
+      "latest": "2026-02-24T22:00:10.000Z",
+      "sample_headlines": [
+        {
+          "username": "TheTranscript_",
+          "headline": "Nvidia Earnings Expected in Upcoming Market Session",
+          "tweet_text": "All eyes on Nvidia tomorrow Before Open: $HUT $TJX $CRCL $RXRX $LOW $ODD $TRIN $ESEA $ALLT $VLN After Close: $NVDA $CRM "
+        },
+        {
+          "username": "cryptorover",
+          "headline": "NVIDIA Scheduled to Report Quarterly Earnings After Market Close",
+          "tweet_text": "REMINDER: Tomorrow after the market close, $NVDA reports earnings. https://t.co/C5LdxZQd32"
+        }
+      ],
+      "comparison": {
+        "verdict": "exact-match",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 93,
+            "tweet_count_in_this_cluster": 2,
+            "persistent_total": 1000,
+            "headline": "GWEI Token Launches Airdrop for Ethereum Gas Fee Users",
+            "is_story": false
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 52,
+      "tweet_count": 4,
+      "unique_users": 4,
+      "coherence": 0.3648,
+      "is_story": true,
+      "span_hours": 3,
+      "earliest": "2026-02-24T14:40:49.000Z",
+      "latest": "2026-02-24T17:38:11.000Z",
+      "sample_headlines": [
+        {
+          "username": "AutismCapital",
+          "headline": "Anthropic Launches 10 New Claude Cowork Plugins",
+          "tweet_text": "🚨 NEW: Anthropic announces 10 new Claude cowork plugins to eliminate 10 new industries. Man plans, Claude laughs. https"
+        },
+        {
+          "username": "cryptorover",
+          "headline": "Anthropic Launches 10 AI Plug-ins for Professional Sectors",
+          "tweet_text": "💥BREAKING: Anthropic announces 10 AI plug-ins for investment banking, human resources, design, and other tasks. Present"
+        },
+        {
+          "username": "unusual_whales",
+          "headline": "Anthropic Launches New AI Tools for Claude Cowork Platform",
+          "tweet_text": "JUST IN: Anthropic unveiled new AI tools for its Claude Cowork platform designed to automate tasks in HR, investment ban"
+        },
+        {
+          "username": "Techmeme",
+          "headline": "Anthropic Launches Claude Cowork AI Agent Tools for Multiple Professional Sectors",
+          "tweet_text": "Anthropic launches Claude Cowork agent tools for investment banking, HR, design, and more, including a specialized finan"
+        }
+      ],
+      "comparison": {
+        "verdict": "exact-match",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 239,
+            "tweet_count_in_this_cluster": 4,
+            "persistent_total": 21,
+            "headline": "New AI Agent Promises Automated Note-Taking Capabilities",
+            "is_story": true
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 53,
+      "tweet_count": 2,
+      "unique_users": 2,
+      "coherence": 0.4444,
+      "is_story": false,
+      "span_hours": 0,
+      "earliest": "2026-02-24T14:41:53.000Z",
+      "latest": "2026-02-24T14:43:05.000Z",
+      "sample_headlines": [
+        {
+          "username": "DeItaone",
+          "headline": "Fed Governor Waller Comments on AI's Role in Workforce",
+          "tweet_text": "FED'S WALLER: AI WON'T COMPLETELY TAKE HUMANS OUT OF THE PICTURE, IT'S A TOOL"
+        },
+        {
+          "username": "solidintel_x",
+          "headline": "Fed Governor Christopher Waller Comments on AI Job Impact",
+          "tweet_text": "INTEL: Fed’s Waller said AI is unlikely to substantially displace white collar jobs and will remain a tool rather than r"
+        }
+      ],
+      "comparison": {
+        "verdict": "exact-match",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 234,
+            "tweet_count_in_this_cluster": 2,
+            "persistent_total": 9,
+            "headline": "Fed Governor Waller Suggests March Rate Pause Contingent on February Economic Data",
+            "is_story": true
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 54,
+      "tweet_count": 14,
+      "unique_users": 10,
+      "coherence": 0.3602,
+      "is_story": true,
+      "span_hours": 11.2,
+      "earliest": "2026-02-24T14:47:19.000Z",
+      "latest": "2026-02-25T02:00:00.000Z",
+      "sample_headlines": [
+        {
+          "username": "coinbureau",
+          "headline": "Michael Saylor Speaking at Live Event, Invites Audience Participation About Bitcoin",
+          "tweet_text": "🚨 MICHAEL SAYLOR IS LIVE ON STAGE AT THE MOMENT! COMPLETE THE SENTENCE: BITCOIN IS __________ https://t.co/gJw5JDc2Aw"
+        },
+        {
+          "username": "saylor",
+          "headline": "Michael Saylor Announces 'Bitcoin for Corporations' Event",
+          "tweet_text": "Bitcoin for Corporations - Day 1 | Strategy World 2026 https://t.co/mahFAB2EsI"
+        },
+        {
+          "username": "pete_rizzo_",
+          "headline": "Michael Saylor Comments on Bitcoin Performance at Strategy World Conference",
+          "tweet_text": "JUST IN: MICHAEL SAYLOR JUST SAID LIVE AT STRATEGY WORLD THAT EVERYONE SHOULD STOP PANICKING ABOUT THE #BITCOIN PRICE \"I"
+        },
+        {
+          "username": "coinbureau",
+          "headline": "Michael Saylor Discusses Bitcoin Performance at Strategy World Conference",
+          "tweet_text": "🚨 MICHAEL SAYLOR LIVE FROM STRATEGY WORLD: “BITCOIN IS THE ONLY ASSET OUTPERFORMING THE S&amp;P WORTH THE TROUBLE” “DOW"
+        }
+      ],
+      "comparison": {
+        "verdict": "split-in-persistent",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 705,
+            "tweet_count_in_this_cluster": 6,
+            "persistent_total": 9,
+            "headline": "Michael Saylor to Deliver Opening Keynote at Bitcoin for Corporations Event",
+            "is_story": true
+          },
+          {
+            "id": 93,
+            "tweet_count_in_this_cluster": 6,
+            "persistent_total": 1000,
+            "headline": "GWEI Token Launches Airdrop for Ethereum Gas Fee Users",
+            "is_story": false
+          },
+          {
+            "id": 483,
+            "tweet_count_in_this_cluster": 1,
+            "persistent_total": 6,
+            "headline": "Optimistic View: AI Innovation Could Drive Global Abundance and Efficiency",
+            "is_story": true
+          },
+          {
+            "id": 193,
+            "tweet_count_in_this_cluster": 1,
+            "persistent_total": 156,
+            "headline": "Bitdeer Liquidates 943 Bitcoin, Cites Strategic Liquidity Needs",
+            "is_story": false
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 55,
+      "tweet_count": 2,
+      "unique_users": 2,
+      "coherence": 0.4167,
+      "is_story": false,
+      "span_hours": 0,
+      "earliest": "2026-02-24T14:51:53.000Z",
+      "latest": "2026-02-24T14:53:29.000Z",
+      "sample_headlines": [
+        {
+          "username": "Crypto_Briefing",
+          "headline": "Michigan Legislator Proposes Bitcoin Wage and CBDC Restriction Bill",
+          "tweet_text": "JUST IN: 🇺🇸 Michigan State Rep. Matt Maddock introduces legislation that would allow employees to receive wages in Bit"
+        },
+        {
+          "username": "BitcoinMagazine",
+          "headline": "Michigan Lawmaker Proposes Bill Regarding Bitcoin Payments and CBDC Restrictions",
+          "tweet_text": "JUST IN: 🇺🇸 Michigan State Rep. Matt Maddock introduces bill to allow employees to be paid in bitcoin and to prohibit "
+        }
+      ],
+      "comparison": {
+        "verdict": "exact-match",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 645,
+            "tweet_count_in_this_cluster": 2,
+            "persistent_total": 2,
+            "headline": "Michigan Legislator Proposes Bitcoin Wage and CBDC Restriction Bill",
+            "is_story": false
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 56,
+      "tweet_count": 13,
+      "unique_users": 13,
+      "coherence": 0.3188,
+      "is_story": true,
+      "span_hours": 2.9,
+      "earliest": "2026-02-24T14:52:26.000Z",
+      "latest": "2026-02-24T17:45:35.000Z",
+      "sample_headlines": [
+        {
+          "username": "Cointelegraph",
+          "headline": "Meta Reportedly Planning Stablecoin Relaunch in Late 2026",
+          "tweet_text": "⚡️ LATEST: Meta is reportedly planning a stablecoin comeback in the second half of 2026 with third-party payment integra"
+        },
+        {
+          "username": "AshCrypto",
+          "headline": "Meta Reportedly Planning Stablecoin Launch in 2026",
+          "tweet_text": "BREAKING: 🇺🇸 Meta is planning to launch a stablecoin in late 2026, after the previous failed Diem project. https://t.c"
+        },
+        {
+          "username": "DeItaone",
+          "headline": "Meta Platforms Plans Stablecoin Launch in Second Half of 2026",
+          "tweet_text": "$META - META PLANS STABLECOIN COMEBACK IN H2 2026 Meta Platforms is reviving its stablecoin efforts later this year, par"
+        },
+        {
+          "username": "Crypto_Briefing",
+          "headline": "Meta Reportedly Planning Stablecoin Payment Integration for Instagram and WhatsApp",
+          "tweet_text": "⚡️ NEW: Meta is reportedly preparing a return to stablecoins in late 2026, planning to integrate existing assets like $U"
+        }
+      ],
+      "comparison": {
+        "verdict": "exact-match",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 643,
+            "tweet_count_in_this_cluster": 13,
+            "persistent_total": 15,
+            "headline": "Meta Plans to Launch Stablecoin Named $META in 2024",
+            "is_story": true
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 57,
+      "tweet_count": 3,
+      "unique_users": 2,
+      "coherence": 0.5623,
+      "is_story": true,
+      "span_hours": 4.6,
+      "earliest": "2026-02-24T14:59:13.000Z",
+      "latest": "2026-02-24T19:38:08.000Z",
+      "sample_headlines": [
+        {
+          "username": "Cointelegraph",
+          "headline": "Bitcoin Price Fluctuates Around $70,000 Support Level",
+          "tweet_text": "https://t.co/quXoGEunsL"
+        },
+        {
+          "username": "Cointelegraph",
+          "headline": "Bitcoin Price Fluctuates Near $70,000 Support Level",
+          "tweet_text": "https://t.co/NfqNFNLmoX"
+        },
+        {
+          "username": "GordonGekko",
+          "headline": "Trader Predicts Bitcoin Price Support Level at $58,000",
+          "tweet_text": "Worst case scenario for bitcoin is $58K. I will long on 100x leverage if we get there."
+        }
+      ],
+      "comparison": {
+        "verdict": "exact-match",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 193,
+            "tweet_count_in_this_cluster": 3,
+            "persistent_total": 156,
+            "headline": "Bitdeer Liquidates 943 Bitcoin, Cites Strategic Liquidity Needs",
+            "is_story": false
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 58,
+      "tweet_count": 2,
+      "unique_users": 2,
+      "coherence": 0.6,
+      "is_story": false,
+      "span_hours": 3.2,
+      "earliest": "2026-02-24T15:00:08.000Z",
+      "latest": "2026-02-24T18:15:00.000Z",
+      "sample_headlines": [
+        {
+          "username": "coinbureau",
+          "headline": "Oobit Launches Global Crypto-to-Bank Transfer Service Using Tether",
+          "tweet_text": "🚨TETHER-BACKED OOBIT ENABLES CRYPTO TO ANY BANK GLOBALLY Oobit now supports crypto-to-fiat transfers to “any bank accou"
+        },
+        {
+          "username": "TheBlock__",
+          "headline": "Oobit Launches Global Bank Transfer Capability Using Tether",
+          "tweet_text": "Tether-backed crypto payments app Oobit unlocks global bank transfers https://t.co/BNKI49qxQq"
+        }
+      ],
+      "comparison": {
+        "verdict": "split-in-persistent",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 731,
+            "tweet_count_in_this_cluster": 1,
+            "persistent_total": 3,
+            "headline": "Oobit Launches Global Crypto-to-Bank Transfer Service Using Tether",
+            "is_story": true
+          },
+          {
+            "id": 93,
+            "tweet_count_in_this_cluster": 1,
+            "persistent_total": 1000,
+            "headline": "GWEI Token Launches Airdrop for Ethereum Gas Fee Users",
+            "is_story": false
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 59,
+      "tweet_count": 3,
+      "unique_users": 3,
+      "coherence": 0.4862,
+      "is_story": true,
+      "span_hours": 0.2,
+      "earliest": "2026-02-24T15:00:20.000Z",
+      "latest": "2026-02-24T15:09:29.000Z",
+      "sample_headlines": [
+        {
+          "username": "DeItaone",
+          "headline": "US Consumer Confidence Rises in February, Beats Expectations",
+          "tweet_text": "*US FEB. CONSUMER CONFIDENCE 91.2; EST. 87.0"
+        },
+        {
+          "username": "solidintel_x",
+          "headline": "US Consumer Confidence Rises Above Expectations in February",
+          "tweet_text": "INTEL: US FEB. CONSUMER CONFIDENCE 91.2; EST. 87.0"
+        },
+        {
+          "username": "TheStalwart",
+          "headline": "US Consumer Confidence Index Beats Expectations in Latest Report",
+          "tweet_text": "Nice beat on Consumer Confidence. 91.2 vs. 87.1 expected."
+        }
+      ],
+      "comparison": {
+        "verdict": "exact-match",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 642,
+            "tweet_count_in_this_cluster": 3,
+            "persistent_total": 3,
+            "headline": "US Consumer Confidence Rises Above Expectations in February",
+            "is_story": true
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 60,
+      "tweet_count": 2,
+      "unique_users": 1,
+      "coherence": 0.2222,
+      "is_story": false,
+      "span_hours": 0,
+      "earliest": "2026-02-24T15:27:36.000Z",
+      "latest": "2026-02-24T15:29:34.000Z",
+      "sample_headlines": [
+        {
+          "username": "DeItaone",
+          "headline": "Iran Signals Readiness to Negotiate with United States",
+          "tweet_text": "IRAN'S TAKHT-RAVANCHI: TEHRAN IS READY TO REACH A DEAL WITH U.S. AS SOON AS POSSIBLE - STATE MEDIA"
+        },
+        {
+          "username": "DeItaone",
+          "headline": "Iran Signals Diplomatic Openness to US Negotiations",
+          "tweet_text": "IRAN'S DEPUTY FOREIGN MINISTER TAKHT-RAVANCHI SAYS TEHRAN READY TO TAKE ANY NECESSARY STEP TO REACH A DEAL WITH U.S."
+        }
+      ],
+      "comparison": {
+        "verdict": "exact-match",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 540,
+            "tweet_count_in_this_cluster": 2,
+            "persistent_total": 31,
+            "headline": "Russia Alleges UK and France Plan Nuclear Weapon Support for Ukraine",
+            "is_story": false
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 61,
+      "tweet_count": 3,
+      "unique_users": 3,
+      "coherence": 0.4833,
+      "is_story": true,
+      "span_hours": 3.5,
+      "earliest": "2026-02-24T15:31:38.000Z",
+      "latest": "2026-02-24T19:00:00.000Z",
+      "sample_headlines": [
+        {
+          "username": "TheBlock__",
+          "headline": "Kraken Launches 24/7 Perpetual Futures Trading for Gold, Stock Indexes, and Individual Stocks",
+          "tweet_text": "Kraken rolls out round-the-clock perps for gold, major indexes and stocks like Apple, Nvidia and Tesla https://t.co/DSh3"
+        },
+        {
+          "username": "scottmelker",
+          "headline": "Kraken Introduces 24/7 Perpetual Trading for Tokenized U.S. Stocks",
+          "tweet_text": "KRAKEN LAUNCHES 24/7 PERPETUALS TRADING FOR TOKENIZED U.S. STOCKS WITH UP TO 20X LEVERAGE"
+        },
+        {
+          "username": "Techmeme",
+          "headline": "Kraken Launches 24/7 Perpetual Futures Contracts for Tokenized U.S. Stocks",
+          "tweet_text": "Kraken launches what it claims are the first regulated perpetual futures contracts based on tokenized stocks, available "
+        }
+      ],
+      "comparison": {
+        "verdict": "exact-match",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 93,
+            "tweet_count_in_this_cluster": 3,
+            "persistent_total": 1000,
+            "headline": "GWEI Token Launches Airdrop for Ethereum Gas Fee Users",
+            "is_story": false
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 62,
+      "tweet_count": 2,
+      "unique_users": 2,
+      "coherence": 0.6,
+      "is_story": false,
+      "span_hours": 0,
+      "earliest": "2026-02-24T15:52:12.000Z",
+      "latest": "2026-02-24T15:52:26.000Z",
+      "sample_headlines": [
+        {
+          "username": "Khaleedabd22",
+          "headline": "Amily Inu Memecoin Launches on Solana's PumpFun with Airdrop Event",
+          "tweet_text": "✨ AMILY INU @amilyinu — Moon LFG! Pink vibes. Solana speed. Community magic. CA: Launch $AMILY on @pumpfun at 3:00PM UTC"
+        },
+        {
+          "username": "i_am_madaki",
+          "headline": "Amily Inu ($AMILY) Memecoin Launches on Solana via PumpFun",
+          "tweet_text": "✨ AMILY INU @amilyinu — Moon LFG! Pink vibes. Solana speed. Community magic. CA: Launch $AMILY on @pumpfun at 3:00PM UTC"
+        }
+      ],
+      "comparison": {
+        "verdict": "exact-match",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 93,
+            "tweet_count_in_this_cluster": 2,
+            "persistent_total": 1000,
+            "headline": "GWEI Token Launches Airdrop for Ethereum Gas Fee Users",
+            "is_story": false
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 63,
+      "tweet_count": 2,
+      "unique_users": 1,
+      "coherence": 0.5455,
+      "is_story": false,
+      "span_hours": 0.5,
+      "earliest": "2026-02-24T16:01:01.000Z",
+      "latest": "2026-02-24T16:31:37.000Z",
+      "sample_headlines": [
+        {
+          "username": "Cointelegraph",
+          "headline": "Paradyze DEX Launches AI-Powered Trading Platform with Competitive Gameplay Features",
+          "tweet_text": "⚡️ INSIGHT: Trading evolves from isolated screens to competitive, progression-based gameplay. AI-powered DEX Paradyze in"
+        },
+        {
+          "username": "Cointelegraph",
+          "headline": "Paradyze Fi Launches AI-Powered Decentralized Exchange with Competitive Trading Features",
+          "tweet_text": "⚡️ INSIGHT: Trading evolves from isolated screens to competitive, progression-based gameplay. AI-powered DEX @ParadyzeFi"
+        }
+      ],
+      "comparison": {
+        "verdict": "exact-match",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 93,
+            "tweet_count_in_this_cluster": 2,
+            "persistent_total": 1000,
+            "headline": "GWEI Token Launches Airdrop for Ethereum Gas Fee Users",
+            "is_story": false
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 64,
+      "tweet_count": 4,
+      "unique_users": 4,
+      "coherence": 0.2875,
+      "is_story": true,
+      "span_hours": 7.6,
+      "earliest": "2026-02-24T16:04:28.000Z",
+      "latest": "2026-02-24T23:41:32.000Z",
+      "sample_headlines": [
+        {
+          "username": "Traveler2236",
+          "headline": "XRP Price Speculation Shared on Social Media",
+          "tweet_text": "I believe 100 XRP Tokens is worth ridiculous value in the future."
+        },
+        {
+          "username": "unknowDLT",
+          "headline": "XRP Price Speculation Continues with Bullish Claims",
+          "tweet_text": "The world is NOT ready for what is coming for XRP. It was planned more than a decade ago, it is going to be the most val"
+        },
+        {
+          "username": "Cobb_XRPL",
+          "headline": "Social Media Speculation About XRP Mention in State of the Union Address",
+          "tweet_text": "Will Trump say XRP during the state of the union?"
+        },
+        {
+          "username": "RippleXrpie",
+          "headline": "Unsubstantiated Social Media Claim About XRP Price Potential",
+          "tweet_text": "🚨BREAKING: Germany’s largest stock exchange says that #XRP is about to outperform #BTC and reach a new all-time high an"
+        }
+      ],
+      "comparison": {
+        "verdict": "split-in-persistent",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 93,
+            "tweet_count_in_this_cluster": 3,
+            "persistent_total": 1000,
+            "headline": "GWEI Token Launches Airdrop for Ethereum Gas Fee Users",
+            "is_story": false
+          },
+          {
+            "id": 559,
+            "tweet_count_in_this_cluster": 1,
+            "persistent_total": 9,
+            "headline": "Core Goods Inflation Trend Shows Increasing Price Pressures",
+            "is_story": true
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 65,
+      "tweet_count": 2,
+      "unique_users": 2,
+      "coherence": 0.1176,
+      "is_story": false,
+      "span_hours": 10.7,
+      "earliest": "2026-02-24T16:17:00.000Z",
+      "latest": "2026-02-25T03:00:28.000Z",
+      "sample_headlines": [
+        {
+          "username": "Cointelegraph",
+          "headline": "Senator Lummis Promotes Bitcoin Adoption Through Proposed Clarity Act",
+          "tweet_text": "🇺🇸 SEN. LUMMIS: “Under the Clarity Act, banks and credit unions have the opportunity to grow by adopting bitcoin, digi"
+        },
+        {
+          "username": "SenLummis",
+          "headline": "Senator Lummis Advocates for Crypto Legislation to Expand Banking Digital Asset Capabilities",
+          "tweet_text": "This is exactly why we need legislation. Under the Clarity Act, banks and credit unions have the opportunity to grow by "
+        }
+      ],
+      "comparison": {
+        "verdict": "split-in-persistent",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 909,
+            "tweet_count_in_this_cluster": 1,
+            "persistent_total": 1,
+            "headline": "Senator Lummis Promotes Bitcoin Adoption Through Proposed Clarity Act",
+            "is_story": false
+          },
+          {
+            "id": 309,
+            "tweet_count_in_this_cluster": 1,
+            "persistent_total": 24,
+            "headline": "Reuters: Software Companies Face Higher Borrowing Costs Amid AI Disruption",
+            "is_story": true
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 66,
+      "tweet_count": 7,
+      "unique_users": 7,
+      "coherence": 0.7288,
+      "is_story": true,
+      "span_hours": 10.4,
+      "earliest": "2026-02-24T16:19:59.000Z",
+      "latest": "2026-02-25T02:45:00.000Z",
+      "sample_headlines": [
+        {
+          "username": "TheBlock__",
+          "headline": "White House Confirms Trump Has No Plans to Pardon Sam Bankman-Fried",
+          "tweet_text": "White House reiterates Trump has no plans to pardon Sam Bankman-Fried despite FTX founder's social media push https://t."
+        },
+        {
+          "username": "coinbureau",
+          "headline": "White House Indicates No Presidential Pardon for Sam Bankman-Fried",
+          "tweet_text": "🚨 BREAKING: TRUMP HAS NO PLANS TO GRANT SAM BANKMAN-FRIED A PARDON, SAYS WHITE HOUSE https://t.co/eBBktDfGOf"
+        },
+        {
+          "username": "AshCrypto",
+          "headline": "White House Confirms No Presidential Pardon for Sam Bankman-Fried",
+          "tweet_text": "BREAKING: 🇺🇸 The White House confirmed President Trump will not pardon Sam Bankman-Fried. https://t.co/rRdAwAq1uL"
+        },
+        {
+          "username": "blocknewsdotcom",
+          "headline": "White House Confirms Trump Will Not Pardon Sam Bankman-Fried",
+          "tweet_text": "🇺🇸 WHITE HOUSE CONFIRMS PRESIDENT TRUMP WILL NOT PARDON FTX SAM BANKMAN-FRIED DESPITE RECENT EFFORTS PORTRAYING HIMSEL"
+        }
+      ],
+      "comparison": {
+        "verdict": "exact-match",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 860,
+            "tweet_count_in_this_cluster": 7,
+            "persistent_total": 25,
+            "headline": "LSU Women's Basketball Team Invited to State of the Union, Media Coverage Criticized",
+            "is_story": true
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 67,
+      "tweet_count": 8,
+      "unique_users": 8,
+      "coherence": 0.4422,
+      "is_story": true,
+      "span_hours": 6.5,
+      "earliest": "2026-02-24T16:28:12.000Z",
+      "latest": "2026-02-24T22:56:59.000Z",
+      "sample_headlines": [
+        {
+          "username": "Crypto_Briefing",
+          "headline": "Microsoft Announces Partnership with Starlink",
+          "tweet_text": "💥 JUST IN: Microsoft $MSFT partners with Elon Musk's Starlink. https://t.co/mC3mnCTpI4"
+        },
+        {
+          "username": "unusual_whales",
+          "headline": "Microsoft and SpaceX Starlink Announce Global Internet Partnership",
+          "tweet_text": "Microsoft and SpaceX’s Starlink have partnered to work together to provide global internet, per CNBC"
+        },
+        {
+          "username": "Cointelegraph",
+          "headline": "Microsoft and Starlink Announce Partnership for Rural Internet Expansion",
+          "tweet_text": "🚨 TODAY: Microsoft has partnered with Elon Musk’s Starlink to expand internet access in rural and remote areas. https:/"
+        },
+        {
+          "username": "cryptorover",
+          "headline": "Microsoft Announces Partnership with Starlink",
+          "tweet_text": "💥BREAKING: Microsoft $MSFT partners with Elon Musk's Starlink. https://t.co/ZZNJnZeYha"
+        }
+      ],
+      "comparison": {
+        "verdict": "exact-match",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 694,
+            "tweet_count_in_this_cluster": 8,
+            "persistent_total": 10,
+            "headline": "Microsoft Announces Starlink Partnership to Expand Internet Access, Surpasses 299 Million Connectivity Goal",
+            "is_story": true
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 68,
+      "tweet_count": 3,
+      "unique_users": 3,
+      "coherence": 0.6,
+      "is_story": true,
+      "span_hours": 6.5,
+      "earliest": "2026-02-24T16:29:18.000Z",
+      "latest": "2026-02-24T23:01:02.000Z",
+      "sample_headlines": [
+        {
+          "username": "scottmelker",
+          "headline": "Bitwise Acquires Chorus One to Expand Institutional Crypto Staking Services",
+          "tweet_text": "BITWISE ACQUIRES CHORUS ONE TO EXPAND INSTITUTIONAL STAKING SERVICES ACROSS 30+ POS CHAINS https://t.co/HbO5oGCoqq"
+        },
+        {
+          "username": "Cointelegraph",
+          "headline": "Bitwise Acquires Chorus One Staking Provider",
+          "tweet_text": "⚡️ NEW: Bitwise acquired staking provider Chorus One, adding $2.2 billion in staked assets and expanding support across "
+        },
+        {
+          "username": "TheBlock__",
+          "headline": "Bitwise Acquires Chorus One, Expanding Institutional Crypto Staking Services",
+          "tweet_text": "Bitwise acquires institutional staking provider Chorus One to help expand services on over 30 proof-of-stake chains http"
+        }
+      ],
+      "comparison": {
+        "verdict": "exact-match",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 557,
+            "tweet_count_in_this_cluster": 3,
+            "persistent_total": 16,
+            "headline": "UK to Expand Ofcom Regulation to Streaming Platforms with 500,000+ Users",
+            "is_story": true
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 69,
+      "tweet_count": 2,
+      "unique_users": 2,
+      "coherence": 0.7778,
+      "is_story": false,
+      "span_hours": 1.2,
+      "earliest": "2026-02-24T16:30:27.000Z",
+      "latest": "2026-02-24T17:40:49.000Z",
+      "sample_headlines": [
+        {
+          "username": "Crypto_Briefing",
+          "headline": "TD Cowen Predicts Bitcoin Price Target of $225,000 by 2027",
+          "tweet_text": "🚀 JUST IN: Investment banking firm TD Cowen forecasts Bitcoin could reach $225,000 by 2027. https://t.co/rGH3RnNwgQ"
+        },
+        {
+          "username": "BitcoinMagazine",
+          "headline": "TD Cowen Projects Bitcoin Price Target of $225,000 by 2027",
+          "tweet_text": "JUST IN: Investment bank giant TD Cowen predicts Bitcoin to hit $225,000 in 2027 🚀 https://t.co/JbJyjMNtxJ"
+        }
+      ],
+      "comparison": {
+        "verdict": "exact-match",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 193,
+            "tweet_count_in_this_cluster": 2,
+            "persistent_total": 156,
+            "headline": "Bitdeer Liquidates 943 Bitcoin, Cites Strategic Liquidity Needs",
+            "is_story": false
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 70,
+      "tweet_count": 2,
+      "unique_users": 1,
+      "coherence": 1,
+      "is_story": false,
+      "span_hours": 1,
+      "earliest": "2026-02-24T16:30:37.000Z",
+      "latest": "2026-02-24T17:30:37.000Z",
+      "sample_headlines": [
+        {
+          "username": "Cointelegraph",
+          "headline": "CoinShares Launches Physically Backed Hyperliquid Staking ETP",
+          "tweet_text": "⚡️ LATEST: CoinShares launches a physically backed Hyperliquid Staking ETP, offering HYPE exposure. https://t.co/ojmMxBB"
+        },
+        {
+          "username": "Cointelegraph",
+          "headline": "CoinShares Launches Physically Backed Hyperliquid Staking ETP",
+          "tweet_text": "⚡️ LATEST: CoinShares launches a physically backed Hyperliquid Staking ETP, offering $HYPE exposure. https://t.co/oUNwZq"
+        }
+      ],
+      "comparison": {
+        "verdict": "exact-match",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 93,
+            "tweet_count_in_this_cluster": 2,
+            "persistent_total": 1000,
+            "headline": "GWEI Token Launches Airdrop for Ethereum Gas Fee Users",
+            "is_story": false
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 71,
+      "tweet_count": 2,
+      "unique_users": 2,
+      "coherence": 0.5,
+      "is_story": false,
+      "span_hours": 0.9,
+      "earliest": "2026-02-24T16:45:21.000Z",
+      "latest": "2026-02-24T17:37:43.000Z",
+      "sample_headlines": [
+        {
+          "username": "unusual_whales",
+          "headline": "Apple Reaffirms Commitment to Annual Dividend Increases",
+          "tweet_text": "Apple’s, $AAPL, CEO Tim Cook has said the company plans to continue the annual increase of its dividend, per Bloomberg"
+        },
+        {
+          "username": "DeItaone",
+          "headline": "Apple Signals Continued Annual Dividend Increases",
+          "tweet_text": "$AAPL - APPLE CONTINUES TO PLAN FOR ANNUAL INCREASE TO DIVIDEND - TIM COOK AT ANNUAL GENERAL MEETING"
+        }
+      ],
+      "comparison": {
+        "verdict": "exact-match",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 702,
+            "tweet_count_in_this_cluster": 2,
+            "persistent_total": 2,
+            "headline": "Apple Signals Continued Annual Dividend Increases",
+            "is_story": false
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 72,
+      "tweet_count": 2,
+      "unique_users": 2,
+      "coherence": 0.4615,
+      "is_story": false,
+      "span_hours": 1.4,
+      "earliest": "2026-02-24T17:07:57.000Z",
+      "latest": "2026-02-24T18:30:37.000Z",
+      "sample_headlines": [
+        {
+          "username": "DeItaone",
+          "headline": "Goldman Sachs Warns Stock Market Correction Could Significantly Impact US Economic Growth",
+          "tweet_text": "GOLDMAN WARNS STOCK MARKET CORRECTION IS BIGGEST ECONOMY RISK Goldman Sachs says a U.S. stock market pullback poses the "
+        },
+        {
+          "username": "Cointelegraph",
+          "headline": "Goldman Sachs Warns of Potential 20% Stock Market Correction",
+          "tweet_text": "🚨 ALERT: Goldman Sachs warns a U.S. stock market correction is the biggest near-term economic risk, with a 20% drop pot"
+        }
+      ],
+      "comparison": {
+        "verdict": "exact-match",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 309,
+            "tweet_count_in_this_cluster": 2,
+            "persistent_total": 24,
+            "headline": "Reuters: Software Companies Face Higher Borrowing Costs Amid AI Disruption",
+            "is_story": true
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 73,
+      "tweet_count": 7,
+      "unique_users": 6,
+      "coherence": 0.5131,
+      "is_story": true,
+      "span_hours": 7.1,
+      "earliest": "2026-02-24T17:37:32.000Z",
+      "latest": "2026-02-25T00:45:00.000Z",
+      "sample_headlines": [
+        {
+          "username": "Crypto_Briefing",
+          "headline": "Solo Bitcoin Miner Wins Block, Earns $197,546 in Single Mining Event",
+          "tweet_text": "🔥 NEW: A solo Bitcoin miner successfully mined an entire block, earning 3.128 $BTC — valued at approximately $197,546 —"
+        },
+        {
+          "username": "BitcoinMagazine",
+          "headline": "Solo Bitcoin Miner Discovers Block, Earns $197,546",
+          "tweet_text": "NEW: A solo miner mined a #Bitcoin block receiving 3.128 BTC worth $197,546. The odds of this happening were around 1 in"
+        },
+        {
+          "username": "DecryptMedia",
+          "headline": "Solo Bitcoin Miner Earns $200,000 Block Reward After Spending $75 on Hash Power",
+          "tweet_text": "Solo Bitcoin Miner Nabs $200K After Renting $75 Worth of Hash Power https://t.co/azH5CzC0iv"
+        },
+        {
+          "username": "coinbureau",
+          "headline": "Solo Bitcoin Miner Earns $197,546 in Single Block Reward",
+          "tweet_text": "🚨SOLO MINER MINED BTC WORTH NEARLY $200K A solo miner just mined a full Bitcoin block, earning 3.128 $BTC worth about $"
+        }
+      ],
+      "comparison": {
+        "verdict": "exact-match",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 561,
+            "tweet_count_in_this_cluster": 7,
+            "persistent_total": 8,
+            "headline": "Brazil Cuts Bitcoin Miner Import Duty to Zero, Aims to Utilize Stranded Solar Energy",
+            "is_story": true
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 74,
+      "tweet_count": 2,
+      "unique_users": 2,
+      "coherence": 0.3571,
+      "is_story": false,
+      "span_hours": 0.7,
+      "earliest": "2026-02-24T18:00:00.000Z",
+      "latest": "2026-02-24T18:42:17.000Z",
+      "sample_headlines": [
+        {
+          "username": "TrumpTruthOnX",
+          "headline": "White House Official Indicates Crypto Market Structure Bill Nearing Passage",
+          "tweet_text": "JUST IN: WHITE HOUSE OFFICIAL JUST SAID #BITCOIN AND CRYPTO MARKET STRUCTURE BILL IS \"CLOSER THAN EVER\" TO BEING PASSED "
+        },
+        {
+          "username": "MerlijnTrader",
+          "headline": "Coinbase CEO Suggests Crypto Market Structure Bill Nearing Approval",
+          "tweet_text": "🚨 MASSIVE: The long-awaited crypto framework may be hours or days away. Coinbase CEO signals the Market Structure Bill "
+        }
+      ],
+      "comparison": {
+        "verdict": "exact-match",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 230,
+            "tweet_count_in_this_cluster": 2,
+            "persistent_total": 41,
+            "headline": "US Stock Market Futures Indicate Negative Opening",
+            "is_story": true
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 75,
+      "tweet_count": 3,
+      "unique_users": 3,
+      "coherence": 0.4417,
+      "is_story": true,
+      "span_hours": 5.1,
+      "earliest": "2026-02-24T18:22:33.000Z",
+      "latest": "2026-02-24T23:30:58.000Z",
+      "sample_headlines": [
+        {
+          "username": "DeItaone",
+          "headline": "Trump Administration Weighs Executive Order on Bank Customer Citizenship Documentation",
+          "tweet_text": "Trump Administration Considers Action Requiring Banks Collect Customer Citizenship Info, Sources Say Potential Executive"
+        },
+        {
+          "username": "unusual_whales",
+          "headline": "WSJ: Trump Administration Considers Citizenship Documentation Verification for Bank Customers",
+          "tweet_text": "JUST IN: The Trump administration is reportedly weighing executive action that would require banks to collect and verify"
+        },
+        {
+          "username": "Cointelegraph",
+          "headline": "Trump Administration Considers Executive Order on Bank Customer Citizenship Data Collection",
+          "tweet_text": "🇺🇸 LATEST: The Trump administration is weighing an executive order requiring banks to collect citizenship data from cu"
+        }
+      ],
+      "comparison": {
+        "verdict": "exact-match",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 737,
+            "tweet_count_in_this_cluster": 3,
+            "persistent_total": 5,
+            "headline": "Trump Administration Weighs Executive Order on Bank Customer Citizenship Documentation",
+            "is_story": true
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 76,
+      "tweet_count": 10,
+      "unique_users": 8,
+      "coherence": 0.1771,
+      "is_story": true,
+      "span_hours": 2.6,
+      "earliest": "2026-02-24T18:35:10.000Z",
+      "latest": "2026-02-24T21:11:00.000Z",
+      "sample_headlines": [
+        {
+          "username": "unusual_whales",
+          "headline": "Pentagon Official Threatens Anthropic with Supply Chain Exclusion",
+          "tweet_text": "Pentagon's Hegseth threatens to cut Anthropic from Pentagon supply chain in showdown with CEO, per FT"
+        },
+        {
+          "username": "KobeissiLetter",
+          "headline": "US Defense Secretary Pressures Anthropic Over Military AI Technology Use",
+          "tweet_text": "BREAKING: US Defense Secretary Pete Hegseth has threatened to cut Anthropic from the Pentagon's supply chain unless it a"
+        },
+        {
+          "username": "Techmeme",
+          "headline": "US Department of Defense Threatens Anthropic with Defense Production Act Over AI Access",
+          "tweet_text": "Sources: DoD told Anthropic it will invoke the Defense Production Act or label Anthropic a \"supply chain risk\", if not g"
+        },
+        {
+          "username": "Crypto_Briefing",
+          "headline": "US Defense Secretary Threatens Anthropic with Supply Chain Removal Over AI Model Authorization",
+          "tweet_text": "JUST IN: 🇺🇸 US Defense Secretary Pete Hegseth warns Anthropic could be removed from the Pentagon’s supply chain if the"
+        }
+      ],
+      "comparison": {
+        "verdict": "split-in-persistent",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 540,
+            "tweet_count_in_this_cluster": 5,
+            "persistent_total": 31,
+            "headline": "Russia Alleges UK and France Plan Nuclear Weapon Support for Ukraine",
+            "is_story": false
+          },
+          {
+            "id": 462,
+            "tweet_count_in_this_cluster": 5,
+            "persistent_total": 8,
+            "headline": "ICE Implements New Safety Protocols Against Vehicle Tracking",
+            "is_story": true
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 77,
+      "tweet_count": 2,
+      "unique_users": 2,
+      "coherence": 1,
+      "is_story": false,
+      "span_hours": 3.3,
+      "earliest": "2026-02-24T19:02:29.000Z",
+      "latest": "2026-02-24T22:22:33.000Z",
+      "sample_headlines": [
+        {
+          "username": "AshCrypto",
+          "headline": "US Treasury Conducts $2 Billion Debt Buyback",
+          "tweet_text": "BREAKING: 🇺🇸 US Treasury just bought back $2,000,000,000 of its own debt. https://t.co/5zX2LV6KYs"
+        },
+        {
+          "username": "cryptorover",
+          "headline": "US Treasury Conducts $2 Billion Debt Buyback",
+          "tweet_text": "💥BREAKING: 🇺🇸 US Treasury just bought back $2,000,000,000 of its own debt. https://t.co/1qkWDlPYT7"
+        }
+      ],
+      "comparison": {
+        "verdict": "exact-match",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 679,
+            "tweet_count_in_this_cluster": 2,
+            "persistent_total": 3,
+            "headline": "British Treasury Establishes Credit Facility with Coinbase Credit",
+            "is_story": true
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 78,
+      "tweet_count": 2,
+      "unique_users": 2,
+      "coherence": 1,
+      "is_story": false,
+      "span_hours": 1,
+      "earliest": "2026-02-24T19:02:56.000Z",
+      "latest": "2026-02-24T20:00:45.000Z",
+      "sample_headlines": [
+        {
+          "username": "solidintel_x",
+          "headline": "U.S. Housing Market Sees Record Buyer Pullback in Early 2026",
+          "tweet_text": "INTEL: U.S. housing data show a record buyer pullback in early 2026, while prices are expected to remain flat to slightl"
+        },
+        {
+          "username": "Cointelegraph",
+          "headline": "U.S. Housing Market Sees Record Buyer Pullback in Early 2026",
+          "tweet_text": "🚨 JUST IN: U.S. housing data shows a record buyer pullback in early 2026, while prices are expected to stay flat or sli"
+        }
+      ],
+      "comparison": {
+        "verdict": "exact-match",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 232,
+            "tweet_count_in_this_cluster": 2,
+            "persistent_total": 13,
+            "headline": "Domino's Pizza Reports 32 Years of Consecutive International Sales Growth, Gains U.S. Market Share",
+            "is_story": true
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 79,
+      "tweet_count": 3,
+      "unique_users": 3,
+      "coherence": 0.5946,
+      "is_story": true,
+      "span_hours": 6.7,
+      "earliest": "2026-02-24T19:16:38.000Z",
+      "latest": "2026-02-25T02:00:01.000Z",
+      "sample_headlines": [
+        {
+          "username": "TheBlock__",
+          "headline": "TruStage Launches Stablecoin Pilot for Credit Unions",
+          "tweet_text": "Fintech and insurance giant TruStage pilots stablecoin geared for credit unions https://t.co/EBm06IGJyg"
+        },
+        {
+          "username": "DegenerateNews",
+          "headline": "TruStage Launches Pilot for Credit Union-Focused Stablecoin TSDA",
+          "tweet_text": "NEW: FINTECH AND INSURANCE GIANT TRUSTAGE PILOTS STABLECOIN GEARED FOR CREDIT UNIONS - THE BLOCK SOURCE: https://t.co/Wr"
+        },
+        {
+          "username": "scottmelker",
+          "headline": "TrustAge Launches Dollar-Backed Stablecoin for Credit Unions",
+          "tweet_text": "NEW: TRUSTAGE PILOTS DOLLAR-BACKED STABLECOIN FOR U.S. CREDIT UNIONS"
+        }
+      ],
+      "comparison": {
+        "verdict": "split-in-persistent",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 93,
+            "tweet_count_in_this_cluster": 2,
+            "persistent_total": 1000,
+            "headline": "GWEI Token Launches Airdrop for Ethereum Gas Fee Users",
+            "is_story": false
+          },
+          {
+            "id": 815,
+            "tweet_count_in_this_cluster": 1,
+            "persistent_total": 2,
+            "headline": "Australian Stablecoin AUDD Announced for February 2026 Launch",
+            "is_story": false
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 80,
+      "tweet_count": 2,
+      "unique_users": 1,
+      "coherence": 0.7143,
+      "is_story": false,
+      "span_hours": 0,
+      "earliest": "2026-02-24T19:49:25.000Z",
+      "latest": "2026-02-24T19:49:27.000Z",
+      "sample_headlines": [
+        {
+          "username": "xerocooleth",
+          "headline": "User Calls for Return of SimClusters Feature on X Platform",
+          "tweet_text": "Bring back SimClusters to X Remember when you browsed your feed and it was the best posts in your cluster and your posts"
+        },
+        {
+          "username": "xerocooleth",
+          "headline": "User Calls for Restoration of SimClusters Feature on X Platform",
+          "tweet_text": "Bring back SimClusters to X Remember when you browsed your feed and it was the best posts in your cluster and your posts"
+        }
+      ],
+      "comparison": {
+        "verdict": "exact-match",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 593,
+            "tweet_count_in_this_cluster": 2,
+            "persistent_total": 4,
+            "headline": "X Platform Modifies Bot Reply Permissions",
+            "is_story": true
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 81,
+      "tweet_count": 6,
+      "unique_users": 6,
+      "coherence": 0.4904,
+      "is_story": true,
+      "span_hours": 4,
+      "earliest": "2026-02-24T19:59:04.000Z",
+      "latest": "2026-02-25T00:01:05.000Z",
+      "sample_headlines": [
+        {
+          "username": "DeItaone",
+          "headline": "U.S. Court Dismisses XAI's Trade Secrets Lawsuit Against OpenAI",
+          "tweet_text": "U.S. JUDGE DISMISSES XAI TRADE SECRETS LAWSUIT AGAINST OPENAI - COURT RULING"
+        },
+        {
+          "username": "WhaleInsider",
+          "headline": "U.S. Court Dismisses xAI's Trade Secrets Lawsuit Against OpenAI",
+          "tweet_text": "JUST IN: 🇺🇸 U.S. court dismisses xAI’s trade secrets suit against OpenAI - ruling. https://t.co/pBkGHoIIDV"
+        },
+        {
+          "username": "Techmeme",
+          "headline": "California Judge Dismisses xAI's Trade Secret Lawsuit Against OpenAI",
+          "tweet_text": "A California judge dismisses a lawsuit from xAI that accused OpenAI of stealing its trade secrets, with permission for x"
+        },
+        {
+          "username": "AutismCapital",
+          "headline": "xAI Lawsuit Against OpenAI Dismissed by Court",
+          "tweet_text": "🚨 BREAKING: xAI's trade secrets lawsuit against OpenAI has been DISMISSED. https://t.co/v8BpVy3aro"
+        }
+      ],
+      "comparison": {
+        "verdict": "exact-match",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 769,
+            "tweet_count_in_this_cluster": 6,
+            "persistent_total": 10,
+            "headline": "U.S. Court Dismisses XAI's Trade Secrets Lawsuit Against OpenAI",
+            "is_story": true
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 82,
+      "tweet_count": 2,
+      "unique_users": 2,
+      "coherence": 0.4,
+      "is_story": false,
+      "span_hours": 0,
+      "earliest": "2026-02-24T20:13:54.000Z",
+      "latest": "2026-02-24T20:16:42.000Z",
+      "sample_headlines": [
+        {
+          "username": "DeItaone",
+          "headline": "Trump Comments on Iran's Nuclear Weapons Stance",
+          "tweet_text": "TRUMP SAYS IRAN NOT YET AGREEING TO NO NUCLEAR WEAPONS: FOX"
+        },
+        {
+          "username": "cryptorover",
+          "headline": "Trump Claims Iran Has Not Agreed to Nuclear Weapons Disarmament",
+          "tweet_text": "💥BREAKING: 🇺🇸 President Trump says Iran has not yet agreed to give up nuclear weapons. https://t.co/rehefW8fHm"
+        }
+      ],
+      "comparison": {
+        "verdict": "exact-match",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 860,
+            "tweet_count_in_this_cluster": 2,
+            "persistent_total": 25,
+            "headline": "LSU Women's Basketball Team Invited to State of the Union, Media Coverage Criticized",
+            "is_story": true
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 83,
+      "tweet_count": 2,
+      "unique_users": 2,
+      "coherence": 1,
+      "is_story": false,
+      "span_hours": 0.5,
+      "earliest": "2026-02-24T20:30:35.000Z",
+      "latest": "2026-02-24T21:01:48.000Z",
+      "sample_headlines": [
+        {
+          "username": "Cointelegraph",
+          "headline": "Tether Teases Upcoming Announcement",
+          "tweet_text": "⚡️ NEW: Tether is expected to make a new announcement soon. https://t.co/vp2d5d4vyu"
+        },
+        {
+          "username": "Crypto_Briefing",
+          "headline": "Tether Teases Upcoming Announcement",
+          "tweet_text": "💥 NEW: Tether is reportedly preparing to unveil a new announcement soon https://t.co/waSR8Ugdqo"
+        }
+      ],
+      "comparison": {
+        "verdict": "exact-match",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 731,
+            "tweet_count_in_this_cluster": 2,
+            "persistent_total": 3,
+            "headline": "Oobit Launches Global Crypto-to-Bank Transfer Service Using Tether",
+            "is_story": true
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 84,
+      "tweet_count": 11,
+      "unique_users": 11,
+      "coherence": 0.4658,
+      "is_story": true,
+      "span_hours": 6.3,
+      "earliest": "2026-02-24T20:40:11.000Z",
+      "latest": "2026-02-25T02:58:57.000Z",
+      "sample_headlines": [
+        {
+          "username": "KobeissiLetter",
+          "headline": "PayPal Stock Jumps on Unconfirmed Stripe Acquisition Speculation",
+          "tweet_text": "BREAKING: PayPal stock, $PYPL, surges over +7% on reports that Stripe is considering acquiring the company. https://t.co"
+        },
+        {
+          "username": "WatcherGuru",
+          "headline": "Stripe Reportedly Exploring Potential PayPal Acquisition",
+          "tweet_text": "JUST IN: Stripe considers acquiring PayPal."
+        },
+        {
+          "username": "Crypto_Briefing",
+          "headline": "Stripe Reportedly Exploring Potential PayPal Acquisition",
+          "tweet_text": "🚨 BREAKING: Stripe is reportedly exploring a potential acquisition of all or parts of PayPal. https://t.co/k7paor1eYP"
+        },
+        {
+          "username": "scottmelker",
+          "headline": "Rumor: Stripe Potentially Exploring PayPal Acquisition",
+          "tweet_text": "JUST IN: STRIPE CONSIDERS ACQUISITION OF PAYPAL https://t.co/78OhWbPV6t"
+        }
+      ],
+      "comparison": {
+        "verdict": "split-in-persistent",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 193,
+            "tweet_count_in_this_cluster": 6,
+            "persistent_total": 156,
+            "headline": "Bitdeer Liquidates 943 Bitcoin, Cites Strategic Liquidity Needs",
+            "is_story": false
+          },
+          {
+            "id": 560,
+            "tweet_count_in_this_cluster": 5,
+            "persistent_total": 9,
+            "headline": "WEEX Cryptocurrency Exchange Offers Multiple User Bonus Promotions",
+            "is_story": true
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 85,
+      "tweet_count": 2,
+      "unique_users": 1,
+      "coherence": 0.8182,
+      "is_story": false,
+      "span_hours": 2,
+      "earliest": "2026-02-24T20:50:15.000Z",
+      "latest": "2026-02-24T22:50:12.000Z",
+      "sample_headlines": [
+        {
+          "username": "DecryptMedia",
+          "headline": "South Korean Man Charged with Attempted Murder Over Bitcoin Investment Dispute",
+          "tweet_text": "South Korean Man Faces Murder Charge Over Bitcoin Bet Gone Bad https://t.co/E5NQUJvGZi"
+        },
+        {
+          "username": "DecryptMedia",
+          "headline": "South Korean Man Charged with Attempted Murder After Bitcoin Investment Dispute",
+          "tweet_text": "Prosecutors in Seoul say a man poisoned his business partner after the colleague mismanaged his Bitcoin investments. htt"
+        }
+      ],
+      "comparison": {
+        "verdict": "exact-match",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 557,
+            "tweet_count_in_this_cluster": 2,
+            "persistent_total": 16,
+            "headline": "UK to Expand Ofcom Regulation to Streaming Platforms with 500,000+ Users",
+            "is_story": true
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 86,
+      "tweet_count": 2,
+      "unique_users": 2,
+      "coherence": 0.2222,
+      "is_story": false,
+      "span_hours": 2.4,
+      "earliest": "2026-02-24T21:00:41.000Z",
+      "latest": "2026-02-24T23:24:47.000Z",
+      "sample_headlines": [
+        {
+          "username": "Cointelegraph",
+          "headline": "Nvidia Cofounder Curtis Priem Sold Entire Stake in 2006, Missing Massive Potential Gains",
+          "tweet_text": "🚨 LATEST: Nvidia cofounder Curtis Priem sold his 12.8% stake in 2006, missing out on shares that would be worth nearly "
+        },
+        {
+          "username": "coinbureau",
+          "headline": "NVIDIA Cofounder Curtis Priem's $600 Billion Stock Sale Missed Opportunity",
+          "tweet_text": "🚨 YOU LITERALLY CANNOT MAKE THIS UP. 🇺🇸 THE COFOUNDER OF NVIDIA JUST BECAME THE POSTER CHILD FOR HOLDING YOUR ASSETS."
+        }
+      ],
+      "comparison": {
+        "verdict": "exact-match",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 452,
+            "tweet_count_in_this_cluster": 2,
+            "persistent_total": 10,
+            "headline": "Anthropic Plans $5-6B Employee Share Sale at $350B Valuation",
+            "is_story": true
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 87,
+      "tweet_count": 2,
+      "unique_users": 1,
+      "coherence": 0.3846,
+      "is_story": false,
+      "span_hours": 2,
+      "earliest": "2026-02-24T21:05:58.000Z",
+      "latest": "2026-02-24T23:05:12.000Z",
+      "sample_headlines": [
+        {
+          "username": "DecryptMedia",
+          "headline": "Crypto.com Donates $35 Million to Pro-Trump PAC, Receives Regulatory Favors",
+          "tweet_text": "After Donating $35 Million to Trump PAC, https://t.co/hglQp7AMzv Scores Wins From Regulators https://t.co/SDPF98208t"
+        },
+        {
+          "username": "DecryptMedia",
+          "headline": "Crypto.com Receives Regulatory Support After $5M Pro-Trump PAC Donation",
+          "tweet_text": "Weeks after giving another $5 million to a pro-Trump PAC, the exchange received lawsuit aid from the CFTC and a bank cha"
+        }
+      ],
+      "comparison": {
+        "verdict": "exact-match",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 266,
+            "tweet_count_in_this_cluster": 2,
+            "persistent_total": 7,
+            "headline": "Anthropic-Backed Super PAC Launches $300K AI Regulation Ad Campaign in New Jersey",
+            "is_story": true
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 88,
+      "tweet_count": 2,
+      "unique_users": 1,
+      "coherence": 0.6667,
+      "is_story": false,
+      "span_hours": 2,
+      "earliest": "2026-02-24T21:31:04.000Z",
+      "latest": "2026-02-24T23:30:15.000Z",
+      "sample_headlines": [
+        {
+          "username": "DecryptMedia",
+          "headline": "OpenAI Claims SWE-bench Coding Benchmark Is 'Contaminated'",
+          "tweet_text": "OpenAI Says Benchmark Used to Measure AI Coding Skill Is 'Contaminated'—Here's Why https://t.co/KJmVrkFBF7"
+        },
+        {
+          "username": "DecryptMedia",
+          "headline": "OpenAI Claims Leading AI Coding Benchmark SWE-bench Verified Is Contaminated and Unreliable",
+          "tweet_text": "OpenAI wants to retire the leading AI coding benchmark—and the reasons reveal a deeper problem with how the whole indust"
+        }
+      ],
+      "comparison": {
+        "verdict": "exact-match",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 799,
+            "tweet_count_in_this_cluster": 2,
+            "persistent_total": 3,
+            "headline": "OpenAI Claims SWE-bench Coding Benchmark Is 'Contaminated'",
+            "is_story": true
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 89,
+      "tweet_count": 2,
+      "unique_users": 2,
+      "coherence": 0.3125,
+      "is_story": false,
+      "span_hours": 1.8,
+      "earliest": "2026-02-24T21:40:52.000Z",
+      "latest": "2026-02-24T23:29:26.000Z",
+      "sample_headlines": [
+        {
+          "username": "Techmeme",
+          "headline": "US Treasury Sanctions Russian Zero-Day Broker Operation Zero for Acquiring Stolen US Defense Exploits",
+          "tweet_text": "The US Treasury sanctions Russian zero-day broker Operation Zero, its founder Sergey Zelenyuk, and others for acquiring "
+        },
+        {
+          "username": "DecryptMedia",
+          "headline": "US Treasury Sanctions Russian Exploit Broker Sergey Zelenyuk for Stolen Cyber Tools",
+          "tweet_text": "Treasury Sanctions Russian ‘Exploit’ Broker Over Stolen US Cyber Tools https://t.co/2OHyiGI5ns"
+        }
+      ],
+      "comparison": {
+        "verdict": "exact-match",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 769,
+            "tweet_count_in_this_cluster": 2,
+            "persistent_total": 10,
+            "headline": "U.S. Court Dismisses XAI's Trade Secrets Lawsuit Against OpenAI",
+            "is_story": true
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 90,
+      "tweet_count": 2,
+      "unique_users": 2,
+      "coherence": 0.1538,
+      "is_story": false,
+      "span_hours": 2.3,
+      "earliest": "2026-02-24T21:43:38.000Z",
+      "latest": "2026-02-25T00:01:52.000Z",
+      "sample_headlines": [
+        {
+          "username": "TheTranscript_",
+          "headline": "HP Reports Strong Q1 with Personal Systems Growth, Despite After-Hours Stock Decline",
+          "tweet_text": "HP CEO: \"We are pleased to report a strong first quarter, highlighted by robust growth in Personal Systems, including th"
+        },
+        {
+          "username": "Techmeme",
+          "headline": "HP Reports Q1 Revenue Growth, Lowers Full-Year Forecast",
+          "tweet_text": "HP reports Q1 revenue up 6.9% YoY to $14.44B, vs. $13.94B est., and expects FY 2026 results to be at the low end of its "
+        }
+      ],
+      "comparison": {
+        "verdict": "split-in-persistent",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 336,
+            "tweet_count_in_this_cluster": 1,
+            "persistent_total": 10,
+            "headline": "WLFI Stablecoin Reports Coordinated Attack Attempt",
+            "is_story": false
+          },
+          {
+            "id": 862,
+            "tweet_count_in_this_cluster": 1,
+            "persistent_total": 1,
+            "headline": "HP Reports Q1 Revenue Growth, Lowers Full-Year Forecast",
+            "is_story": false
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 91,
+      "tweet_count": 2,
+      "unique_users": 2,
+      "coherence": 0.6667,
+      "is_story": false,
+      "span_hours": 0.7,
+      "earliest": "2026-02-24T22:01:03.000Z",
+      "latest": "2026-02-24T22:40:15.000Z",
+      "sample_headlines": [
+        {
+          "username": "AutismCapital",
+          "headline": "VP Kamala Harris Suggests Potential 2024 Presidential Campaign Consideration",
+          "tweet_text": "🚨 NEW: Kamala Harris says that she is thinking about running for President again https://t.co/kaJXYNvG0J"
+        },
+        {
+          "username": "cryptorover",
+          "headline": "Kamala Harris Suggests Potential 2028 Presidential Campaign",
+          "tweet_text": "💥BREAKING: Kamala Harris announces she might run for president again in 2028. https://t.co/a4c2HpAQEu"
+        }
+      ],
+      "comparison": {
+        "verdict": "exact-match",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 230,
+            "tweet_count_in_this_cluster": 2,
+            "persistent_total": 41,
+            "headline": "US Stock Market Futures Indicate Negative Opening",
+            "is_story": true
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 92,
+      "tweet_count": 2,
+      "unique_users": 1,
+      "coherence": 0.5556,
+      "is_story": false,
+      "span_hours": 2,
+      "earliest": "2026-02-24T22:14:25.000Z",
+      "latest": "2026-02-25T00:15:12.000Z",
+      "sample_headlines": [
+        {
+          "username": "DecryptMedia",
+          "headline": "Bitcoin Depot to Require ID Verification for All ATM Transactions",
+          "tweet_text": "Bitcoin Depot Will Require ID for 'Every Transaction' at ATMs Amid Growing Pressure https://t.co/VRoDicAoGW"
+        },
+        {
+          "username": "DecryptMedia",
+          "headline": "Bitcoin Depot to Require ID Verification for Every ATM Transaction",
+          "tweet_text": "Bitcoin Depot will begin verifying customers’ identities each time they use its ATMs, voluntarily refining its complianc"
+        }
+      ],
+      "comparison": {
+        "verdict": "exact-match",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 802,
+            "tweet_count_in_this_cluster": 2,
+            "persistent_total": 3,
+            "headline": "Discord Terminates Partnership with Identity Verification Provider",
+            "is_story": true
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 93,
+      "tweet_count": 2,
+      "unique_users": 1,
+      "coherence": 0.0769,
+      "is_story": false,
+      "span_hours": 1.3,
+      "earliest": "2026-02-24T22:53:29.000Z",
+      "latest": "2026-02-25T00:11:12.000Z",
+      "sample_headlines": [
+        {
+          "username": "TheBTCTherapist",
+          "headline": "Goldman Sachs Reports MicroStrategy as Most Shorted Stock Globally",
+          "tweet_text": "JUST IN: According to Goldman Sachs Global Investment Research Michael Saylor’s $MSTR is the #1 most shorted stock in th"
+        },
+        {
+          "username": "TheBTCTherapist",
+          "headline": "Microstrategy Faces High Short Interest and Criticism",
+          "tweet_text": "Microstrategy is the most shorted stock in the world. Michael Saylor is the most hated Chairman in the world. Bitcoin is"
+        }
+      ],
+      "comparison": {
+        "verdict": "split-in-persistent",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 872,
+            "tweet_count_in_this_cluster": 1,
+            "persistent_total": 1,
+            "headline": "Goldman Sachs Reports MicroStrategy as Most Shorted Stock Globally",
+            "is_story": false
+          },
+          {
+            "id": 639,
+            "tweet_count_in_this_cluster": 1,
+            "persistent_total": 2,
+            "headline": "Citron Research Announces Short Position on SanDisk",
+            "is_story": false
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 94,
+      "tweet_count": 3,
+      "unique_users": 3,
+      "coherence": 0.3514,
+      "is_story": true,
+      "span_hours": 1.7,
+      "earliest": "2026-02-24T23:08:53.000Z",
+      "latest": "2026-02-25T00:52:58.000Z",
+      "sample_headlines": [
+        {
+          "username": "KobeissiLetter",
+          "headline": "China Gold Reserves Hit Record High, Surge 260% Since October 2022",
+          "tweet_text": "China has never held so much gold: China’s gold reserves surged +15.7% MoM in January, to a record $369.6 billion. This "
+        },
+        {
+          "username": "Cointelegraph",
+          "headline": "China's Gold Reserves Reach Record $369.6 Billion in January",
+          "tweet_text": "🚨 UPDATE: China's gold reserves hit a record $369.6 billion in January, marking 15 consecutive months of accumulation b"
+        },
+        {
+          "username": "WhaleInsider",
+          "headline": "China Gold Reserves Increase 15.7% in January to $369.6 Billion",
+          "tweet_text": "JUST IN: 🇨🇳 China’s gold reserves surged 15.7% MoM in January, to record $369.6 billion. https://t.co/bCF701l4vx"
+        }
+      ],
+      "comparison": {
+        "verdict": "split-in-persistent",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 300,
+            "tweet_count_in_this_cluster": 2,
+            "persistent_total": 5,
+            "headline": "Global Electric Vehicle Sales Projected to Reach 50% by 2030",
+            "is_story": true
+          },
+          {
+            "id": 353,
+            "tweet_count_in_this_cluster": 1,
+            "persistent_total": 22,
+            "headline": "Mortgage Rates Fall Below 6% According to CNBC Report",
+            "is_story": true
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 95,
+      "tweet_count": 2,
+      "unique_users": 1,
+      "coherence": 0.6667,
+      "is_story": false,
+      "span_hours": 1,
+      "earliest": "2026-02-24T23:15:00.000Z",
+      "latest": "2026-02-25T00:15:00.000Z",
+      "sample_headlines": [
+        {
+          "username": "RoundtableSpace",
+          "headline": "Claude AI Launches New Development Feature",
+          "tweet_text": "CLAUDE JUST TURNED YOUR PHONE INTO A DEV TERMINAL 🤯 https://t.co/uVFU9IM2cM"
+        },
+        {
+          "username": "RoundtableSpace",
+          "headline": "Claude AI Launches New Development Tool",
+          "tweet_text": "CLAUDE JUST TURNED YOUR PHONE INTO A DEV WORKSTATION https://t.co/yhQuu8s2rS"
+        }
+      ],
+      "comparison": {
+        "verdict": "exact-match",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 239,
+            "tweet_count_in_this_cluster": 2,
+            "persistent_total": 21,
+            "headline": "New AI Agent Promises Automated Note-Taking Capabilities",
+            "is_story": true
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 96,
+      "tweet_count": 2,
+      "unique_users": 2,
+      "coherence": 0.5,
+      "is_story": false,
+      "span_hours": 0.1,
+      "earliest": "2026-02-25T01:19:29.000Z",
+      "latest": "2026-02-25T01:23:42.000Z",
+      "sample_headlines": [
+        {
+          "username": "Tyler_Did_It",
+          "headline": "Bitcoin Price Rises Ahead of State of the Union Address",
+          "tweet_text": "Bitcoin flying, ripping ahead of the State of the Union https://t.co/bwBgb53gox"
+        },
+        {
+          "username": "PeterSchiff",
+          "headline": "Bitcoin Price Movement Speculated Around State of the Union Address",
+          "tweet_text": "Bitcoin spiked. I wonder if Trump crypto bros managed to slip a Bitcoin reference into the SOTU address. If Bitcoin isn’"
+        }
+      ],
+      "comparison": {
+        "verdict": "split-in-persistent",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 659,
+            "tweet_count_in_this_cluster": 1,
+            "persistent_total": 15,
+            "headline": "Commentary Anticipated on State of the Union Address",
+            "is_story": false
+          },
+          {
+            "id": 911,
+            "tweet_count_in_this_cluster": 1,
+            "persistent_total": 18,
+            "headline": "Congress Considers Legislation to Prevent Insider Trading by Lawmakers",
+            "is_story": true
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 97,
+      "tweet_count": 2,
+      "unique_users": 2,
+      "coherence": 0.5556,
+      "is_story": false,
+      "span_hours": 0.7,
+      "earliest": "2026-02-25T01:44:19.000Z",
+      "latest": "2026-02-25T02:29:16.000Z",
+      "sample_headlines": [
+        {
+          "username": "coinbureau",
+          "headline": "Bitcoin Price Reaches $66,000",
+          "tweet_text": "🚨🚨JUST IN: BITCOIN RECLAIMS $66,000! https://t.co/KFgvhgVOzI"
+        },
+        {
+          "username": "xerocooleth",
+          "headline": "Bitcoin Price Reaches $66,000, Signals Mixed Market Sentiment",
+          "tweet_text": "Bitcoin pumps to $66k to close the day This is a short term local bullish signal, but its still a lower high than the la"
+        }
+      ],
+      "comparison": {
+        "verdict": "exact-match",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 834,
+            "tweet_count_in_this_cluster": 2,
+            "persistent_total": 12,
+            "headline": "Scott Melker Releases New Content",
+            "is_story": false
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 98,
+      "tweet_count": 2,
+      "unique_users": 1,
+      "coherence": 0.5,
+      "is_story": false,
+      "span_hours": 0,
+      "earliest": "2026-02-25T02:13:32.000Z",
+      "latest": "2026-02-25T02:14:24.000Z",
+      "sample_headlines": [
+        {
+          "username": "DeItaone",
+          "headline": "Trump Makes Campaign-Style Optimistic Statement About America's Future",
+          "tweet_text": "Trump: You've seen nothing yet, we are going to do better yet, this is the golden age of America"
+        },
+        {
+          "username": "DeItaone",
+          "headline": "Trump Makes Campaign-Style Statement About National Strength",
+          "tweet_text": "Trump: Our nation is back, bigger and stronger than ever before"
+        }
+      ],
+      "comparison": {
+        "verdict": "exact-match",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 892,
+            "tweet_count_in_this_cluster": 2,
+            "persistent_total": 10,
+            "headline": "Trump Meets with Supreme Court Justices",
+            "is_story": true
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 99,
+      "tweet_count": 3,
+      "unique_users": 3,
+      "coherence": 0.65,
+      "is_story": true,
+      "span_hours": 0.5,
+      "earliest": "2026-02-25T02:15:42.000Z",
+      "latest": "2026-02-25T02:48:15.000Z",
+      "sample_headlines": [
+        {
+          "username": "DeItaone",
+          "headline": "Rep. Al Green Removed from Trump State of the Union Address",
+          "tweet_text": "AL GREEN, DEMOCRATIC MEMBER OF CONGRESS, ESCORTED OUT OF TRUMP'S STATE OF THE UNION SPEECH"
+        },
+        {
+          "username": "cryptorover",
+          "headline": "Democratic Rep. Al Green Removed from State of the Union Address",
+          "tweet_text": "💥BREAKING: Democratic Rep. Al Green removed from the State of the Union. He was holding a sign reading: “BLACK PEOPLE A"
+        },
+        {
+          "username": "AutismCapital",
+          "headline": "Rep. Al Green Removed from State of the Union Address After Protest Sign",
+          "tweet_text": "🚨NEW: Representative Al Green holds up a sign that says \"BLACK PEOPLE AREN'T APES!\" He was ejected from the SOTU. https"
+        }
+      ],
+      "comparison": {
+        "verdict": "exact-match",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 860,
+            "tweet_count_in_this_cluster": 3,
+            "persistent_total": 25,
+            "headline": "LSU Women's Basketball Team Invited to State of the Union, Media Coverage Criticized",
+            "is_story": true
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 100,
+      "tweet_count": 2,
+      "unique_users": 2,
+      "coherence": 0.6667,
+      "is_story": false,
+      "span_hours": 0.1,
+      "earliest": "2026-02-25T02:20:56.000Z",
+      "latest": "2026-02-25T02:29:37.000Z",
+      "sample_headlines": [
+        {
+          "username": "DeItaone",
+          "headline": "Trump Claims $18 Trillion in Global Financial Commitments",
+          "tweet_text": "Trump: Secured commitments of 18 trillion dollars from all over the globe"
+        },
+        {
+          "username": "cryptorover",
+          "headline": "Trump Claims Global Investment Commitments Reach $18 Trillion",
+          "tweet_text": "💥BREAKING: 🇺🇸 President Trump stated that global investment commitments have reached $18 trillion. https://t.co/Glf2M"
+        }
+      ],
+      "comparison": {
+        "verdict": "exact-match",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 93,
+            "tweet_count_in_this_cluster": 2,
+            "persistent_total": 1000,
+            "headline": "GWEI Token Launches Airdrop for Ethereum Gas Fee Users",
+            "is_story": false
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 101,
+      "tweet_count": 2,
+      "unique_users": 2,
+      "coherence": 0.6364,
+      "is_story": false,
+      "span_hours": 0,
+      "earliest": "2026-02-25T02:22:09.000Z",
+      "latest": "2026-02-25T02:24:25.000Z",
+      "sample_headlines": [
+        {
+          "username": "KobeissiLetter",
+          "headline": "Trump Claims US Receives 80 Million Barrels of Venezuelan Crude Oil",
+          "tweet_text": "BREAKING: President Trump says the US just received 80 million barrels of Venezuelan crude oil. https://t.co/dPVqvk5YXq"
+        },
+        {
+          "username": "DeItaone",
+          "headline": "Trump Claims Receipt of Over 80 Million Barrels of Venezuelan Oil",
+          "tweet_text": "TRUMP SAYS RECEIVED MORE THAN 80 MILLION BARRELS OF VENEZUELAN OIL"
+        }
+      ],
+      "comparison": {
+        "verdict": "exact-match",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 895,
+            "tweet_count_in_this_cluster": 2,
+            "persistent_total": 2,
+            "headline": "Trump Claims Receipt of Over 80 Million Barrels of Venezuelan Oil",
+            "is_story": false
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 102,
+      "tweet_count": 2,
+      "unique_users": 2,
+      "coherence": 1,
+      "is_story": false,
+      "span_hours": 0.1,
+      "earliest": "2026-02-25T02:27:42.000Z",
+      "latest": "2026-02-25T02:30:48.000Z",
+      "sample_headlines": [
+        {
+          "username": "KobeissiLetter",
+          "headline": "Trump Claims Excessive Winning in Social Media Post",
+          "tweet_text": "PRESIDENT TRUMP: \"We are winning so much, that we really don't know what to do about it. People are asking me, please, p"
+        },
+        {
+          "username": "cryptorover",
+          "headline": "Trump Claims Excessive Winning in Social Media Post",
+          "tweet_text": "🇺🇸 PRESIDENT TRUMP: \"We are winning so much, that we really don't know what to do about it.'' ''People are asking me, "
+        }
+      ],
+      "comparison": {
+        "verdict": "exact-match",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 93,
+            "tweet_count_in_this_cluster": 2,
+            "persistent_total": 1000,
+            "headline": "GWEI Token Launches Airdrop for Ethereum Gas Fee Users",
+            "is_story": false
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 103,
+      "tweet_count": 2,
+      "unique_users": 2,
+      "coherence": 0.3077,
+      "is_story": false,
+      "span_hours": 0,
+      "earliest": "2026-02-25T02:32:40.000Z",
+      "latest": "2026-02-25T02:33:21.000Z",
+      "sample_headlines": [
+        {
+          "username": "AutismCapital",
+          "headline": "Trump Announces Upcoming White House Visit for Women's USA Hockey Team",
+          "tweet_text": "🚨NEW: Trump says that the Women's USA Hockey Team will also be attending the White House soon https://t.co/FqFA2xmbKU"
+        },
+        {
+          "username": "Geiger_Capital",
+          "headline": "Trump Highlights USA Hockey Team at Political Event",
+          "tweet_text": "Trump bringing out the USA Hockey team and cracking jokes with them… Elite level politics. Forces Democrats there to sta"
+        }
+      ],
+      "comparison": {
+        "verdict": "exact-match",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 860,
+            "tweet_count_in_this_cluster": 2,
+            "persistent_total": 25,
+            "headline": "LSU Women's Basketball Team Invited to State of the Union, Media Coverage Criticized",
+            "is_story": true
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 104,
+      "tweet_count": 2,
+      "unique_users": 2,
+      "coherence": 1,
+      "is_story": false,
+      "span_hours": 0,
+      "earliest": "2026-02-25T02:43:21.000Z",
+      "latest": "2026-02-25T02:45:59.000Z",
+      "sample_headlines": [
+        {
+          "username": "WatcherGuru",
+          "headline": "Trump Claims Broad Market Gains in Recent Statement",
+          "tweet_text": "JUST IN: 🇺🇸 President Trump says everyone's portfolios are \"gaining.\" \"Everybody is up, way up.\" https://t.co/nmFFwIsO"
+        },
+        {
+          "username": "cryptorover",
+          "headline": "Trump Claims Broad Market Gains in Recent Statement",
+          "tweet_text": "💥BREAKING: 🇺🇸 President Trump says everyone's portfolios are \"GAINING.\" \"Everybody is up, way up.\" What about crypto "
+        }
+      ],
+      "comparison": {
+        "verdict": "exact-match",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 892,
+            "tweet_count_in_this_cluster": 2,
+            "persistent_total": 10,
+            "headline": "Trump Meets with Supreme Court Justices",
+            "is_story": true
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 105,
+      "tweet_count": 5,
+      "unique_users": 5,
+      "coherence": 0.5808,
+      "is_story": true,
+      "span_hours": 0.3,
+      "earliest": "2026-02-25T02:44:56.000Z",
+      "latest": "2026-02-25T03:03:19.000Z",
+      "sample_headlines": [
+        {
+          "username": "DeItaone",
+          "headline": "Trump Proposes Replacing Income Tax with Tariffs",
+          "tweet_text": "Trump: Tariffs will replace income tax"
+        },
+        {
+          "username": "WatcherGuru",
+          "headline": "Trump Proposes Replacing Income Tax with Tariffs",
+          "tweet_text": "JUST IN: 🇺🇸 President Trump says tariffs will replace income tax. https://t.co/XP8hqX7VKE"
+        },
+        {
+          "username": "coinbureau",
+          "headline": "Trump Proposes Replacing Income Tax with Tariffs in State of the Union Address",
+          "tweet_text": "🚨“TARIFFS WILL REPLACE INCOME TAX” - TRUMP LIVE FROM STATE OF THE UNION ADDRESS “Tariffs, paid for by foreign countries"
+        },
+        {
+          "username": "scottmelker",
+          "headline": "Trump Proposes Replacing Income Tax with Tariffs",
+          "tweet_text": "JUST NOW: TRUMP SAYS TARIFFS WILL REPLACE INCOME TAX"
+        }
+      ],
+      "comparison": {
+        "verdict": "split-in-persistent",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 93,
+            "tweet_count_in_this_cluster": 4,
+            "persistent_total": 1000,
+            "headline": "GWEI Token Launches Airdrop for Ethereum Gas Fee Users",
+            "is_story": false
+          },
+          {
+            "id": 911,
+            "tweet_count_in_this_cluster": 1,
+            "persistent_total": 18,
+            "headline": "Congress Considers Legislation to Prevent Insider Trading by Lawmakers",
+            "is_story": true
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 106,
+      "tweet_count": 9,
+      "unique_users": 7,
+      "coherence": 0.468,
+      "is_story": true,
+      "span_hours": 0.5,
+      "earliest": "2026-02-25T02:57:30.000Z",
+      "latest": "2026-02-25T03:27:09.000Z",
+      "sample_headlines": [
+        {
+          "username": "AutismCapital",
+          "headline": "Trump Calls for Congressional Insider Trading Restrictions",
+          "tweet_text": "🚨TRUMP: \"Let's also ensure that members of congress can not corruptly profit from using insider information. Wow, they "
+        },
+        {
+          "username": "DeItaone",
+          "headline": "Trump Calls for Immediate Passage of Stop Insider Trading Act",
+          "tweet_text": "*TRUMP: PASS THE STOP INSIDER TRADING ACT WITHOUT DELAY"
+        },
+        {
+          "username": "DeItaone",
+          "headline": "Trump Calls for Congressional Insider Trading Restrictions",
+          "tweet_text": "*TRUMP: ENSURE MEMBERS OF CONGRESS CAN'T PROFIT FROM INSIDE INFO"
+        },
+        {
+          "username": "unusual_whales",
+          "headline": "Trump Calls for Congressional Insider Trading Ban During State of the Union",
+          "tweet_text": "BREAKING: US President Donald Trump has asked Congress to pass a rule banning insider trading from Congress during his S"
+        }
+      ],
+      "comparison": {
+        "verdict": "split-in-persistent",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 911,
+            "tweet_count_in_this_cluster": 5,
+            "persistent_total": 18,
+            "headline": "Congress Considers Legislation to Prevent Insider Trading by Lawmakers",
+            "is_story": true
+          },
+          {
+            "id": 93,
+            "tweet_count_in_this_cluster": 4,
+            "persistent_total": 1000,
+            "headline": "GWEI Token Launches Airdrop for Ethereum Gas Fee Users",
+            "is_story": false
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 107,
+      "tweet_count": 3,
+      "unique_users": 2,
+      "coherence": 0.2323,
+      "is_story": true,
+      "span_hours": 0.1,
+      "earliest": "2026-02-25T03:09:08.000Z",
+      "latest": "2026-02-25T03:13:49.000Z",
+      "sample_headlines": [
+        {
+          "username": "AutismCapital",
+          "headline": "Trump Claims Democrats Oppose Voter ID to Enable Election Fraud",
+          "tweet_text": "🚨TRUMP: \"The reason Democrats don't want voter ID is because they want to cheat. They make up all these excuses. They s"
+        },
+        {
+          "username": "DeItaone",
+          "headline": "Trump Claims Voter ID Opposition Indicates Electoral Fraud Intent",
+          "tweet_text": "Trump: the only reason you dont want voter ID is because they want to cheat"
+        },
+        {
+          "username": "DeItaone",
+          "headline": "Trump Calls for Mandatory Voter ID Requirements",
+          "tweet_text": "Trump: All voters must show voter ID"
+        }
+      ],
+      "comparison": {
+        "verdict": "exact-match",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 756,
+            "tweet_count_in_this_cluster": 3,
+            "persistent_total": 7,
+            "headline": "CNN Poll Shows Trump's Independent Voter Approval Rating Drops 17 Points",
+            "is_story": true
+          }
+        ]
+      }
+    },
+    {
+      "cluster_id": 108,
+      "tweet_count": 2,
+      "unique_users": 1,
+      "coherence": 1,
+      "is_story": false,
+      "span_hours": 0.1,
+      "earliest": "2026-02-25T03:09:44.000Z",
+      "latest": "2026-02-25T03:16:54.000Z",
+      "sample_headlines": [
+        {
+          "username": "Geiger_Capital",
+          "headline": "Trump Challenges Congressional Democrats on Immigration Priorities",
+          "tweet_text": "He got them. Trump asks Congress to stand up if they believe it’s the duty of the US government to prioritize American c"
+        },
+        {
+          "username": "Geiger_Capital",
+          "headline": "Trump Challenges Congressional Democrats on Immigration Priorities",
+          "tweet_text": "Truly insane to watch… Trump asks Congress to stand up if they believe it’s the duty of the US government to prioritize "
+        }
+      ],
+      "comparison": {
+        "verdict": "exact-match",
+        "unassigned": 0,
+        "mappedClusters": [
+          {
+            "id": 911,
+            "tweet_count_in_this_cluster": 2,
+            "persistent_total": 18,
+            "headline": "Congress Considers Legislation to Prevent Insider Trading by Lawmakers",
+            "is_story": true
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -4,8 +4,6 @@ import { recordFunctionRun } from "../../run-status";
 import { TweetsModel } from "../models";
 import { recomputeClusterStats } from "./cluster-db";
 import {
-  buildCanonicalText,
-  getClusterTextMode,
   jaccardSimilarity,
   mergeTokenSets,
   parseNormalizedFacts,
@@ -14,7 +12,6 @@ import {
 } from "./tokenize";
 import {
   embedTextForClustering,
-  getClusterSimilarityMode,
   getEmbeddingModel,
 } from "./embeddings";
 import {
@@ -38,14 +35,11 @@ type ClusterRow = {
   centroid_embedding: unknown;
 };
 
-type SimilarityModeUsed = "embedding" | "lexical";
-
 interface BestMatch {
   cluster: ClusterRow;
   similarity: number;
   clusterTokens: string[];
   clusterEmbedding: number[] | null;
-  similarityMode: SimilarityModeUsed;
   lexicalSimilarity: number | null;
 }
 
@@ -55,18 +49,11 @@ function parsePositiveNumber(input: string | undefined, fallback: number): numbe
   return Number.isFinite(parsed) && parsed > 0 ? parsed : fallback;
 }
 
-const CLUSTER_SIMILARITY_MODE = getClusterSimilarityMode(
-  process.env.X_NEWS_CLUSTER_SIMILARITY_MODE
-);
-const CLUSTER_ASSIGN_THRESHOLD_LEXICAL = parsePositiveNumber(
-  process.env.X_NEWS_CLUSTER_ASSIGN_THRESHOLD,
-  0.3
-);
-const CLUSTER_ASSIGN_THRESHOLD_EMBEDDING = parsePositiveNumber(
+const CLUSTER_ASSIGN_THRESHOLD = parsePositiveNumber(
   process.env.X_NEWS_CLUSTER_ASSIGN_THRESHOLD_EMBEDDING,
   0.76
 );
-const CLUSTER_ASSIGN_MIN_LEXICAL_OVERLAP_EMBEDDING = parsePositiveNumber(
+const CLUSTER_ASSIGN_MIN_LEXICAL_OVERLAP = parsePositiveNumber(
   process.env.X_NEWS_CLUSTER_ASSIGN_MIN_LEXICAL_OVERLAP_EMBEDDING,
   0.08
 );
@@ -77,7 +64,6 @@ const CLUSTER_LOOKBACK_HOURS = parsePositiveNumber(
 const CLUSTER_MAX_CANDIDATES = Math.floor(
   parsePositiveNumber(process.env.X_NEWS_CLUSTER_MAX_CANDIDATES, 200)
 );
-const CLUSTER_TEXT_MODE = getClusterTextMode(process.env.X_NEWS_CLUSTER_TEXT_MODE);
 
 function chooseLastSeen(existing: string | null, incoming: string): string {
   if (!existing) return incoming;
@@ -97,67 +83,32 @@ function pickEventTimestamp(tweetTime: string | null): string {
 
 function findBestMatch(params: {
   tokens: string[];
-  tweetEmbedding: number[] | null;
+  tweetEmbedding: number[];
   clusters: ClusterRow[];
 }): BestMatch | null {
   const { tokens, tweetEmbedding, clusters } = params;
+  let best: BestMatch | null = null;
 
-  if (CLUSTER_SIMILARITY_MODE === "embedding" && tweetEmbedding) {
-    let bestEmbedding: BestMatch | null = null;
-
-    for (const cluster of clusters) {
-      const clusterEmbedding = parseVector(cluster.centroid_embedding);
-      if (!clusterEmbedding) continue;
-
-      const clusterTokens = parseTokenSet(cluster.token_set);
-      const lexicalSimilarity =
-        tokens.length > 0 && clusterTokens.length > 0
-          ? jaccardSimilarity(tokens, clusterTokens)
-          : 0;
-      if (
-        tokens.length > 0 &&
-        lexicalSimilarity < CLUSTER_ASSIGN_MIN_LEXICAL_OVERLAP_EMBEDDING
-      ) {
-        continue;
-      }
-
-      const similarity = cosineSimilarity(tweetEmbedding, clusterEmbedding);
-      if (!bestEmbedding || similarity > bestEmbedding.similarity) {
-        bestEmbedding = {
-          cluster,
-          similarity,
-          clusterTokens,
-          clusterEmbedding,
-          similarityMode: "embedding",
-          lexicalSimilarity,
-        };
-      }
-    }
-
-    if (bestEmbedding) return bestEmbedding;
-  }
-
-  if (tokens.length === 0) return null;
-
-  let bestLexical: BestMatch | null = null;
   for (const cluster of clusters) {
-    const clusterTokens = parseTokenSet(cluster.token_set);
-    if (clusterTokens.length === 0) continue;
+    const clusterEmbedding = parseVector(cluster.centroid_embedding);
+    if (!clusterEmbedding) continue;
 
-    const similarity = jaccardSimilarity(tokens, clusterTokens);
-    if (!bestLexical || similarity > bestLexical.similarity) {
-      bestLexical = {
-        cluster,
-        similarity,
-        clusterTokens,
-        clusterEmbedding: parseVector(cluster.centroid_embedding),
-        similarityMode: "lexical",
-        lexicalSimilarity: similarity,
-      };
+    const clusterTokens = parseTokenSet(cluster.token_set);
+    const lexicalSimilarity =
+      tokens.length > 0 && clusterTokens.length > 0
+        ? jaccardSimilarity(tokens, clusterTokens)
+        : 0;
+    if (tokens.length > 0 && lexicalSimilarity < CLUSTER_ASSIGN_MIN_LEXICAL_OVERLAP) {
+      continue;
+    }
+
+    const similarity = cosineSimilarity(tweetEmbedding, clusterEmbedding);
+    if (!best || similarity > best.similarity) {
+      best = { cluster, similarity, clusterTokens, clusterEmbedding, lexicalSimilarity };
     }
   }
 
-  return bestLexical;
+  return best;
 }
 
 async function assignTweetToCluster(
@@ -187,7 +138,9 @@ function headlineForEmbedding(headline: string | null): string | null {
 }
 
 /**
- * Assigns normalized tweets to existing or new clusters.
+ * Assigns normalized tweets to existing or new clusters using embedding cosine similarity.
+ * A lexical pre-filter (Jaccard token overlap) guards against false positives before
+ * the embedding comparison.
  */
 export const xNewsClusterAssign = inngest.createFunction(
   {
@@ -284,11 +237,7 @@ export const xNewsClusterAssign = inngest.createFunction(
       }
 
       const facts = parseNormalizedFacts(tweet.normalized_facts);
-      const canonicalText = buildCanonicalText(
-        tweet.normalized_headline,
-        facts,
-        CLUSTER_TEXT_MODE
-      );
+      const canonicalText = (tweet.normalized_headline ?? "").trim();
       let tokens = tokenizeCanonicalText(canonicalText);
 
       // Fallback: if normalization produced no tokens, try raw tweet_text
@@ -300,8 +249,7 @@ export const xNewsClusterAssign = inngest.createFunction(
       }
 
       let tweetEmbedding = parseVector(tweet.normalized_headline_embedding);
-      const shouldEmbedTweet = CLUSTER_SIMILARITY_MODE === "embedding" && !tweetEmbedding;
-      if (shouldEmbedTweet) {
+      if (!tweetEmbedding) {
         let headlineText = headlineForEmbedding(tweet.normalized_headline);
 
         // Fallback: if normalized headline is empty, use raw tweet_text for embedding
@@ -347,7 +295,7 @@ export const xNewsClusterAssign = inngest.createFunction(
         });
       }
 
-      if (tokens.length === 0 && !tweetEmbedding) {
+      if (!tweetEmbedding) {
         const summary = {
           status: "ok",
           processed: 0,
@@ -389,24 +337,17 @@ export const xNewsClusterAssign = inngest.createFunction(
 
       const eventTimestamp = pickEventTimestamp(tweet.tweet_time);
       const best = findBestMatch({ tokens, tweetEmbedding, clusters: candidates });
-
-      const threshold =
-        best?.similarityMode === "embedding"
-          ? CLUSTER_ASSIGN_THRESHOLD_EMBEDDING
-          : CLUSTER_ASSIGN_THRESHOLD_LEXICAL;
-      const shouldAttach = best !== null && best.similarity >= threshold;
+      const shouldAttach = best !== null && best.similarity >= CLUSTER_ASSIGN_THRESHOLD;
 
       let clusterId: number;
       let similarity: number | null = null;
       let lexicalSimilarity: number | null = null;
-      let similarityModeUsed: SimilarityModeUsed | null = null;
       let action: "created_cluster" | "attached_to_cluster";
 
       if (shouldAttach) {
         clusterId = best.cluster.id;
         similarity = best.similarity;
         lexicalSimilarity = best.lexicalSimilarity;
-        similarityModeUsed = best.similarityMode;
         action = "attached_to_cluster";
 
         await step.run("assign-to-existing-cluster", async () => {
@@ -490,19 +431,14 @@ export const xNewsClusterAssign = inngest.createFunction(
         cluster_id: clusterId,
         action,
         similarity,
-        similarity_mode_used: similarityModeUsed,
-        threshold_used: threshold,
+        threshold: CLUSTER_ASSIGN_THRESHOLD,
         lexical_similarity: lexicalSimilarity,
         tokens: tokens.length,
         scanned_clusters: candidates.length,
         tweet_count: stats.tweetCount,
         unique_user_count: stats.uniqueUserCount,
         is_story_candidate: stats.isStoryCandidate,
-        text_mode: CLUSTER_TEXT_MODE,
-        cluster_similarity_mode: CLUSTER_SIMILARITY_MODE,
-        embedding_model:
-          CLUSTER_SIMILARITY_MODE === "embedding" ? getEmbeddingModel() : null,
-        tweet_embedding_generated: shouldEmbedTweet,
+        embedding_model: getEmbeddingModel(),
         used_raw_fallback: usedRawFallback,
       };
 
