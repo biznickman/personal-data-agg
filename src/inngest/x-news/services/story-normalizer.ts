@@ -215,6 +215,7 @@ export async function normalizeStory(params: {
   tweetId: string;
   username: string | null;
   tweetText: string;
+  quotedTweetText?: string | null;
   urlContexts: NormalizationUrlContext[];
 }): Promise<NormalizedStory> {
   const config = getNormalizerConfig();

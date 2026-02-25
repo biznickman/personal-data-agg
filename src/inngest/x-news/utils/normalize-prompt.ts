@@ -28,6 +28,7 @@ export function buildNormalizationUserPrompt(params: {
   tweetId: string;
   username: string | null;
   tweetText: string;
+  quotedTweetText?: string | null;
   urlContexts: NormalizationUrlContext[];
 }): string {
   const base = [
@@ -38,6 +39,10 @@ export function buildNormalizationUserPrompt(params: {
     clip(params.tweetText, 4000),
     "</tweet_text>",
   ];
+
+  if (params.quotedTweetText) {
+    base.push("", "<quoted_tweet>", clip(params.quotedTweetText, 2000), "</quoted_tweet>");
+  }
 
   if (params.urlContexts.length > 0) {
     base.push("", "<linked_articles>");

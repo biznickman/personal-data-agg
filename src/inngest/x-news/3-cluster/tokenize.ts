@@ -29,14 +29,8 @@ const STOPWORDS = new Set([
   "with",
 ]);
 
-export type ClusterTextMode = "headline_only" | "headline_and_facts";
-
 function compactWhitespace(value: string): string {
   return value.replace(/\s+/g, " ").trim();
-}
-
-export function getClusterTextMode(input: string | undefined): ClusterTextMode {
-  return input === "headline_and_facts" ? "headline_and_facts" : "headline_only";
 }
 
 export function parseNormalizedFacts(input: unknown): string[] {
@@ -57,22 +51,6 @@ export function parseNormalizedFacts(input: unknown): string[] {
   }
 
   return [...deduped].slice(0, 20);
-}
-
-export function buildCanonicalText(
-  headline: string | null | undefined,
-  facts: string[],
-  mode: ClusterTextMode = "headline_only"
-): string {
-  const cleanedHeadline = compactWhitespace(headline ?? "");
-  if (mode === "headline_only") {
-    return cleanedHeadline;
-  }
-
-  const parts = [cleanedHeadline, ...facts]
-    .map((part) => compactWhitespace(part))
-    .filter(Boolean);
-  return parts.join("\n");
 }
 
 function isNumericToken(token: string): boolean {

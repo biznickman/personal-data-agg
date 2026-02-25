@@ -1,0 +1,558 @@
+{
+  "generated_at": "2026-02-25T03:37:14.918Z",
+  "params": {
+    "hours": 24,
+    "threshold": 0.86,
+    "minCluster": 2,
+    "maxDays": 3
+  },
+  "rpc_elapsed_s": 1.44,
+  "summary": {
+    "eligible_tweets": 1000,
+    "total_clusters": 21,
+    "unique_tweets_covered": 904,
+    "coverage_pct": 90.4,
+    "story_candidates": 5,
+    "avg_cluster_size": 43.05,
+    "max_cluster_size": 832,
+    "avg_coherence": 0.3646,
+    "median_coherence": 0.25,
+    "low_coherence_count": 1,
+    "mega_cluster_count": 1
+  },
+  "clusters": [
+    {
+      "cluster_id": 1,
+      "tweet_count": 832,
+      "unique_users": 123,
+      "coherence": 0.0193,
+      "is_story": true,
+      "span_hours": 18.5,
+      "earliest": "2026-02-24T09:01:24.000Z",
+      "latest": "2026-02-25T03:30:00.000Z",
+      "sample_headlines": [
+        {
+          "username": "Cointelegraph",
+          "headline": "Meta Signs $100B AI Infrastructure Deal with AMD",
+          "tweet_text": "🔥 UPDATE: Meta to secure $100B worth of AI infrastructure from AMD in a landmark compute agreement. https://t.co/HPISD0"
+        },
+        {
+          "username": "cryptodotnews",
+          "headline": "AMD Secures $60 Billion Chip Supply Deal with Meta",
+          "tweet_text": "MACRO: AMD has inked a second major deal worth $60 billion to sell its chip, this time to Meta. https://t.co/tX8VpV9mI5"
+        },
+        {
+          "username": "DeItaone",
+          "headline": "AMD Secures Multi-Year, Multi-Billion Dollar Partnership with Meta for AI Chips",
+          "tweet_text": "AMD–META DEAL BOOSTS GPU OUTLOOK Rosenblatt reaffirmed a Buy rating and $300 target on AMD, citing its expanded partners"
+        },
+        {
+          "username": "DeItaone",
+          "headline": "Meta Platforms Agrees to $100B AMD AI Chip Deal Over Five Years",
+          "tweet_text": "$META $AMD - META STRIKES $100B AI CHIP MEGA-DEAL WITH AMD Meta Platforms has agreed to buy over $100 billion worth of A"
+        }
+      ],
+      "comparison": null
+    },
+    {
+      "cluster_id": 2,
+      "tweet_count": 7,
+      "unique_users": 7,
+      "coherence": 0.6554,
+      "is_story": true,
+      "span_hours": 2.7,
+      "earliest": "2026-02-24T10:22:10.000Z",
+      "latest": "2026-02-24T13:04:30.000Z",
+      "sample_headlines": [
+        {
+          "username": "coinbureau",
+          "headline": "Russia Launches Investigation Against Telegram Founder Pavel Durov",
+          "tweet_text": "🚨BREAKING: RUSSIA TARGETS TELEGRAM FOUNDER 🇷🇺Russia has opened an investigation into Telegram founder Pavel Durov for"
+        },
+        {
+          "username": "WhaleInsider",
+          "headline": "Russia Launches Investigation into Telegram Founder Pavel Durov",
+          "tweet_text": "JUST IN: 🇷🇺 Russia launches investigation into Telegram app founder Pavel Durov for allegedly abetting terrorist activ"
+        },
+        {
+          "username": "cryptorover",
+          "headline": "Russia Launches Investigation into Telegram Founder Pavel Durov",
+          "tweet_text": "💥BREAKING: 🇷🇺 Russia launches investigation into Telegram app founder Pavel Durov for allegedly abetting terrorist ac"
+        },
+        {
+          "username": "Techmeme",
+          "headline": "Russia Launches Investigation into Telegram Founder Pavel Durov for 'Terrorist Activities'",
+          "tweet_text": "Russian media: Russia opens an investigation into Telegram founder Pavel Durov for \"abetting terrorist activities\", as i"
+        }
+      ],
+      "comparison": null
+    },
+    {
+      "cluster_id": 3,
+      "tweet_count": 8,
+      "unique_users": 3,
+      "coherence": 0.1198,
+      "is_story": true,
+      "span_hours": 10.7,
+      "earliest": "2026-02-24T10:35:49.000Z",
+      "latest": "2026-02-24T21:19:24.000Z",
+      "sample_headlines": [
+        {
+          "username": "unusual_whales",
+          "headline": "Discord Terminates Partnership with Persona Identity Verification Service",
+          "tweet_text": "Discord has announced that it's cutting ties with Persona, the AI software they used for age and identity verification, "
+        },
+        {
+          "username": "Techmeme",
+          "headline": "Discord Delays Global Age Verification Rollout to H2 2024",
+          "tweet_text": "Discord says it won't roll out age verification globally next month as previously announced, delaying the change until H"
+        },
+        {
+          "username": "solidintel_x",
+          "headline": "Discord Terminates Partnership with Identity Verification Provider",
+          "tweet_text": "INTEL: DISCORD CUTS TIES WITH PERSONA AGE &amp; ID VERIFICATION PARTNER https://t.co/m6oxVIlh3X"
+        },
+        {
+          "username": "Techmeme",
+          "headline": "Discord Concludes Limited UK Test of Persona Age Verification Service",
+          "tweet_text": "Discord says it \"ran a limited test of Persona in the UK\" to verify user ages and \"that test has since concluded\", dista"
+        }
+      ],
+      "comparison": null
+    },
+    {
+      "cluster_id": 4,
+      "tweet_count": 16,
+      "unique_users": 2,
+      "coherence": 0.8889,
+      "is_story": true,
+      "span_hours": 16,
+      "earliest": "2026-02-24T11:24:48.000Z",
+      "latest": "2026-02-25T03:27:10.000Z",
+      "sample_headlines": [
+        {
+          "username": "Crypto_Briefing",
+          "headline": "Link Shared Without Context",
+          "tweet_text": "https://t.co/w37Cx1l3aB"
+        },
+        {
+          "username": "Crypto_Briefing",
+          "headline": "Link Shared Without Context",
+          "tweet_text": "https://t.co/Sf1fNLdOd4"
+        },
+        {
+          "username": "Crypto_Briefing",
+          "headline": "Link Shared Without Context",
+          "tweet_text": "https://t.co/h6i2O2WrQi"
+        },
+        {
+          "username": "Crypto_Briefing",
+          "headline": "Link Shared Without Context",
+          "tweet_text": "https://t.co/xdm63Zwyod"
+        }
+      ],
+      "comparison": null
+    },
+    {
+      "cluster_id": 5,
+      "tweet_count": 2,
+      "unique_users": 2,
+      "coherence": 0.1818,
+      "is_story": false,
+      "span_hours": 1.3,
+      "earliest": "2026-02-24T11:30:37.000Z",
+      "latest": "2026-02-24T12:49:55.000Z",
+      "sample_headlines": [
+        {
+          "username": "Cointelegraph",
+          "headline": "X Platform Restricts Bot Replies, Requires Direct Mention or Quote",
+          "tweet_text": "🚨 LATEST: Bot replies are now restricted on X. API users can now only reply if they’re @ mentioned or quoted by the ori"
+        },
+        {
+          "username": "RoundtableSpace",
+          "headline": "X Platform Modifies Bot Reply Permissions",
+          "tweet_text": "Bots can now only reply if they’re mentioned on X Nikita is finally shipping Reply if you're a real human 👇 https://t.c"
+        }
+      ],
+      "comparison": null
+    },
+    {
+      "cluster_id": 6,
+      "tweet_count": 2,
+      "unique_users": 2,
+      "coherence": 0.2,
+      "is_story": false,
+      "span_hours": 1.4,
+      "earliest": "2026-02-24T11:57:00.000Z",
+      "latest": "2026-02-24T13:22:41.000Z",
+      "sample_headlines": [
+        {
+          "username": "unusual_whales",
+          "headline": "DeepSeek Preparing to Launch New AI Model, Potential Market Impact Noted",
+          "tweet_text": "\"China’s DeepSeek is set to release a new AI model. A rough period for Nasdaq stocks could follow,\" per CNBC"
+        },
+        {
+          "username": "cryptorover",
+          "headline": "DeepSeek AI Startup Prepares to Launch DeepSeek-V4, Potentially Triggering Market Volatility",
+          "tweet_text": "🚨 THIS IS REALLY BAD A catalyst that crashed the stock market in Jan 2025 is coming back. Chinese AI startup DeepSeek i"
+        }
+      ],
+      "comparison": null
+    },
+    {
+      "cluster_id": 7,
+      "tweet_count": 2,
+      "unique_users": 1,
+      "coherence": 0.1818,
+      "is_story": false,
+      "span_hours": 9.1,
+      "earliest": "2026-02-24T12:01:47.000Z",
+      "latest": "2026-02-24T21:09:59.000Z",
+      "sample_headlines": [
+        {
+          "username": "WhaleInsider",
+          "headline": "Autism Token Trending on Phantom Wallet",
+          "tweet_text": "[Ad] JUST IN: $AUTISM trending #1 on Phantom wallet. https://t.co/8VCJLPJaw6"
+        },
+        {
+          "username": "WhaleInsider",
+          "headline": "Autism Token Reports Significant Price Surge on Decentralized Exchange",
+          "tweet_text": "[Ad] JUST IN: $AUTISM up over 1576% since launch, per Dexscreener data, amid growing attention on TikTok. https://t.co/o"
+        }
+      ],
+      "comparison": null
+    },
+    {
+      "cluster_id": 8,
+      "tweet_count": 2,
+      "unique_users": 2,
+      "coherence": 0.1176,
+      "is_story": false,
+      "span_hours": 1.6,
+      "earliest": "2026-02-24T12:32:10.000Z",
+      "latest": "2026-02-24T14:08:47.000Z",
+      "sample_headlines": [
+        {
+          "username": "MegaBearsNFT",
+          "headline": "Mega Bears NFT Project Announces Final 24-Hour Mint Window",
+          "tweet_text": "24 hours left until Mega Bears Mint 🐻 Supply: 555 Mint Date: February 25th, 2 PM UTC Blockchain: @megaeth FINAL WL FORM"
+        },
+        {
+          "username": "nucleo_art",
+          "headline": "Nucleo Art Announces Final Distribution of 512 AI-Generated Algorithmic Grids on Ethereum",
+          "tweet_text": "512 AI-powered algorithmic grids Ethereum Mainnet Free Last distribution round. 🔗👇🏻 https://t.co/iKSuSNi3fP"
+        }
+      ],
+      "comparison": null
+    },
+    {
+      "cluster_id": 9,
+      "tweet_count": 2,
+      "unique_users": 2,
+      "coherence": 0.25,
+      "is_story": false,
+      "span_hours": 0.7,
+      "earliest": "2026-02-24T13:25:22.000Z",
+      "latest": "2026-02-24T14:06:17.000Z",
+      "sample_headlines": [
+        {
+          "username": "AutismCapital",
+          "headline": "Norway's Former Prime Minister Thorbjørn Jagland Hospitalized After Epstein Files Investigation",
+          "tweet_text": "🚨 NEW: Norway’s former Prime Minister Thorbjørn Jagland is hospitalized following a suicide attempt after police began "
+        },
+        {
+          "username": "unusual_whales",
+          "headline": "Norwegian Ex-PM Thorbjørn Jagland Hospitalized After Reported Suicide Attempt",
+          "tweet_text": "BREAKING: Former Norwegian Prime Minister Thorbjørn Jagland has reportedly been hospitalized after a reported suicide at"
+        }
+      ],
+      "comparison": null
+    },
+    {
+      "cluster_id": 10,
+      "tweet_count": 2,
+      "unique_users": 1,
+      "coherence": 0.3,
+      "is_story": false,
+      "span_hours": 0.2,
+      "earliest": "2026-02-24T14:58:34.000Z",
+      "latest": "2026-02-24T15:08:04.000Z",
+      "sample_headlines": [
+        {
+          "username": "TheStalwart",
+          "headline": "OWL Stock Experiences Minor Price Movement",
+          "tweet_text": "$OWL -0.6%"
+        },
+        {
+          "username": "TheStalwart",
+          "headline": "OWL Stock Returns to Original SPAC Listing Price",
+          "tweet_text": "I hadn't realized that $OWL came public via SPAC. It's now right back to its original price. Turns out it was all priced"
+        }
+      ],
+      "comparison": null
+    },
+    {
+      "cluster_id": 11,
+      "tweet_count": 2,
+      "unique_users": 2,
+      "coherence": 0.1333,
+      "is_story": false,
+      "span_hours": 4,
+      "earliest": "2026-02-24T16:15:02.000Z",
+      "latest": "2026-02-24T20:15:00.000Z",
+      "sample_headlines": [
+        {
+          "username": "RoundtableSpace",
+          "headline": "Polymarket Releases CLI Tool for AI Agent Access to Prediction Markets",
+          "tweet_text": "AI AGENTS CAN NOW ACCESS PREDICTIONS MARKETS EVEN FASTER WITH POLYMARKET CLI FAST, LIGHTWEIGHT, NO OVERHEAD https://t.co"
+        },
+        {
+          "username": "TheTranscript_",
+          "headline": "Interactive Brokers CEO Expresses Strong Optimism About Prediction Markets",
+          "tweet_text": "$IBK CEO: \"“I am extremely bullish on the prediction markets. I think this is going to be the biggest thing that happene"
+        }
+      ],
+      "comparison": null
+    },
+    {
+      "cluster_id": 12,
+      "tweet_count": 9,
+      "unique_users": 8,
+      "coherence": 0.3618,
+      "is_story": true,
+      "span_hours": 6.5,
+      "earliest": "2026-02-24T16:28:12.000Z",
+      "latest": "2026-02-24T22:56:59.000Z",
+      "sample_headlines": [
+        {
+          "username": "Crypto_Briefing",
+          "headline": "Microsoft Announces Partnership with Starlink",
+          "tweet_text": "💥 JUST IN: Microsoft $MSFT partners with Elon Musk's Starlink. https://t.co/mC3mnCTpI4"
+        },
+        {
+          "username": "unusual_whales",
+          "headline": "Microsoft and SpaceX Starlink Announce Global Internet Partnership",
+          "tweet_text": "Microsoft and SpaceX’s Starlink have partnered to work together to provide global internet, per CNBC"
+        },
+        {
+          "username": "Cointelegraph",
+          "headline": "Microsoft and Starlink Announce Partnership for Rural Internet Expansion",
+          "tweet_text": "🚨 TODAY: Microsoft has partnered with Elon Musk’s Starlink to expand internet access in rural and remote areas. https:/"
+        },
+        {
+          "username": "xDaily",
+          "headline": "SpaceX Plans 150 Mbps Cellular Starlink Service with EchoStar Spectrum",
+          "tweet_text": "NEWS: SpaceX is targeting peak speeds of 150 Mbps per user for its next-generation cellular Starlink service, a roughly "
+        }
+      ],
+      "comparison": null
+    },
+    {
+      "cluster_id": 13,
+      "tweet_count": 2,
+      "unique_users": 2,
+      "coherence": 0.5,
+      "is_story": false,
+      "span_hours": 0.9,
+      "earliest": "2026-02-24T16:45:21.000Z",
+      "latest": "2026-02-24T17:37:43.000Z",
+      "sample_headlines": [
+        {
+          "username": "unusual_whales",
+          "headline": "Apple Reaffirms Commitment to Annual Dividend Increases",
+          "tweet_text": "Apple’s, $AAPL, CEO Tim Cook has said the company plans to continue the annual increase of its dividend, per Bloomberg"
+        },
+        {
+          "username": "DeItaone",
+          "headline": "Apple Signals Continued Annual Dividend Increases",
+          "tweet_text": "$AAPL - APPLE CONTINUES TO PLAN FOR ANNUAL INCREASE TO DIVIDEND - TIM COOK AT ANNUAL GENERAL MEETING"
+        }
+      ],
+      "comparison": null
+    },
+    {
+      "cluster_id": 14,
+      "tweet_count": 2,
+      "unique_users": 2,
+      "coherence": 0.4,
+      "is_story": false,
+      "span_hours": 4.7,
+      "earliest": "2026-02-24T17:02:21.000Z",
+      "latest": "2026-02-24T21:45:00.000Z",
+      "sample_headlines": [
+        {
+          "username": "Tyler_Did_It",
+          "headline": "No Substantive Information Available",
+          "tweet_text": "https://t.co/Nzb1wWofdp"
+        },
+        {
+          "username": "RoundtableSpace",
+          "headline": "No substantive financial information detected",
+          "tweet_text": "This is so funny🤣🤣 https://t.co/iJpipDz3JS"
+        }
+      ],
+      "comparison": null
+    },
+    {
+      "cluster_id": 15,
+      "tweet_count": 2,
+      "unique_users": 1,
+      "coherence": 0.7143,
+      "is_story": false,
+      "span_hours": 0,
+      "earliest": "2026-02-24T19:49:25.000Z",
+      "latest": "2026-02-24T19:49:27.000Z",
+      "sample_headlines": [
+        {
+          "username": "xerocooleth",
+          "headline": "User Calls for Return of SimClusters Feature on X Platform",
+          "tweet_text": "Bring back SimClusters to X Remember when you browsed your feed and it was the best posts in your cluster and your posts"
+        },
+        {
+          "username": "xerocooleth",
+          "headline": "User Calls for Restoration of SimClusters Feature on X Platform",
+          "tweet_text": "Bring back SimClusters to X Remember when you browsed your feed and it was the best posts in your cluster and your posts"
+        }
+      ],
+      "comparison": null
+    },
+    {
+      "cluster_id": 16,
+      "tweet_count": 2,
+      "unique_users": 1,
+      "coherence": 0.2,
+      "is_story": false,
+      "span_hours": 1.8,
+      "earliest": "2026-02-24T20:03:28.000Z",
+      "latest": "2026-02-24T21:53:30.000Z",
+      "sample_headlines": [
+        {
+          "username": "AutismCapital",
+          "headline": "Jack Hughes Praised for Performance",
+          "tweet_text": "Jack Hughes continues to be a FREAKING LEGEND. BASED. 🇺🇸🫡 https://t.co/IdzCnJjOyR"
+        },
+        {
+          "username": "AutismCapital",
+          "headline": "Social Media User Discusses Jack Hughes Photo Significance",
+          "tweet_text": "How is the Jack Hughes photo not the cover of TIME magazine? It is literally one of the most iconic American photos to e"
+        }
+      ],
+      "comparison": null
+    },
+    {
+      "cluster_id": 17,
+      "tweet_count": 2,
+      "unique_users": 2,
+      "coherence": 0.5714,
+      "is_story": false,
+      "span_hours": 5.9,
+      "earliest": "2026-02-24T20:40:21.000Z",
+      "latest": "2026-02-25T02:36:15.000Z",
+      "sample_headlines": [
+        {
+          "username": "xerocooleth",
+          "headline": "Social Media Post References Eileen Gu",
+          "tweet_text": "obligatory Eileen Gu post to appease the algo gods. https://t.co/VkbvrwLzns"
+        },
+        {
+          "username": "AutismCapital",
+          "headline": "Social Media Post References Cultural Reference",
+          "tweet_text": "LISAN AL GAIB! https://t.co/XO8ZnnsKCH"
+        }
+      ],
+      "comparison": null
+    },
+    {
+      "cluster_id": 18,
+      "tweet_count": 2,
+      "unique_users": 1,
+      "coherence": 0.8182,
+      "is_story": false,
+      "span_hours": 2,
+      "earliest": "2026-02-24T20:50:15.000Z",
+      "latest": "2026-02-24T22:50:12.000Z",
+      "sample_headlines": [
+        {
+          "username": "DecryptMedia",
+          "headline": "South Korean Man Charged with Attempted Murder Over Bitcoin Investment Dispute",
+          "tweet_text": "South Korean Man Faces Murder Charge Over Bitcoin Bet Gone Bad https://t.co/E5NQUJvGZi"
+        },
+        {
+          "username": "DecryptMedia",
+          "headline": "South Korean Man Charged with Attempted Murder After Bitcoin Investment Dispute",
+          "tweet_text": "Prosecutors in Seoul say a man poisoned his business partner after the colleague mismanaged his Bitcoin investments. htt"
+        }
+      ],
+      "comparison": null
+    },
+    {
+      "cluster_id": 19,
+      "tweet_count": 2,
+      "unique_users": 2,
+      "coherence": 0.2222,
+      "is_story": false,
+      "span_hours": 2.4,
+      "earliest": "2026-02-24T21:00:41.000Z",
+      "latest": "2026-02-24T23:24:47.000Z",
+      "sample_headlines": [
+        {
+          "username": "Cointelegraph",
+          "headline": "Nvidia Cofounder Curtis Priem Sold Entire Stake in 2006, Missing Massive Potential Gains",
+          "tweet_text": "🚨 LATEST: Nvidia cofounder Curtis Priem sold his 12.8% stake in 2006, missing out on shares that would be worth nearly "
+        },
+        {
+          "username": "coinbureau",
+          "headline": "NVIDIA Cofounder Curtis Priem's $600 Billion Stock Sale Missed Opportunity",
+          "tweet_text": "🚨 YOU LITERALLY CANNOT MAKE THIS UP. 🇺🇸 THE COFOUNDER OF NVIDIA JUST BECAME THE POSTER CHILD FOR HOLDING YOUR ASSETS."
+        }
+      ],
+      "comparison": null
+    },
+    {
+      "cluster_id": 20,
+      "tweet_count": 2,
+      "unique_users": 2,
+      "coherence": 0.1538,
+      "is_story": false,
+      "span_hours": 2.3,
+      "earliest": "2026-02-24T21:43:38.000Z",
+      "latest": "2026-02-25T00:01:52.000Z",
+      "sample_headlines": [
+        {
+          "username": "TheTranscript_",
+          "headline": "HP Reports Strong Q1 with Personal Systems Growth, Despite After-Hours Stock Decline",
+          "tweet_text": "HP CEO: \"We are pleased to report a strong first quarter, highlighted by robust growth in Personal Systems, including th"
+        },
+        {
+          "username": "Techmeme",
+          "headline": "HP Reports Q1 Revenue Growth, Lowers Full-Year Forecast",
+          "tweet_text": "HP reports Q1 revenue up 6.9% YoY to $14.44B, vs. $13.94B est., and expects FY 2026 results to be at the low end of its "
+        }
+      ],
+      "comparison": null
+    },
+    {
+      "cluster_id": 21,
+      "tweet_count": 2,
+      "unique_users": 2,
+      "coherence": 0.6667,
+      "is_story": false,
+      "span_hours": 0.7,
+      "earliest": "2026-02-24T22:01:03.000Z",
+      "latest": "2026-02-24T22:40:15.000Z",
+      "sample_headlines": [
+        {
+          "username": "AutismCapital",
+          "headline": "VP Kamala Harris Suggests Potential 2024 Presidential Campaign Consideration",
+          "tweet_text": "🚨 NEW: Kamala Harris says that she is thinking about running for President again https://t.co/kaJXYNvG0J"
+        },
+        {
+          "username": "cryptorover",
+          "headline": "Kamala Harris Suggests Potential 2028 Presidential Campaign",
+          "tweet_text": "💥BREAKING: Kamala Harris announces she might run for president again in 2028. https://t.co/a4c2HpAQEu"
+        }
+      ],
+      "comparison": null
+    }
+  ]
+}

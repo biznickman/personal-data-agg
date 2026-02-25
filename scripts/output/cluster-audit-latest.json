@@ -1,0 +1,314 @@
+{
+  "generated_at": "2026-02-25T02:59:35.188Z",
+  "mode": "EXECUTE",
+  "options": {
+    "hours": 48,
+    "limit": 500,
+    "mergeThreshold": 0.45,
+    "coherenceWarn": 0.08,
+    "minTweets": 2,
+    "execute": true
+  },
+  "summary": {
+    "total_clusters": 263,
+    "audited_clusters": 101,
+    "story_candidates": 57,
+    "promo_filtered": 1,
+    "singletons": 144,
+    "largest_cluster": 790,
+    "avg_coherence": 0.1147
+  },
+  "merge_plan": [],
+  "low_coherence_clusters": [
+    {
+      "cluster_id": 93,
+      "headline": "GWEI Token Launches Airdrop for Ethereum Gas Fee Users",
+      "tweet_count": 790,
+      "unique_users": 191,
+      "coherence": 0.0227,
+      "is_story_candidate": false,
+      "is_promo": true,
+      "sample_tweets": [
+        {
+          "username": "cryptodotnews",
+          "tweet_time": "2026-02-23T10:36:00+00:00",
+          "headline": "Crypto Market Sees $507.95 Million in Trader Liquidations",
+          "text": "INSIGHT: Traders were liquidated for over half a billion ($507.95 million) in the past 24 hours. Ove"
+        },
+        {
+          "username": "VladimirMD_",
+          "tweet_time": "2026-02-22T22:41:27+00:00",
+          "headline": "Ondo Finance Launches Tokenized Stock Rewards on Ethereum",
+          "text": "ETH fees, huh? They're becoming NVIDIA & TESLA now. $ONDO is making tokenized stocks a reality. 🔥 1"
+        },
+        {
+          "username": "aimeehall_eth",
+          "tweet_time": "2026-02-22T22:35:23+00:00",
+          "headline": "LayerZero Launches 'Zero' L1 Blockchain with Community Voting Token Distribution",
+          "text": "TETHER. DTCC. GOOGLE CLOUD. ALL IN ON $ZRO. AND 10% IS FOR VOTERS. LAYERZERO JUST LAUNCHED \"ZERO\" — "
+        },
+        {
+          "username": "coinbureau",
+          "tweet_time": "2026-02-23T06:15:00+00:00",
+          "headline": "Missouri Bitcoin Strategic Reserve Bill Advances to House Commerce Committee",
+          "text": "🚨 UPDATE: MISSOURI BITCOIN RESERVE BILL ADVANCES TO COMMITTEE Missouri’s Bitcoin Strategic Reserve "
+        }
+      ]
+    },
+    {
+      "cluster_id": 227,
+      "headline": "Solana Records Highest DEX Trading Volume at $1.462 Billion in 24 Hours",
+      "tweet_count": 11,
+      "unique_users": 6,
+      "coherence": 0.0497,
+      "is_story_candidate": true,
+      "is_promo": false,
+      "sample_tweets": [
+        {
+          "username": "Crypto_Briefing",
+          "tweet_time": "2026-02-23T13:30:26+00:00",
+          "headline": "Based Raises $11.5M Series A for Web3 Trading Platform, Led by Pantera Capital",
+          "text": "⚡️ NOW: Based, a Hyperliquid-powered Web3 trading and payments platform, has raised $11.5 million in"
+        },
+        {
+          "username": "WhaleInsider",
+          "tweet_time": "2026-02-23T16:09:20+00:00",
+          "headline": "CLAW Mode Launches AI Trading Agent Platform on X",
+          "text": "JUST IN: $CLAW Mode rolls out platform supporting autonomous AI agents that post, interact, and exec"
+        },
+        {
+          "username": "SolanaFloor",
+          "tweet_time": "2026-02-23T13:41:21+00:00",
+          "headline": "Solana DEX Trading Volume Data Shared",
+          "text": "Source: https://t.co/vAN8y1IKmz"
+        },
+        {
+          "username": "cryptodotnews",
+          "tweet_time": "2026-02-23T16:50:00+00:00",
+          "headline": "Zebec Network Launches Dedicated Satellite Data Layer",
+          "text": "LATEST: $ZBCN | ZebecNet by @Zebec_HQ goes live. Zebec’s global payments network now has a dedicated"
+        }
+      ]
+    },
+    {
+      "cluster_id": 540,
+      "headline": "Russia Alleges UK and France Plan Nuclear Weapon Support for Ukraine",
+      "tweet_count": 4,
+      "unique_users": 3,
+      "coherence": 0.0551,
+      "is_story_candidate": false,
+      "is_promo": false,
+      "sample_tweets": [
+        {
+          "username": "xDaily",
+          "tweet_time": "2026-02-24T00:51:57+00:00",
+          "headline": "Pentagon Considers Replacing Anthropic's Claude AI in Sensitive Military Systems",
+          "text": "Up to now, Anthropic's Claude has been the only model available in the systems on which the military"
+        },
+        {
+          "username": "xDaily",
+          "tweet_time": "2026-02-23T01:11:14+00:00",
+          "headline": "Grok AI Launches Read Aloud Feature for Android Users",
+          "text": "PSA: Grok's read aloud feature is now available on Android, letting users listen to any answer in ch"
+        },
+        {
+          "username": "RoundtableSpace",
+          "tweet_time": "2026-02-23T04:45:00+00:00",
+          "headline": "Grok AI Releases App Update",
+          "text": "New Grok update app!! https://t.co/DZcMb3blQ1"
+        },
+        {
+          "username": "coinbureau",
+          "tweet_time": "2026-02-23T23:15:00+00:00",
+          "headline": "Pentagon Exploring Anthropic's Claude AI Model with Potential Contract Limitations",
+          "text": "⚡️PENTAGON'S AI IN FOCUS The Pentagon is reportedly using Anthropic’s Claude, seen as one of the lea"
+        }
+      ]
+    },
+    {
+      "cluster_id": 230,
+      "headline": "US Stock Market Futures Indicate Negative Opening",
+      "tweet_count": 10,
+      "unique_users": 6,
+      "coherence": 0.0568,
+      "is_story_candidate": true,
+      "is_promo": false,
+      "sample_tweets": [
+        {
+          "username": "TheStalwart",
+          "tweet_time": "2026-02-23T12:44:56+00:00",
+          "headline": "US Stock Market Futures Indicate Negative Opening",
+          "text": "Futures red https://t.co/aKLqoBgxSO"
+        },
+        {
+          "username": "DeItaone",
+          "tweet_time": "2026-02-23T13:43:54+00:00",
+          "headline": "US Embassy Evacuates Staff from Beirut as Precautionary Measure",
+          "text": "US EMBASSY EVACUATES STAFF FROM BEIRUT AS PRECAUTION: LBCI"
+        },
+        {
+          "username": "DeItaone",
+          "tweet_time": "2026-02-23T15:52:52+00:00",
+          "headline": "U.S. Stock Market Declines, NASDAQ Drops 1.01%",
+          "text": "U.S. STOCKS EXTEND FALL, NASDAQ DOWN 1.01 PCT"
+        },
+        {
+          "username": "DeItaone",
+          "tweet_time": "2026-02-23T15:04:38+00:00",
+          "headline": "U.S. Stock Market Declines, Dow Jones Industrial Average Falls 1%",
+          "text": "U.S. STOCKS EXTEND FALL, DOW JONES DOWN 1.00%"
+        }
+      ]
+    },
+    {
+      "cluster_id": 353,
+      "headline": "Mortgage Rates Fall Below 6% According to CNBC Report",
+      "tweet_count": 3,
+      "unique_users": 3,
+      "coherence": 0.0738,
+      "is_story_candidate": true,
+      "is_promo": false,
+      "sample_tweets": [
+        {
+          "username": "coinbureau",
+          "tweet_time": "2026-02-23T09:30:00+00:00",
+          "headline": "U.S. Pending Home Sales Drop to Historic Low",
+          "text": "🚨🇺🇸 U.S. HOUSING MARKET JUST HIT A NEW LOW Pending Home Sales have fallen to the lowest level eve"
+        },
+        {
+          "username": "solidintel_x",
+          "tweet_time": "2026-02-23T09:53:51+00:00",
+          "headline": "U.S. Credit Card Loan Delinquencies Reach Near-Record High at 12.7%",
+          "text": "INTEL: U.S. credit card loans in serious delinquency (90+ days past due) rose to 12.7%, the second-h"
+        },
+        {
+          "username": "DeItaone",
+          "tweet_time": "2026-02-23T15:01:00+00:00",
+          "headline": "U.S. Factory Orders Decline 0.7% in December",
+          "text": "U.S. DEC FACTORY ORDERS -0.7% (CONSENSUS -0.6%)"
+        }
+      ]
+    },
+    {
+      "cluster_id": 135,
+      "headline": "US Farmers Reject Multimillion-Dollar Data Center Land Offers",
+      "tweet_count": 3,
+      "unique_users": 2,
+      "coherence": 0.074,
+      "is_story_candidate": true,
+      "is_promo": false,
+      "sample_tweets": [
+        {
+          "username": "Techmeme",
+          "tweet_time": "2026-02-23T00:40:38+00:00",
+          "headline": "US Farmers Reject Multimillion-Dollar Data Center Land Offers",
+          "text": "US farmers are increasingly rejecting multimillion-dollar offers from data center developers; some e"
+        },
+        {
+          "username": "DecryptMedia",
+          "tweet_time": "2026-02-23T21:00:43+00:00",
+          "headline": "OpenAI CEO Sam Altman Argues Humans Are Less Energy-Efficient Than AI Data Centers",
+          "text": "OpenAI CEO Sam Altman went to India with a bold new defense of AI energy use: Humans are less effici"
+        },
+        {
+          "username": "Techmeme",
+          "tweet_time": "2026-02-23T10:50:40+00:00",
+          "headline": "Virginia Official Buddy Rizer Credited with Developing Loudoun County's Massive Data Center Market",
+          "text": "How Buddy Rizer, an official in Virginia's Loudoun County, helped build the world's largest data cen"
+        }
+      ]
+    }
+  ],
+  "stories": [
+    {
+      "cluster_id": 230,
+      "headline": "US Stock Market Futures Indicate Negative Opening",
+      "tweet_count": 10,
+      "unique_users": 6,
+      "coherence": 0.0568,
+      "first_seen_at": "2026-02-23T12:44:56+00:00",
+      "last_seen_at": "2026-02-25T02:33:43+00:00"
+    },
+    {
+      "cluster_id": 237,
+      "headline": "EU Rejects Additional US Tariffs Following Supreme Court Decision",
+      "tweet_count": 17,
+      "unique_users": 10,
+      "coherence": 0.1026,
+      "first_seen_at": "2026-02-23T13:09:00+00:00",
+      "last_seen_at": "2026-02-24T19:33:32+00:00"
+    },
+    {
+      "cluster_id": 860,
+      "headline": "LSU Women's Basketball Team Invited to State of the Union, Media Coverage Criticized",
+      "tweet_count": 24,
+      "unique_users": 0,
+      "coherence": null,
+      "first_seen_at": "2026-02-25T00:13:24+00:00",
+      "last_seen_at": "2026-02-25T02:45:00+00:00"
+    },
+    {
+      "cluster_id": 309,
+      "headline": "Reuters: Software Companies Face Higher Borrowing Costs Amid AI Disruption",
+      "tweet_count": 2,
+      "unique_users": 2,
+      "coherence": 0,
+      "first_seen_at": "2026-02-23T16:33:00+00:00",
+      "last_seen_at": "2026-02-24T20:03:39+00:00"
+    },
+    {
+      "cluster_id": 353,
+      "headline": "Mortgage Rates Fall Below 6% According to CNBC Report",
+      "tweet_count": 3,
+      "unique_users": 3,
+      "coherence": 0.0738,
+      "first_seen_at": "2026-02-23T19:15:38+00:00",
+      "last_seen_at": "2026-02-24T23:08:53+00:00"
+    },
+    {
+      "cluster_id": 239,
+      "headline": "New AI Agent Promises Automated Note-Taking Capabilities",
+      "tweet_count": 2,
+      "unique_users": 1,
+      "coherence": 0,
+      "first_seen_at": "2026-02-23T13:45:00+00:00",
+      "last_seen_at": "2026-02-25T02:15:00+00:00"
+    },
+    {
+      "cluster_id": 222,
+      "headline": "Trump Proposes 15% Tariff That Could Increase UK Export Costs by $4 Billion",
+      "tweet_count": 12,
+      "unique_users": 8,
+      "coherence": 0.133,
+      "first_seen_at": "2026-02-23T12:13:11+00:00",
+      "last_seen_at": "2026-02-24T14:23:31+00:00"
+    },
+    {
+      "cluster_id": 227,
+      "headline": "Solana Records Highest DEX Trading Volume at $1.462 Billion in 24 Hours",
+      "tweet_count": 11,
+      "unique_users": 6,
+      "coherence": 0.0497,
+      "first_seen_at": "2026-02-23T12:18:00+00:00",
+      "last_seen_at": "2026-02-24T15:19:45+00:00"
+    },
+    {
+      "cluster_id": 276,
+      "headline": "Crypto.com Secures Conditional OCC Approval for Federal Bank Charter",
+      "tweet_count": 6,
+      "unique_users": 6,
+      "coherence": 0.2663,
+      "first_seen_at": "2026-02-23T14:46:37+00:00",
+      "last_seen_at": "2026-02-24T09:25:51+00:00"
+    },
+    {
+      "cluster_id": 551,
+      "headline": "Gold Prices Recover After Recent Decline",
+      "tweet_count": 16,
+      "unique_users": 0,
+      "coherence": null,
+      "first_seen_at": "2026-02-24T10:41:21+00:00",
+      "last_seen_at": "2026-02-24T15:52:21+00:00"
+    }
+  ]
+}

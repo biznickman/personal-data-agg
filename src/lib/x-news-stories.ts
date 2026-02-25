@@ -44,43 +44,37 @@ export interface StoryFeedbackSummary {
   total: number;
 }
 
-type ClusterRow = {
+const STORY_MIN_TWEETS = 3;
+const STORY_MIN_USERS  = 2;
+const TWEET_CHUNK      = 300;
+const CLUSTER_CHUNK    = 50;
+
+type TweetRow = {
+  id: number;
+  tweet_id: string;
+  username: string | null;
+  tweet_time: string | null;
+  link: string | null;
+  tweet_text: string | null;
+  normalized_headline: string | null;
+  normalized_facts: unknown;
+  likes: number | null;
+  retweets: number | null;
+  replies: number | null;
+  quotes: number | null;
+  bookmarks: number | null;
+  impressions: number | null;
+};
+
+type PersistentClusterRow = {
   id: number;
   first_seen_at: string | null;
   last_seen_at: string | null;
   normalized_headline: string | null;
   normalized_facts: unknown;
-  tweet_count: number | null;
-  unique_user_count: number | null;
-  is_story_candidate: boolean | null;
-};
-
-type JoinedTweet = {
-  tweet_id?: unknown;
-  username?: unknown;
-  tweet_time?: unknown;
-  link?: unknown;
-  tweet_text?: unknown;
-  likes?: unknown;
-  retweets?: unknown;
-  replies?: unknown;
-  quotes?: unknown;
-  bookmarks?: unknown;
-  impressions?: unknown;
-};
-
-type ClusterTweetRow = {
-  cluster_id: number;
-  assigned_at: string | null;
-  similarity_score: number | null;
-  tweets: unknown;
-};
-
-type FeedbackLabel = "useful" | "noise" | "bad_cluster";
-
-type ClusterFeedbackRow = {
-  cluster_id: number;
-  label: FeedbackLabel;
+  tweet_count: number;
+  unique_user_count: number;
+  is_story_candidate: boolean;
 };
 
 function parsePositiveInt(value: number | undefined, fallback: number, max: number): number {
@@ -96,15 +90,6 @@ function toTimestamp(value: string | null): number {
   return Number.isFinite(parsed) ? parsed : Number.NaN;
 }
 
-function createEmptyFeedbackSummary(): StoryFeedbackSummary {
-  return {
-    useful: 0,
-    noise: 0,
-    badCluster: 0,
-    total: 0,
-  };
-}
-
 function toHoursAgo(value: string | null): number {
   const ts = toTimestamp(value);
   if (!Number.isFinite(ts)) return 48;
@@ -112,14 +97,52 @@ function toHoursAgo(value: string | null): number {
   return msAgo / (1000 * 60 * 60);
 }
 
-function computeTweetEngagement(tweet: StoryTweet): number {
-  const likes = tweet.likes ?? 0;
-  const retweets = tweet.retweets ?? 0;
-  const quotes = tweet.quotes ?? 0;
-  const replies = tweet.replies ?? 0;
-  const bookmarks = tweet.bookmarks ?? 0;
+function toNullableNumber(input: unknown): number | null {
+  if (typeof input === "number" && Number.isFinite(input)) return input;
+  if (typeof input === "string" && input.trim()) {
+    const parsed = Number(input);
+    if (Number.isFinite(parsed)) return parsed;
+  }
+  return null;
+}
 
-  return likes + retweets * 2 + quotes * 1.5 + replies + bookmarks * 0.2;
+function toStringList(input: unknown): string[] {
+  if (!Array.isArray(input)) return [];
+  const out: string[] = [];
+  for (const item of input) {
+    if (typeof item !== "string") continue;
+    const trimmed = item.trim();
+    if (trimmed) out.push(trimmed);
+  }
+  return out;
+}
+
+function toStoryTweet(row: TweetRow): StoryTweet {
+  return {
+    tweetId: row.tweet_id,
+    username: row.username,
+    tweetTime: row.tweet_time,
+    link: row.link,
+    tweetText: row.tweet_text,
+    likes: toNullableNumber(row.likes),
+    retweets: toNullableNumber(row.retweets),
+    replies: toNullableNumber(row.replies),
+    quotes: toNullableNumber(row.quotes),
+    bookmarks: toNullableNumber(row.bookmarks),
+    impressions: toNullableNumber(row.impressions),
+    assignedAt: null,
+    similarityScore: null,
+  };
+}
+
+function computeTweetEngagement(tweet: StoryTweet): number {
+  return (
+    (tweet.likes ?? 0) +
+    (tweet.retweets ?? 0) * 2 +
+    (tweet.quotes ?? 0) * 1.5 +
+    (tweet.replies ?? 0) +
+    (tweet.bookmarks ?? 0) * 0.2
+  );
 }
 
 function scoreStory(params: {
@@ -146,176 +169,137 @@ function scoreStory(params: {
   return Number(score.toFixed(2));
 }
 
-function toStringList(input: unknown): string[] {
-  if (!Array.isArray(input)) return [];
+// Pick the tweet to use as the cluster's headline/facts.
+// Prefers tweets with a normalized_headline, ranked by engagement.
+function pickHeadlineTweet(tweets: TweetRow[]): TweetRow | null {
+  const withHeadline = tweets.filter((t) => t.normalized_headline?.trim());
+  if (withHeadline.length === 0) return tweets[0] ?? null;
 
-  const out: string[] = [];
-  for (const item of input) {
-    if (typeof item !== "string") continue;
-    const trimmed = item.trim();
-    if (!trimmed) continue;
-    out.push(trimmed);
-  }
-
-  return out;
-}
-
-function toNullableNumber(input: unknown): number | null {
-  if (typeof input === "number" && Number.isFinite(input)) return input;
-  if (typeof input === "string" && input.trim()) {
-    const parsed = Number(input);
-    if (Number.isFinite(parsed)) return parsed;
-  }
-  return null;
-}
-
-function pickJoinedTweet(value: unknown): JoinedTweet | null {
-  if (Array.isArray(value) && value.length > 0 && value[0] && typeof value[0] === "object") {
-    return value[0] as JoinedTweet;
-  }
-  if (value && typeof value === "object") {
-    return value as JoinedTweet;
-  }
-  return null;
-}
-
-function toStoryTweet(row: ClusterTweetRow): StoryTweet | null {
-  const joined = pickJoinedTweet(row.tweets);
-  if (!joined || typeof joined.tweet_id !== "string") return null;
-
-  return {
-    tweetId: joined.tweet_id,
-    username: typeof joined.username === "string" ? joined.username : null,
-    tweetTime: typeof joined.tweet_time === "string" ? joined.tweet_time : null,
-    link: typeof joined.link === "string" ? joined.link : null,
-    tweetText: typeof joined.tweet_text === "string" ? joined.tweet_text : null,
-    likes: toNullableNumber(joined.likes),
-    retweets: toNullableNumber(joined.retweets),
-    replies: toNullableNumber(joined.replies),
-    quotes: toNullableNumber(joined.quotes),
-    bookmarks: toNullableNumber(joined.bookmarks),
-    impressions: toNullableNumber(joined.impressions),
-    assignedAt: row.assigned_at,
-    similarityScore: toNullableNumber(row.similarity_score),
-  };
+  return withHeadline.reduce((best, t) => {
+    const bestScore = (best.likes ?? 0) + (best.retweets ?? 0) * 2 + (best.quotes ?? 0);
+    const tScore    = (t.likes    ?? 0) + (t.retweets    ?? 0) * 2 + (t.quotes    ?? 0);
+    return tScore > bestScore ? t : best;
+  });
 }
 
 export async function getLatestXNewsStories(
   options: GetLatestStoriesOptions = {}
 ): Promise<StoryCluster[]> {
-  const limit = parsePositiveInt(options.limit, 50, 250);
-  const lookbackHours = parsePositiveInt(options.lookbackHours, 24, 24 * 7);
+  const limit            = parsePositiveInt(options.limit, 50, 250);
+  const lookbackHours    = parsePositiveInt(options.lookbackHours, 24, 48);
   const maxTweetsPerStory = parsePositiveInt(options.maxTweetsPerStory, 5, 20);
   const onlyStoryCandidates = options.onlyStoryCandidates ?? true;
 
-  const cutoff = new Date(Date.now() - lookbackHours * 60 * 60 * 1000).toISOString();
+  const since = new Date(Date.now() - lookbackHours * 60 * 60 * 1000).toISOString();
 
-  let clusterQuery = supabase
+  // Query 1: Load active clusters from persistent table
+  const { data: clusterData, error: clusterError } = await supabase
     .from("x_news_clusters")
     .select(
       "id,first_seen_at,last_seen_at,normalized_headline,normalized_facts,tweet_count,unique_user_count,is_story_candidate"
     )
+    .eq("is_active", true)
     .is("merged_into_cluster_id", null)
-    .gte("last_seen_at", cutoff)
+    .gte("last_seen_at", since)
     .order("last_seen_at", { ascending: false })
-    .limit(limit);
-
-  if (onlyStoryCandidates) {
-    clusterQuery = clusterQuery.eq("is_story_candidate", true);
-  }
-
-  const { data: clusterData, error: clusterError } = await clusterQuery;
+    .limit(500);
 
   if (clusterError) {
-    throw new Error(`Story cluster query failed: ${clusterError.message}`);
+    throw new Error(`Cluster query failed: ${clusterError.message}`);
   }
 
-  const clusters = (clusterData ?? []) as ClusterRow[];
-  if (clusters.length === 0) {
-    return [];
+  const clusters = (clusterData ?? []) as PersistentClusterRow[];
+  if (clusters.length === 0) return [];
+
+  // Query 2: Load tweet memberships for all clusters, chunked by 50 cluster IDs
+  const clusterIds = clusters.map((c) => c.id);
+  const membershipMap = new Map<number, number[]>(); // cluster_id → db tweet ids
+
+  for (let i = 0; i < clusterIds.length; i += CLUSTER_CHUNK) {
+    const chunk = clusterIds.slice(i, i + CLUSTER_CHUNK);
+    const { data: memberData, error: memberError } = await supabase
+      .from("x_news_cluster_tweets")
+      .select("tweet_id,cluster_id")
+      .in("cluster_id", chunk);
+
+    if (memberError) throw new Error(`Tweet membership load failed: ${memberError.message}`);
+
+    for (const row of (memberData ?? []) as Array<{ tweet_id: number; cluster_id: number }>) {
+      if (!membershipMap.has(row.cluster_id)) membershipMap.set(row.cluster_id, []);
+      membershipMap.get(row.cluster_id)!.push(row.tweet_id);
+    }
   }
 
-  const clusterIds = clusters.map((cluster) => cluster.id);
-  const { data: tweetData, error: tweetError } = await supabase
-    .from("x_news_cluster_tweets")
-    .select(
-      "cluster_id,assigned_at,similarity_score,tweets(tweet_id,username,tweet_time,link,tweet_text,likes,retweets,replies,quotes,bookmarks,impressions)"
-    )
-    .in("cluster_id", clusterIds)
-    .order("assigned_at", { ascending: false });
+  // Query 3: Load tweet content by DB id, chunked by 300
+  const allDbIds = [...new Set([...membershipMap.values()].flat())];
+  const allTweets: TweetRow[] = [];
 
-  if (tweetError) {
-    throw new Error(`Story tweet query failed: ${tweetError.message}`);
+  for (let i = 0; i < allDbIds.length; i += TWEET_CHUNK) {
+    const chunk = allDbIds.slice(i, i + TWEET_CHUNK);
+    const { data, error } = await supabase
+      .from("tweets")
+      .select(
+        "id,tweet_id,username,tweet_time,link,tweet_text,normalized_headline,normalized_facts,likes,retweets,replies,quotes,bookmarks,impressions"
+      )
+      .in("id", chunk);
+
+    if (error) throw new Error(`Tweet load failed: ${error.message}`);
+    allTweets.push(...((data ?? []) as TweetRow[]));
   }
 
-  const groupedTweets = new Map<number, StoryTweet[]>();
-  const engagementByCluster = new Map<number, number>();
-  for (const row of (tweetData ?? []) as ClusterTweetRow[]) {
-    const parsed = toStoryTweet(row);
-    if (!parsed) continue;
+  const tweetByDbId = new Map(allTweets.map((t) => [t.id, t]));
 
-    const existingEngagement = engagementByCluster.get(row.cluster_id) ?? 0;
-    engagementByCluster.set(
-      row.cluster_id,
-      existingEngagement + computeTweetEngagement(parsed)
+  const stories = clusters.map((c) => {
+    const memberDbIds = membershipMap.get(c.id) ?? [];
+    const tweets = memberDbIds
+      .map((id) => tweetByDbId.get(id))
+      .filter((t): t is TweetRow => t !== undefined);
+
+    const uniqueUsers = new Set(
+      tweets.map((t) => (t.username ?? `id:${t.tweet_id}`).toLowerCase())
+    ).size;
+
+    const isStoryCandidate =
+      tweets.length >= STORY_MIN_TWEETS && uniqueUsers >= STORY_MIN_USERS;
+
+    const headlineTweet = pickHeadlineTweet(tweets);
+
+    const storyTweets = tweets
+      .map(toStoryTweet)
+      .sort((a, b) => computeTweetEngagement(b) - computeTweetEngagement(a))
+      .slice(0, maxTweetsPerStory);
+
+    const totalEngagement = storyTweets.reduce(
+      (sum, t) => sum + computeTweetEngagement(t),
+      0
     );
 
-    const existing = groupedTweets.get(row.cluster_id) ?? [];
-    if (existing.length >= maxTweetsPerStory) {
-      groupedTweets.set(row.cluster_id, existing);
-      continue;
-    }
+    const feedback: StoryFeedbackSummary = { useful: 0, noise: 0, badCluster: 0, total: 0 };
 
-    existing.push(parsed);
-    groupedTweets.set(row.cluster_id, existing);
-  }
-
-  const feedbackByCluster = new Map<number, StoryFeedbackSummary>();
-  const { data: feedbackData, error: feedbackError } = await supabase
-    .from("x_news_cluster_feedback")
-    .select("cluster_id,label")
-    .in("cluster_id", clusterIds)
-    .order("created_at", { ascending: false })
-    .limit(5000);
-
-  if (!feedbackError) {
-    for (const row of (feedbackData ?? []) as ClusterFeedbackRow[]) {
-      const current = feedbackByCluster.get(row.cluster_id) ?? createEmptyFeedbackSummary();
-      if (row.label === "useful") current.useful += 1;
-      if (row.label === "noise") current.noise += 1;
-      if (row.label === "bad_cluster") current.badCluster += 1;
-      current.total += 1;
-      feedbackByCluster.set(row.cluster_id, current);
-    }
-  } else {
-    console.warn(`Story feedback query failed: ${feedbackError.message}`);
-  }
-
-  const stories = clusters.map((cluster) => {
     const baseStory = {
-    clusterId: cluster.id,
-    firstSeenAt: cluster.first_seen_at,
-    lastSeenAt: cluster.last_seen_at,
-    normalizedHeadline: cluster.normalized_headline,
-    normalizedFacts: toStringList(cluster.normalized_facts),
-    tweetCount: typeof cluster.tweet_count === "number" ? cluster.tweet_count : 0,
-    uniqueUserCount:
-      typeof cluster.unique_user_count === "number" ? cluster.unique_user_count : 0,
-    isStoryCandidate: cluster.is_story_candidate === true,
-    feedback: feedbackByCluster.get(cluster.id) ?? createEmptyFeedbackSummary(),
-    tweets: groupedTweets.get(cluster.id) ?? [],
+      clusterId:          c.id,
+      firstSeenAt:        c.first_seen_at,
+      lastSeenAt:         c.last_seen_at,
+      normalizedHeadline: headlineTweet?.normalized_headline ?? c.normalized_headline ?? null,
+      normalizedFacts:    toStringList(headlineTweet?.normalized_facts),
+      tweetCount:         tweets.length,
+      uniqueUserCount:    uniqueUsers,
+      isStoryCandidate,
+      feedback,
+      tweets:             storyTweets,
     };
 
     return {
       ...baseStory,
-      rankScore: scoreStory({
-        story: baseStory,
-        totalEngagement: engagementByCluster.get(cluster.id) ?? 0,
-      }),
+      rankScore: scoreStory({ story: baseStory, totalEngagement }),
     };
   });
 
-  stories.sort((a, b) => {
+  const filtered = onlyStoryCandidates
+    ? stories.filter((s) => s.isStoryCandidate)
+    : stories;
+
+  filtered.sort((a, b) => {
     if (b.rankScore !== a.rankScore) return b.rankScore - a.rankScore;
 
     if (onlyStoryCandidates) {
@@ -324,12 +308,10 @@ export async function getLatestXNewsStories(
       return toTimestamp(b.lastSeenAt) - toTimestamp(a.lastSeenAt);
     }
 
-    if (a.isStoryCandidate !== b.isStoryCandidate) {
-      return a.isStoryCandidate ? -1 : 1;
-    }
+    if (a.isStoryCandidate !== b.isStoryCandidate) return a.isStoryCandidate ? -1 : 1;
     if (b.tweetCount !== a.tweetCount) return b.tweetCount - a.tweetCount;
     return toTimestamp(b.lastSeenAt) - toTimestamp(a.lastSeenAt);
   });
 
-  return stories;
+  return filtered.slice(0, limit);
 }

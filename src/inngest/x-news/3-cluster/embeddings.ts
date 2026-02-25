@@ -1,7 +1,5 @@
 import { GoogleGenAI } from "@google/genai";
 
-export type ClusterSimilarityMode = "lexical" | "embedding";
-
 const DEFAULT_EMBED_MODEL = "gemini-embedding-001";
 const DEFAULT_EMBED_TASK_TYPE = "CLUSTERING";
 const DEFAULT_EMBED_DIMENSIONS = 1536;
@@ -25,10 +23,6 @@ function getGeminiClient(): GoogleGenAI {
   }
 
   return cachedGeminiClient;
-}
-
-export function getClusterSimilarityMode(input: string | undefined): ClusterSimilarityMode {
-  return input === "embedding" ? "embedding" : "lexical";
 }
 
 export function getEmbeddingModel(): string {

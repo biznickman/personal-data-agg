@@ -12,8 +12,9 @@ export {
   xNewsEnrichUrls,
   xNewsNormalize,
   xNewsClusterAssign,
-  xNewsClusterMerge,
   xNewsClusterBackfill,
+  xNewsClusterSync,
+  xNewsClusterReview,
 } from "./x-news";
 
 // Granola meeting notes

@@ -1,0 +1,557 @@
+{
+  "generated_at": "2026-02-25T03:28:15.606Z",
+  "params": {
+    "hours": 4,
+    "threshold": 0.86,
+    "minCluster": 2,
+    "maxDays": 3
+  },
+  "rpc_elapsed_s": 0.3,
+  "summary": {
+    "eligible_tweets": 160,
+    "total_clusters": 19,
+    "unique_tweets_covered": 112,
+    "coverage_pct": 70,
+    "story_candidates": 11,
+    "avg_cluster_size": 5.89,
+    "max_cluster_size": 28,
+    "avg_coherence": 0.2617,
+    "median_coherence": 0.2178,
+    "low_coherence_count": 0,
+    "mega_cluster_count": 1
+  },
+  "clusters": [
+    {
+      "cluster_id": 1,
+      "tweet_count": 10,
+      "unique_users": 2,
+      "coherence": 0.2416,
+      "is_story": true,
+      "span_hours": 2.3,
+      "earliest": "2026-02-24T23:30:06+00:00",
+      "latest": "2026-02-25T01:48:56+00:00",
+      "sample_headlines": [
+        {
+          "username": "0xKevinRich",
+          "headline": "GWEI Token Launches Airdrop for Ethereum Gas Ecosystem Participants",
+          "tweet_text": "$GWEI airdrop is live now! https://t.co/x3AETg3xXh Your past gas spending on Ethereum finally pays off. Proof of pain = "
+        },
+        {
+          "username": "0xKevinRich",
+          "headline": "LayerZero Launches 'ZERO' Layer-1 Blockchain with Community Token Distribution",
+          "tweet_text": "TETHER. DTCC. GOOGLE CLOUD. ALL backing $ZRO. PLUS, 10% is for voters. LAYERZERO just released \"ZERO\" — their own L1. 💰"
+        },
+        {
+          "username": "0xKevinRich",
+          "headline": "LayerZero Launches 'ZERO' Network with 10% Supply Allocation for Community Voting",
+          "tweet_text": "Big news for $ZRO. GOOGLE CLOUD. DTCC. TETHER. ARK INVEST. CITADEL. They’re all in. And guess what? You can vote for a 1"
+        },
+        {
+          "username": "0xKevinRich",
+          "headline": "GWEI Token Announces Airdrop for Ethereum Gas Fee Participants",
+          "tweet_text": "🚀 $GWEI AIRDROP IS ON 🚀 https://t.co/x3AETg45MP All that gas you burned on Ethereum? Time to get rewarded. Eligibility"
+        }
+      ],
+      "comparison": null
+    },
+    {
+      "cluster_id": 2,
+      "tweet_count": 2,
+      "unique_users": 2,
+      "coherence": 0.1667,
+      "is_story": false,
+      "span_hours": 2.9,
+      "earliest": "2026-02-24T23:33:54+00:00",
+      "latest": "2026-02-25T02:29:16+00:00",
+      "sample_headlines": [
+        {
+          "username": "outpxce",
+          "headline": "Bitcoin Investor Sentiment Appears Uncertain",
+          "tweet_text": "you ask a bitcoin bull why you should buy and they dont even give you a reason anymore, they just look at you like this "
+        },
+        {
+          "username": "xerocooleth",
+          "headline": "Bitcoin Price Reaches $66,000, Signals Mixed Market Sentiment",
+          "tweet_text": "Bitcoin pumps to $66k to close the day This is a short term local bullish signal, but its still a lower high than the la"
+        }
+      ],
+      "comparison": null
+    },
+    {
+      "cluster_id": 3,
+      "tweet_count": 6,
+      "unique_users": 2,
+      "coherence": 0.2178,
+      "is_story": true,
+      "span_hours": 3.5,
+      "earliest": "2026-02-24T23:36:21+00:00",
+      "latest": "2026-02-25T03:08:19+00:00",
+      "sample_headlines": [
+        {
+          "username": "0xKevinRich",
+          "headline": "Ondo Finance Announces Tokenized Stock Rewards Program Involving NVIDIA and Tesla Stocks",
+          "tweet_text": "ETH fees? They're heading straight to NVIDIA & TESLA now. $ONDO is making tokenized stocks a reality. 🔥 10% SUPPLY → $N"
+        },
+        {
+          "username": "0xKevinRich",
+          "headline": "Ondo Finance Announces 10% Token Supply Allocation for Gold and Silver Tokenization with BlackRock Involvement",
+          "tweet_text": "ETH fees sting, but they’re becoming something valuable. $ONDO SUMMIT. BLACKROCK. 10% SUPPLY AS XAUT & SLVON. 🔥 TOKENIZ"
+        },
+        {
+          "username": "0xKevinRich",
+          "headline": "Ondo Finance Announces Tokenized Stock Rewards on Ethereum",
+          "tweet_text": "ETH fees? They’re turning into NVIDIA & TESLA now. $ONDO is making tokenized stocks a reality. 🔥 10% supply → $NVDAON $"
+        },
+        {
+          "username": "0xKevinRich",
+          "headline": "BlackRock Tokenization Event: ONDO Summit Offers Gold and Silver Token Distribution",
+          "tweet_text": "Gas fees on Ethereum? Get some back in tokenized gold. BlackRock’s diving into tokenization. 10% supply as $XAUT $SLVON."
+        }
+      ],
+      "comparison": null
+    },
+    {
+      "cluster_id": 4,
+      "tweet_count": 8,
+      "unique_users": 2,
+      "coherence": 0.3949,
+      "is_story": true,
+      "span_hours": 3.2,
+      "earliest": "2026-02-24T23:41:32+00:00",
+      "latest": "2026-02-25T02:52:37+00:00",
+      "sample_headlines": [
+        {
+          "username": "0xKevinRich",
+          "headline": "Ripple Announces 10% Escrow Pool Compensation Program for XRP Community",
+          "tweet_text": "RIPPLE HELPING OUT. 10% ESCROW POOL. CAST YOUR VOTE ON XAMAN. $RIPPLE COMMUNITY DAY IS HERE. ⚠️ VOTE + TRUSTED LINE = $X"
+        },
+        {
+          "username": "0xKevinRich",
+          "headline": "Ripple Announces 10% Escrow Pool Distribution to XRP Community",
+          "tweet_text": "RIPPLE’S giving 10% of the escrow pool back to the community. Just vote. $XRP COMMUNITY DAY IS LIVE. ⚠️ XAMAN VOTE = INS"
+        },
+        {
+          "username": "0xKevinRich",
+          "headline": "Ripple Releases 10% XRP Escrow Pool for Community Distribution",
+          "tweet_text": "Ripple vibes? They’re rolling out a 10% escrow pool. XRP COMMUNITY DAY. Cast your vote on XAMAN. 💰 TRUSTED LINE + VOTE "
+        },
+        {
+          "username": "0xKevinRich",
+          "headline": "Ripple Launches 10% Escrow Pool Compensation for XRP Community Members",
+          "tweet_text": "XAMAN vibes. 10% escrow pool is live. Don’t sleep on this. $XRP COMMUNITY DAY IS HERE. ⚠️ VOTE + TRUSTED LINE = $XRP ELI"
+        }
+      ],
+      "comparison": null
+    },
+    {
+      "cluster_id": 5,
+      "tweet_count": 7,
+      "unique_users": 6,
+      "coherence": 0.2765,
+      "is_story": true,
+      "span_hours": 2.5,
+      "earliest": "2026-02-24T23:58:50+00:00",
+      "latest": "2026-02-25T02:27:37+00:00",
+      "sample_headlines": [
+        {
+          "username": "WatcherGuru",
+          "headline": "Vitalik Buterin Sells $8 Million in Ethereum",
+          "tweet_text": "JUST IN: Ethereum Founder Vitalik Buterin sold 4,325 ETH worth $8 million over the past 3 days. https://t.co/GcD2vJMpti"
+        },
+        {
+          "username": "coinbureau",
+          "headline": "Vitalik Buterin Sells 4,325 ETH Worth $8 Million in Recent Days",
+          "tweet_text": "🚨 VITALIK BUTERIN SOLD 4,325 ETH. THE ONCHAIN DATA IS CONFIRMING MASSIVE SELLS. THE ETHEREUM FOUNDER OFFICIALLY UNLOADE"
+        },
+        {
+          "username": "AshCrypto",
+          "headline": "Vitalik Buterin Sells $8 Million in Ethereum",
+          "tweet_text": "🚨 Vitalik has sold over $8,000,000 worth of ETH in the last 3 days. https://t.co/2I2Uxx5OW2"
+        },
+        {
+          "username": "RoundtableSpace",
+          "headline": "Solo Bitcoin Miner Earns $200,000 from Single Block",
+          "tweet_text": "A solo Bitcoin miner just hit the jackpot, mining block 938092 and earning around 3.12 BTC, roughly $200K in rewards and"
+        }
+      ],
+      "comparison": null
+    },
+    {
+      "cluster_id": 6,
+      "tweet_count": 2,
+      "unique_users": 2,
+      "coherence": 0.0667,
+      "is_story": false,
+      "span_hours": 2.8,
+      "earliest": "2026-02-25T00:15:12+00:00",
+      "latest": "2026-02-25T03:00:28+00:00",
+      "sample_headlines": [
+        {
+          "username": "DecryptMedia",
+          "headline": "Bitcoin Depot to Require ID Verification for Every ATM Transaction",
+          "tweet_text": "Bitcoin Depot will begin verifying customers’ identities each time they use its ATMs, voluntarily refining its complianc"
+        },
+        {
+          "username": "Cointelegraph",
+          "headline": "Senator Lummis Promotes Bitcoin Adoption Through Proposed Clarity Act",
+          "tweet_text": "🇺🇸 SEN. LUMMIS: “Under the Clarity Act, banks and credit unions have the opportunity to grow by adopting bitcoin, digi"
+        }
+      ],
+      "comparison": null
+    },
+    {
+      "cluster_id": 7,
+      "tweet_count": 3,
+      "unique_users": 3,
+      "coherence": 0.2727,
+      "is_story": true,
+      "span_hours": 1.9,
+      "earliest": "2026-02-25T00:25:49+00:00",
+      "latest": "2026-02-25T02:19:33+00:00",
+      "sample_headlines": [
+        {
+          "username": "rektmando",
+          "headline": "Social Media User Expresses Optimistic Perspective on Technology",
+          "tweet_text": "another day thinking life is amazing and building shit instead of being paralysed by AI doomerism https://t.co/lJmUxakB0"
+        },
+        {
+          "username": "xerocooleth",
+          "headline": "Social Media User Criticizes AI Discourse and Engagement Dynamics",
+          "tweet_text": "When you say something negative about AI, you get much lower engagement. We're in the exuberance and grift phase, so onl"
+        },
+        {
+          "username": "AutismCapital",
+          "headline": "Social Media User Shares Potential Meme Template",
+          "tweet_text": "This can be a meme template. Just change the text to whatever. It's perfect. https://t.co/qL1yNmkgJs"
+        }
+      ],
+      "comparison": null
+    },
+    {
+      "cluster_id": 8,
+      "tweet_count": 2,
+      "unique_users": 2,
+      "coherence": 0.6,
+      "is_story": false,
+      "span_hours": 0.4,
+      "earliest": "2026-02-25T00:30:59+00:00",
+      "latest": "2026-02-25T00:52:58+00:00",
+      "sample_headlines": [
+        {
+          "username": "Cointelegraph",
+          "headline": "China's Gold Reserves Reach Record $369.6 Billion in January",
+          "tweet_text": "🚨 UPDATE: China's gold reserves hit a record $369.6 billion in January, marking 15 consecutive months of accumulation b"
+        },
+        {
+          "username": "WhaleInsider",
+          "headline": "China Gold Reserves Increase 15.7% in January to $369.6 Billion",
+          "tweet_text": "JUST IN: 🇨🇳 China’s gold reserves surged 15.7% MoM in January, to record $369.6 billion. https://t.co/bCF701l4vx"
+        }
+      ],
+      "comparison": null
+    },
+    {
+      "cluster_id": 9,
+      "tweet_count": 2,
+      "unique_users": 2,
+      "coherence": 0.0625,
+      "is_story": false,
+      "span_hours": 0.1,
+      "earliest": "2026-02-25T00:53:15+00:00",
+      "latest": "2026-02-25T01:00:30+00:00",
+      "sample_headlines": [
+        {
+          "username": "Cointelegraph",
+          "headline": "Polymarket Predicts 33% Probability of Trump Discussing Crypto in State of the Union",
+          "tweet_text": "🚨 NOW: Polymarket gives only a 33% chance Trump will mention Crypto/Bitcoin during tonight's State of the Union address"
+        },
+        {
+          "username": "PeterSchiff",
+          "headline": "Peter Schiff Speculates About Potential Trump Statement on Bitcoin",
+          "tweet_text": "Imagine what would happen to Bitcoin if Trump posted the following on Truth Social. \"I guess that jerk stock broker Pete"
+        }
+      ],
+      "comparison": null
+    },
+    {
+      "cluster_id": 10,
+      "tweet_count": 2,
+      "unique_users": 2,
+      "coherence": 0,
+      "is_story": false,
+      "span_hours": 0.3,
+      "earliest": "2026-02-25T00:58:45+00:00",
+      "latest": "2026-02-25T01:15:00+00:00",
+      "sample_headlines": [
+        {
+          "username": "coinbureau",
+          "headline": "Coinbase Launches Nationwide Stock Trading for U.S. Users",
+          "tweet_text": "🚨 COINBASE FULLY ROLLS OUT STOCK TRADING TO ALL U.S. USERS 🇺🇸 Coinbase has expanded its equities offering nationwide,"
+        },
+        {
+          "username": "Bitcoinprof0637",
+          "headline": "Biden Administration Issues Executive Order on Cryptocurrency",
+          "tweet_text": "🇺🇸 THE PRESIDENT OF THE UNITED STATES HAS JUST SIGNED AN EXECUTIVE ORDER AIMED AT MAKING AMERICA THE GLOBAL HUB FOR BI"
+        }
+      ],
+      "comparison": null
+    },
+    {
+      "cluster_id": 11,
+      "tweet_count": 3,
+      "unique_users": 2,
+      "coherence": 0.4074,
+      "is_story": true,
+      "span_hours": 1.9,
+      "earliest": "2026-02-25T01:07:18+00:00",
+      "latest": "2026-02-25T03:03:27+00:00",
+      "sample_headlines": [
+        {
+          "username": "Crypto_Briefing",
+          "headline": "Link Shared Without Context",
+          "tweet_text": "https://t.co/UtB1x4dx1o"
+        },
+        {
+          "username": "Crypto_Briefing",
+          "headline": "Link Shared Without Context",
+          "tweet_text": "https://t.co/21qLknhIZ0"
+        },
+        {
+          "username": "AutismCapital",
+          "headline": "Social Media Post Contains Unspecified Link",
+          "tweet_text": "Adorable. https://t.co/RyhMK3Cgbt"
+        }
+      ],
+      "comparison": null
+    },
+    {
+      "cluster_id": 12,
+      "tweet_count": 7,
+      "unique_users": 5,
+      "coherence": 0.1458,
+      "is_story": true,
+      "span_hours": 1.1,
+      "earliest": "2026-02-25T01:19:29+00:00",
+      "latest": "2026-02-25T02:26:02+00:00",
+      "sample_headlines": [
+        {
+          "username": "Tyler_Did_It",
+          "headline": "Bitcoin Price Rises Ahead of State of the Union Address",
+          "tweet_text": "Bitcoin flying, ripping ahead of the State of the Union https://t.co/bwBgb53gox"
+        },
+        {
+          "username": "coinbureau",
+          "headline": "Bitcoin Price Surge Triggers Over $100 Million in Cryptocurrency Short Position Liquidations",
+          "tweet_text": "🚨 JUST IN: OVER $100MILLION IN CRYPTO SHORTS LIQUIDATED IN THE PAST HOUR AS BTC SURGES ABOVE $66K https://t.co/P5cIhNXL"
+        },
+        {
+          "username": "coinbureau",
+          "headline": "Bitcoin Price Reaches $66,000",
+          "tweet_text": "🚨🚨JUST IN: BITCOIN RECLAIMS $66,000! https://t.co/KFgvhgVOzI"
+        },
+        {
+          "username": "blocknewsdotcom",
+          "headline": "Bitcoin Price Surge Triggers Over $120 Million in Crypto Short Liquidations",
+          "tweet_text": "🚨 OVER $120,000,000 IN CRYPTO SHORTS HAVE BEEN LIQUIDATED IN THE LAST HOUR BITCOIN $BTC IS NOW CLIMBING PAST $66,000 BU"
+        }
+      ],
+      "comparison": null
+    },
+    {
+      "cluster_id": 13,
+      "tweet_count": 6,
+      "unique_users": 3,
+      "coherence": 0.85,
+      "is_story": true,
+      "span_hours": 0.2,
+      "earliest": "2026-02-25T01:31:37+00:00",
+      "latest": "2026-02-25T01:44:57+00:00",
+      "sample_headlines": [
+        {
+          "username": "Bullish__Degen",
+          "headline": "Punch Coin ($PUNCH) Launches Airdrop on Solana Network",
+          "tweet_text": "Punch Coin Official Airdrop Punch Coin just took over the entire meme meta! Scaling faster than anything on Solana to sh"
+        },
+        {
+          "username": "WojaksX",
+          "headline": "Punch Coin ($PUNCH) Launches Airdrop on Solana Network",
+          "tweet_text": "Punch Coin Official Airdrop Punch Coin just took over the entire meme meta! Scaling faster than anything on Solana to sh"
+        },
+        {
+          "username": "Bullish__Degen",
+          "headline": "Punch Coin ($PUNCH) Announces Airdrop on Solana Network",
+          "tweet_text": "Punch Coin Official Airdrop Punch Coin is absolutely dominating Solana right now! Our insane momentum is about to rain m"
+        },
+        {
+          "username": "AyTanzania",
+          "headline": "Punch Coin ($PUNCH) Launches Airdrop on Solana Network",
+          "tweet_text": "Punch Coin Official Airdrop Punch Coin just took over the entire meme meta! Scaling faster than anything on Solana to sh"
+        }
+      ],
+      "comparison": null
+    },
+    {
+      "cluster_id": 14,
+      "tweet_count": 15,
+      "unique_users": 5,
+      "coherence": 0.2086,
+      "is_story": true,
+      "span_hours": 1.7,
+      "earliest": "2026-02-25T01:34:37+00:00",
+      "latest": "2026-02-25T03:14:20+00:00",
+      "sample_headlines": [
+        {
+          "username": "DeItaone",
+          "headline": "Trump Departs White House to Deliver State of the Nation Address",
+          "tweet_text": "Trump leaves White House, heads to deliver his state of nation address"
+        },
+        {
+          "username": "DeItaone",
+          "headline": "Trump Makes Campaign-Style Optimistic Statement About America's Future",
+          "tweet_text": "Trump: You've seen nothing yet, we are going to do better yet, this is the golden age of America"
+        },
+        {
+          "username": "DeItaone",
+          "headline": "Trump Makes Campaign-Style Statement About National Strength",
+          "tweet_text": "Trump: Our nation is back, bigger and stronger than ever before"
+        },
+        {
+          "username": "DeItaone",
+          "headline": "Trump Delivers State of the Union Address",
+          "tweet_text": "TRUMP'S STATE OF THE UNION SPEECH STARTS"
+        }
+      ],
+      "comparison": null
+    },
+    {
+      "cluster_id": 15,
+      "tweet_count": 2,
+      "unique_users": 2,
+      "coherence": 0,
+      "is_story": false,
+      "span_hours": 0.6,
+      "earliest": "2026-02-25T02:09:29+00:00",
+      "latest": "2026-02-25T02:48:15+00:00",
+      "sample_headlines": [
+        {
+          "username": "DeItaone",
+          "headline": "Trump Meets with Supreme Court Justices",
+          "tweet_text": "Trump shakes hands with Supreme court justices"
+        },
+        {
+          "username": "AutismCapital",
+          "headline": "Rep. Al Green Removed from State of the Union Address After Protest Sign",
+          "tweet_text": "🚨NEW: Representative Al Green holds up a sign that says \"BLACK PEOPLE AREN'T APES!\" He was ejected from the SOTU. https"
+        }
+      ],
+      "comparison": null
+    },
+    {
+      "cluster_id": 16,
+      "tweet_count": 2,
+      "unique_users": 1,
+      "coherence": 0.0667,
+      "is_story": false,
+      "span_hours": 0.6,
+      "earliest": "2026-02-25T02:19:42+00:00",
+      "latest": "2026-02-25T02:55:07+00:00",
+      "sample_headlines": [
+        {
+          "username": "DeItaone",
+          "headline": "Trump Suggests Low Interest Rates as Housing Crisis Solution",
+          "tweet_text": "Trump: Low interest rates will solve housing crisis"
+        },
+        {
+          "username": "DeItaone",
+          "headline": "Trump Calls for Congressional Ban on Home Purchases by Investment Firms",
+          "tweet_text": "*TRUMP CALLS ON CONGRESS TO BAN INVESTMENT FIRMS BUYING HOMES"
+        }
+      ],
+      "comparison": null
+    },
+    {
+      "cluster_id": 17,
+      "tweet_count": 28,
+      "unique_users": 9,
+      "coherence": 0.1316,
+      "is_story": true,
+      "span_hours": 0.8,
+      "earliest": "2026-02-25T02:20:56+00:00",
+      "latest": "2026-02-25T03:11:25+00:00",
+      "sample_headlines": [
+        {
+          "username": "KobeissiLetter",
+          "headline": "Trump Claims Excessive Winning in Social Media Post",
+          "tweet_text": "PRESIDENT TRUMP: \"We are winning so much, that we really don't know what to do about it. People are asking me, please, p"
+        },
+        {
+          "username": "DeItaone",
+          "headline": "Trump Claims $18 Trillion in Global Financial Commitments",
+          "tweet_text": "Trump: Secured commitments of 18 trillion dollars from all over the globe"
+        },
+        {
+          "username": "cryptorover",
+          "headline": "Trump Claims Excessive Winning in Social Media Post",
+          "tweet_text": "🇺🇸 PRESIDENT TRUMP: \"We are winning so much, that we really don't know what to do about it.'' ''People are asking me, "
+        },
+        {
+          "username": "cryptorover",
+          "headline": "Trump Claims Global Investment Commitments Reach $18 Trillion",
+          "tweet_text": "💥BREAKING: 🇺🇸 President Trump stated that global investment commitments have reached $18 trillion. https://t.co/Glf2M"
+        }
+      ],
+      "comparison": null
+    },
+    {
+      "cluster_id": 18,
+      "tweet_count": 2,
+      "unique_users": 2,
+      "coherence": 0.6364,
+      "is_story": false,
+      "span_hours": 0,
+      "earliest": "2026-02-25T02:22:09+00:00",
+      "latest": "2026-02-25T02:24:25+00:00",
+      "sample_headlines": [
+        {
+          "username": "KobeissiLetter",
+          "headline": "Trump Claims US Receives 80 Million Barrels of Venezuelan Crude Oil",
+          "tweet_text": "BREAKING: President Trump says the US just received 80 million barrels of Venezuelan crude oil. https://t.co/dPVqvk5YXq"
+        },
+        {
+          "username": "DeItaone",
+          "headline": "Trump Claims Receipt of Over 80 Million Barrels of Venezuelan Oil",
+          "tweet_text": "TRUMP SAYS RECEIVED MORE THAN 80 MILLION BARRELS OF VENEZUELAN OIL"
+        }
+      ],
+      "comparison": null
+    },
+    {
+      "cluster_id": 19,
+      "tweet_count": 3,
+      "unique_users": 2,
+      "coherence": 0.227,
+      "is_story": true,
+      "span_hours": 0.2,
+      "earliest": "2026-02-25T03:02:41+00:00",
+      "latest": "2026-02-25T03:13:49+00:00",
+      "sample_headlines": [
+        {
+          "username": "AutismCapital",
+          "headline": "Trump Claims Democrats Oppose Voter ID to Enable Election Fraud",
+          "tweet_text": "🚨TRUMP: \"The reason Democrats don't want voter ID is because they want to cheat. They make up all these excuses. They s"
+        },
+        {
+          "username": "AutismCapital",
+          "headline": "Trump Names JD Vance to Lead Election Fraud Investigation in Multiple States",
+          "tweet_text": "🚨NEW: Trump announces that JD Vance will be leading a fraud effort to more heavily crack down on fraud in Minnesota, Ca"
+        },
+        {
+          "username": "DeItaone",
+          "headline": "Trump Claims Voter ID Opposition Indicates Electoral Fraud Intent",
+          "tweet_text": "Trump: the only reason you dont want voter ID is because they want to cheat"
+        }
+      ],
+      "comparison": null
+    }
+  ]
+}
