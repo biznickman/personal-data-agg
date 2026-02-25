@@ -42,6 +42,7 @@ export const xNewsNormalize = inngest.createFunction(
   {
     id: "x-news-normalize",
     retries: 1,
+    concurrency: 5,
     timeouts: {
       finish: "2m",
     },
@@ -124,6 +125,7 @@ export const xNewsNormalize = inngest.createFunction(
           tweetId: tweet.tweet_id,
           username: tweet.username,
           tweetText: tweet.tweet_text as string,
+          quotedTweetText: tweet.quoted_tweet_text,
           urlContexts,
         });
       });
@@ -147,6 +149,7 @@ export const xNewsNormalize = inngest.createFunction(
         tweetId: tweet.tweet_id,
         reason,
         urlContextCount: urlContexts.length,
+        quotedTweetUsed: !!tweet.quoted_tweet_text,
         normalized,
       });
 
@@ -179,6 +182,7 @@ function summarizeNormalization(params: {
   tweetId: string;
   reason: string;
   urlContextCount: number;
+  quotedTweetUsed: boolean;
   normalized: NormalizedStory;
 }): Record<string, unknown> {
   return {
@@ -187,6 +191,7 @@ function summarizeNormalization(params: {
     tweet_id: params.tweetId,
     trigger_reason: params.reason,
     url_contexts_used: params.urlContextCount,
+    quoted_tweet_used: params.quotedTweetUsed,
     normalized_facts_count: params.normalized.normalizedFacts.length,
     model_provider: params.normalized.provider,
     model_name: params.normalized.model,

@@ -13,6 +13,7 @@ type SupabaseTweetLookupRow = {
   tweet_id: string;
   tweet_text: string | null;
   username: string | null;
+  raw: unknown;
 };
 
 type SupabaseNormalizedTweetRow = {
@@ -35,6 +36,7 @@ export type TweetLookupRow = {
   tweet_id: string;
   tweet_text: string | null;
   username: string | null;
+  quoted_tweet_text: string | null;
 };
 
 export type NormalizedTweetRow = {
@@ -47,6 +49,16 @@ export type NormalizedTweetRow = {
   normalized_facts: string[] | null;
   normalized_headline_embedding: unknown;
 };
+
+function extractQuotedTweetText(raw: unknown): string | null {
+  if (!raw || typeof raw !== "object") return null;
+  const quotedTweet = (raw as Record<string, unknown>).quoted_tweet;
+  if (!quotedTweet || typeof quotedTweet !== "object") return null;
+  const text = (quotedTweet as Record<string, unknown>).text;
+  if (typeof text !== "string") return null;
+  const trimmed = text.trim();
+  return trimmed || null;
+}
 
 function toNormalizedFacts(value: unknown): string[] | null {
   if (!Array.isArray(value)) return null;
@@ -177,7 +189,7 @@ export class TweetsModel {
   static async findByTweetId(tweetId: string): Promise<TweetLookupRow | null> {
     const { data, error } = await supabase
       .from("tweets")
-      .select("tweet_id,tweet_text,username")
+      .select("tweet_id,tweet_text,username,raw")
       .eq("tweet_id", tweetId)
       .maybeSingle();
 
@@ -191,6 +203,7 @@ export class TweetsModel {
       tweet_id: row.tweet_id,
       tweet_text: row.tweet_text,
       username: row.username,
+      quoted_tweet_text: extractQuotedTweetText(row.raw),
     };
   }
 
