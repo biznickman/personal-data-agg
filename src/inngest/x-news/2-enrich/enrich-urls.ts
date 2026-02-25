@@ -17,9 +17,48 @@ type EnrichUrlEvent = {
 export const xNewsEnrichUrls = inngest.createFunction(
   {
     id: "x-news-enrich-urls",
-    retries: 1,
+    retries: 3,
     timeouts: {
       finish: "2m",
+    },
+    onFailure: async ({ event, step }) => {
+      const originalEvent = event.data.event as EnrichUrlEvent;
+      const tweetUrlId =
+        typeof originalEvent.data?.tweetUrlId === "number"
+          ? originalEvent.data.tweetUrlId
+          : null;
+
+      if (!tweetUrlId) return;
+
+      const row = await step.run("load-url-row", async () => {
+        return TweetUrlsModel.findById(tweetUrlId);
+      });
+
+      if (!row) return;
+
+      // Mark URL as failed so it's no longer "pending"
+      if (!row.url_content) {
+        await step.run("mark-url-failed", async () => {
+          await TweetUrlsModel.updateContent({
+            id: tweetUrlId,
+            urlContent: "Error fetching content: enrichment failed after retries",
+            rawUrlContent: null,
+          });
+        });
+      }
+
+      // Trigger normalization so the tweet isn't stuck forever
+      if (row.tweet_id) {
+        const shouldNormalize = await step.run("check-normalization-pending", async () => {
+          return TweetsModel.isNormalizationPending(row.tweet_id as string);
+        });
+        if (shouldNormalize) {
+          await step.sendEvent("enqueue-normalization-after-failure", {
+            name: "x-news/tweet.normalize",
+            data: { tweetId: row.tweet_id, reason: "url_enrichment_failed" },
+          });
+        }
+      }
     },
   },
   { event: "x-news/url.enrich" },
