@@ -315,3 +315,38 @@ export async function getLatestXNewsStories(
 
   return filtered.slice(0, limit);
 }
+
+export interface HomepageStories {
+  ranked: StoryCluster[];
+  newest: StoryCluster[];
+}
+
+export async function getHomepageStories(options?: {
+  lookbackHours?: number;
+  rankedLimit?: number;
+  newestLimit?: number;
+  maxTweetsPerStory?: number;
+}): Promise<HomepageStories> {
+  const rankedLimit = options?.rankedLimit ?? 20;
+  const newestLimit = options?.newestLimit ?? 15;
+  const maxNeeded = Math.max(rankedLimit, newestLimit) + 10;
+
+  const stories = await getLatestXNewsStories({
+    limit: maxNeeded,
+    lookbackHours: options?.lookbackHours ?? 24,
+    onlyStoryCandidates: true,
+    maxTweetsPerStory: options?.maxTweetsPerStory ?? 10,
+  });
+
+  const ranked = stories.slice(0, rankedLimit);
+
+  const newest = [...stories]
+    .sort((a, b) => {
+      const aTime = a.lastSeenAt ? new Date(a.lastSeenAt).getTime() : 0;
+      const bTime = b.lastSeenAt ? new Date(b.lastSeenAt).getTime() : 0;
+      return bTime - aTime;
+    })
+    .slice(0, newestLimit);
+
+  return { ranked, newest };
+}

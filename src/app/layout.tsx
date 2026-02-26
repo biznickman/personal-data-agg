@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Ingestion Engine",
-  description: "Deterministic API ingestion into Supabase via Inngest",
+  title: "Choose Rich Live",
+  description: "Curated financial news from X, clustered and ranked",
 };
 
 export default function RootLayout({
