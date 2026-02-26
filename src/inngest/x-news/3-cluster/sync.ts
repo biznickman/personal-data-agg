@@ -300,7 +300,9 @@ export const xNewsClusterSync = inngest.createFunction(
 
           if (jaccard >= MATCH_JACCARD_THRESHOLD && intersection >= MIN_INTERSECTION) {
             const toAdd = tweetIds.filter(
-              (id) => !persistentWindowSet.has(id)
+              (id) =>
+                !persistentWindowSet.has(id) &&
+                tweetStringIdToCluster[id] === undefined
             );
             const toRemove = [...persistentWindowSet].filter((id) => !rpcSet.has(id));
 
