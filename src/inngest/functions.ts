@@ -9,9 +9,7 @@
 export {
   xNewsIngest,
   xKeywordScan,
-  xNewsEnrichUrls,
-  xNewsNormalize,
-  xNewsClusterAssign,
+  xNewsTweetPreprocess,
   xNewsClusterBackfill,
   xNewsClusterSync,
   xNewsClusterReview,

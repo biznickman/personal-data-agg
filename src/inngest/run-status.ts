@@ -11,6 +11,7 @@ export type IngestionFunctionId =
   | "x-news-cluster-sync"
   | "x-news-cluster-review"
   | "x-news-cluster-curate"
+  | "x-news-tweet-preprocess"
   | "granola-ingest"
   | "message-log-ingest"
   | "slack-ingest"

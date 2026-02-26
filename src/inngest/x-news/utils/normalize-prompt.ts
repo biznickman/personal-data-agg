@@ -3,6 +3,12 @@ export interface NormalizationUrlContext {
   content: string;
 }
 
+export interface NormalizationImageContext {
+  index: number;
+  category: string;
+  summary: string;
+}
+
 export function buildNormalizationSystemPrompt(): string {
   return [
     "You are a financial news normalization engine.",
@@ -30,6 +36,7 @@ export function buildNormalizationUserPrompt(params: {
   tweetText: string;
   quotedTweetText?: string | null;
   urlContexts: NormalizationUrlContext[];
+  imageContexts?: NormalizationImageContext[];
 }): string {
   const base = [
     `tweet_id: ${params.tweetId}`,
@@ -52,6 +59,16 @@ export function buildNormalizationUserPrompt(params: {
       base.push("</article>");
     }
     base.push("</linked_articles>");
+  }
+
+  if (params.imageContexts && params.imageContexts.length > 0) {
+    base.push("", "<image_analysis>");
+    for (const img of params.imageContexts) {
+      base.push(`<image index="${img.index}" category="${img.category}">`);
+      base.push(clip(img.summary, 2000));
+      base.push("</image>");
+    }
+    base.push("</image_analysis>");
   }
 
   base.push("", "Output JSON only.");

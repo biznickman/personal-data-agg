@@ -11,5 +11,5 @@ export {
   type TweetUrlContextRow,
   type TweetUrlRecord,
 } from "./tweet-urls";
-export { TweetImagesModel } from "./tweet-images";
+export { TweetImagesModel, type TweetImageRow } from "./tweet-images";
 export { TweetVideosModel, type TweetVideoInsertRow } from "./tweet-videos";

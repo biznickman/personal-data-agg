@@ -1,10 +1,3 @@
-import {
-  buildNormalizationSystemPrompt,
-  buildNormalizationUserPrompt,
-  type NormalizationUrlContext,
-  type NormalizationImageContext,
-} from "../utils/normalize-prompt";
-
 type NormalizerProvider = "openrouter" | "portkey";
 
 interface NormalizerConfig {
@@ -22,24 +15,8 @@ interface ChatCompletionResponse {
   choices?: ChatChoice[];
 }
 
-interface NormalizationPayload {
-  normalized_headline?: unknown;
-  normalized_facts?: unknown;
-}
-
-export interface NormalizedStory {
-  normalizedHeadline: string;
-  normalizedFacts: string[];
-  provider: NormalizerProvider;
-  model: string;
-}
-
 const DEFAULT_OPENROUTER_MODEL = "anthropic/claude-3.5-haiku";
 const DEFAULT_PORTKEY_MODEL = "anthropic/claude-3-5-haiku-latest";
-
-function compactWhitespace(value: string): string {
-  return value.replace(/\s+/g, " ").trim();
-}
 
 function getNormalizerConfig(): NormalizerConfig {
   const provider = (
@@ -91,45 +68,20 @@ function extractJsonObject(text: string): unknown {
   throw new Error("Could not find JSON object in LLM response");
 }
 
-function parseNormalizationPayload(rawContent: string): {
-  normalizedHeadline: string;
-  normalizedFacts: string[];
-} {
-  const parsed = extractJsonObject(rawContent) as NormalizationPayload;
+type VisionMessage = {
+  role: "system" | "user";
+  content:
+    | string
+    | Array<
+        | { type: "text"; text: string }
+        | { type: "image_url"; image_url: { url: string; detail: "low" | "high" } }
+      >;
+};
 
-  const headlineRaw =
-    typeof parsed.normalized_headline === "string"
-      ? compactWhitespace(parsed.normalized_headline)
-      : "";
-
-  const factsRaw = Array.isArray(parsed.normalized_facts)
-    ? parsed.normalized_facts
-    : [];
-
-  const normalizedFacts = Array.from(
-    new Set(
-      factsRaw
-        .filter((fact): fact is string => typeof fact === "string")
-        .map((fact) => compactWhitespace(fact))
-        .filter((fact) => fact.length > 0)
-    )
-  ).slice(0, 12);
-
-  const normalizedHeadline =
-    headlineRaw ||
-    normalizedFacts[0] ||
-    "No clear factual development in source content";
-
-  return {
-    normalizedHeadline: normalizedHeadline.slice(0, 240),
-    normalizedFacts,
-  };
-}
-
-async function callOpenRouter(params: {
+async function callVisionOpenRouter(params: {
   model: string;
-  systemPrompt: string;
-  userPrompt: string;
+  messages: VisionMessage[];
+  maxTokens?: number;
 }): Promise<string> {
   const apiKey = process.env.OPENROUTER_API_KEY;
   if (!apiKey) {
@@ -146,12 +98,9 @@ async function callOpenRouter(params: {
     body: JSON.stringify({
       model: params.model,
       temperature: 0,
-      max_tokens: 700,
+      max_tokens: params.maxTokens ?? 500,
       response_format: { type: "json_object" },
-      messages: [
-        { role: "system", content: params.systemPrompt },
-        { role: "user", content: params.userPrompt },
-      ],
+      messages: params.messages,
     }),
     signal: AbortSignal.timeout(45_000),
   });
@@ -165,10 +114,10 @@ async function callOpenRouter(params: {
   return extractMessageContent(payload);
 }
 
-async function callPortkey(params: {
+async function callVisionPortkey(params: {
   model: string;
-  systemPrompt: string;
-  userPrompt: string;
+  messages: VisionMessage[];
+  maxTokens?: number;
 }): Promise<string> {
   const apiKey = process.env.PORTKEY_API_KEY;
   if (!apiKey) {
@@ -193,12 +142,9 @@ async function callPortkey(params: {
     body: JSON.stringify({
       model: params.model,
       temperature: 0,
-      max_tokens: 700,
+      max_tokens: params.maxTokens ?? 500,
       response_format: { type: "json_object" },
-      messages: [
-        { role: "system", content: params.systemPrompt },
-        { role: "user", content: params.userPrompt },
-      ],
+      messages: params.messages,
     }),
     signal: AbortSignal.timeout(45_000),
   });
@@ -212,35 +158,107 @@ async function callPortkey(params: {
   return extractMessageContent(payload);
 }
 
-export async function normalizeStory(params: {
-  tweetId: string;
-  username: string | null;
-  tweetText: string;
-  quotedTweetText?: string | null;
-  urlContexts: NormalizationUrlContext[];
-  imageContexts?: NormalizationImageContext[];
-}): Promise<NormalizedStory> {
+async function callVision(params: {
+  messages: VisionMessage[];
+  maxTokens?: number;
+}): Promise<string> {
   const config = getNormalizerConfig();
-  const systemPrompt = buildNormalizationSystemPrompt();
-  const userPrompt = buildNormalizationUserPrompt(params);
-
-  const rawContent =
-    config.provider === "openrouter"
-      ? await callOpenRouter({
-          model: config.model,
-          systemPrompt,
-          userPrompt,
-        })
-      : await callPortkey({
-          model: config.model,
-          systemPrompt,
-          userPrompt,
-        });
-
-  const parsed = parseNormalizationPayload(rawContent);
-  return {
-    ...parsed,
-    provider: config.provider,
+  const callFn = config.provider === "openrouter" ? callVisionOpenRouter : callVisionPortkey;
+  return callFn({
     model: config.model,
+    messages: params.messages,
+    maxTokens: params.maxTokens,
+  });
+}
+
+// --- Classification ---
+
+export interface ImageClassification {
+  image_category: string;
+  warrants_financial_analysis: boolean;
+  brief_description: string;
+  reason: string;
+}
+
+const CLASSIFY_SYSTEM_PROMPT = [
+  "You are an image classification engine for a financial news pipeline.",
+  "Categorize the image and decide whether it warrants deeper financial analysis.",
+  "Categories: logo, person, place, news_headline, chart, table, tweet, document, article, other",
+  "Images that warrant financial analysis: chart, table, news_headline, document, article, tweet (if financial content).",
+  "Return strict JSON with this schema:",
+  '{"image_category":"string","warrants_financial_analysis":boolean,"brief_description":"string","reason":"string"}',
+].join("\n");
+
+export async function classifyImage(imageUrl: string): Promise<ImageClassification> {
+  const messages: VisionMessage[] = [
+    { role: "system", content: CLASSIFY_SYSTEM_PROMPT },
+    {
+      role: "user",
+      content: [
+        {
+          type: "image_url",
+          image_url: { url: imageUrl, detail: "low" },
+        },
+        {
+          type: "text",
+          text: "Classify this image. Output JSON only.",
+        },
+      ],
+    },
+  ];
+
+  const rawContent = await callVision({ messages, maxTokens: 300 });
+  const parsed = extractJsonObject(rawContent) as Record<string, unknown>;
+
+  return {
+    image_category:
+      typeof parsed.image_category === "string" ? parsed.image_category : "other",
+    warrants_financial_analysis: parsed.warrants_financial_analysis === true,
+    brief_description:
+      typeof parsed.brief_description === "string" ? parsed.brief_description : "",
+    reason: typeof parsed.reason === "string" ? parsed.reason : "",
+  };
+}
+
+// --- Summarization ---
+
+export interface ImageSummary {
+  summary: string;
+}
+
+const SUMMARIZE_SYSTEM_PROMPT = [
+  "You are a financial image analysis engine.",
+  "Produce a concise 1-3 sentence summary of the financial content in the image.",
+  "Use the tweet text for additional context. Focus on data, numbers, entities, and claims visible in the image.",
+  "Return strict JSON with this schema:",
+  '{"summary":"string"}',
+].join("\n");
+
+export async function summarizeImage(
+  imageUrl: string,
+  tweetText: string
+): Promise<ImageSummary> {
+  const messages: VisionMessage[] = [
+    { role: "system", content: SUMMARIZE_SYSTEM_PROMPT },
+    {
+      role: "user",
+      content: [
+        {
+          type: "image_url",
+          image_url: { url: imageUrl, detail: "high" },
+        },
+        {
+          type: "text",
+          text: `Tweet text: ${tweetText}\n\nSummarize the financial content in this image. Output JSON only.`,
+        },
+      ],
+    },
+  ];
+
+  const rawContent = await callVision({ messages, maxTokens: 500 });
+  const parsed = extractJsonObject(rawContent) as Record<string, unknown>;
+
+  return {
+    summary: typeof parsed.summary === "string" ? parsed.summary : "",
   };
 }

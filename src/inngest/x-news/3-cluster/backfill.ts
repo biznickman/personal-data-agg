@@ -118,8 +118,8 @@ export const xNewsClusterBackfill = inngest.createFunction(
         await step.sendEvent(
           `emit-backfill-events-${i + 1}`,
           batch.map((tweetId) => ({
-            name: "x-news/tweet.normalized",
-            data: { tweetId },
+            name: "x-news/tweet.preprocess",
+            data: { tweetId, reason: "backfill" },
           }))
         );
       }

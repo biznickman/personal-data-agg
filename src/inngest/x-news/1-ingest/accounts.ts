@@ -8,9 +8,7 @@ import { dedupeTweetsById } from "../utils/tweets";
 import { fetchTweetsForSources } from "../operations/fetch-tweets";
 import {
   TweetAssetsModel,
-  TweetUrlsModel,
   TweetsModel,
-  type PendingTweetUrl,
 } from "../models";
 
 const SOURCES: string[] = [
@@ -108,8 +106,7 @@ export const xNewsIngest = inngest.createFunction(
         videos_skipped_missing_tweet_id: 0,
       };
       let newTweetsCount = 0;
-      let tweetIdsToNormalize: string[] = [];
-      let pendingUrlsToEnrich: PendingTweetUrl[] = [];
+      let tweetIdsToPreprocess: string[] = [];
       if (allTweets.length > 0) {
         const result = await step.run("insert-tweets-and-assets", async () => {
           const dedupedTweets = dedupeTweetsById(allTweets);
@@ -124,53 +121,29 @@ export const xNewsIngest = inngest.createFunction(
             newTweets.length > 0
               ? await TweetAssetsModel.upsertFromTweets(newTweets, tweetDbIdMap)
               : insertedAssets;
-          const pendingUrls = await TweetUrlsModel.listPendingByTweetIds(
-            ingestedTweetIds
-          );
           const unnormalizedTweetIds = await TweetsModel.listUnnormalizedTweetIds(
             ingestedTweetIds
-          );
-          const tweetIdsWithPendingUrls = new Set(
-            pendingUrls.map((row) => row.tweet_id)
-          );
-          const tweetIdsToNormalize = unnormalizedTweetIds.filter(
-            (tweetId) => !tweetIdsWithPendingUrls.has(tweetId)
           );
 
           return {
             inserted: insertedRefs.length,
             newTweetsCount: newTweets.length,
             insertedAssets: assets,
-            tweetIdsToNormalize,
-            pendingUrlsToEnrich: pendingUrls,
+            tweetIdsToPreprocess: unnormalizedTweetIds,
           };
         });
 
         inserted = result.inserted;
         newTweetsCount = result.newTweetsCount;
         insertedAssets = result.insertedAssets;
-        tweetIdsToNormalize = result.tweetIdsToNormalize;
-        pendingUrlsToEnrich = result.pendingUrlsToEnrich;
+        tweetIdsToPreprocess = result.tweetIdsToPreprocess;
       }
 
-      if (pendingUrlsToEnrich.length > 0) {
+      if (tweetIdsToPreprocess.length > 0) {
         await step.sendEvent(
-          "enqueue-url-enrichment",
-          pendingUrlsToEnrich.map((row) => ({
-            name: "x-news/url.enrich",
-            data: {
-              tweetUrlId: row.id,
-              url: row.url,
-            },
-          }))
-        );
-      }
-
-      if (tweetIdsToNormalize.length > 0) {
-        await step.sendEvent(
-          "enqueue-normalization",
-          tweetIdsToNormalize.map((tweetId) => ({
-            name: "x-news/tweet.normalize",
+          "enqueue-preprocessing",
+          tweetIdsToPreprocess.map((tweetId) => ({
+            name: "x-news/tweet.preprocess",
             data: { tweetId, reason: "ingest" },
           }))
         );
@@ -189,8 +162,7 @@ export const xNewsIngest = inngest.createFunction(
         sources: sources.length,
         batches: fetched.batches,
         failed_batches: fetched.failedBatches,
-        url_enrichment_events_sent: pendingUrlsToEnrich.length,
-        normalization_events_sent: tweetIdsToNormalize.length,
+        preprocess_events_sent: tweetIdsToPreprocess.length,
       };
 
       await step.run("record-success", async () => {

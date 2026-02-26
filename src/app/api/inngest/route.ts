@@ -3,9 +3,7 @@ import { inngest } from "@/inngest/client";
 import {
   xNewsIngest,
   xKeywordScan,
-  xNewsEnrichUrls,
-  xNewsNormalize,
-  xNewsClusterAssign,
+  xNewsTweetPreprocess,
   xNewsClusterBackfill,
   xNewsClusterSync,
   xNewsClusterReview,
@@ -22,9 +20,7 @@ export const { GET, POST, PUT } = serve({
   functions: [
     xNewsIngest,
     xKeywordScan,
-    xNewsEnrichUrls,
-    xNewsNormalize,
-    xNewsClusterAssign,
+    xNewsTweetPreprocess,
     xNewsClusterBackfill,
     xNewsClusterSync,
     xNewsClusterReview,
