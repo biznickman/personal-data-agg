@@ -24,3 +24,38 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans);
 }
+
+/* ── Techmeme-style light theme ── */
+.theme-light {
+  --tm-bg: #ffffff;
+  --tm-bg-sidebar: #f8f8f8;
+  --tm-text: #1a1a1a;
+  --tm-text-muted: #686860;
+  --tm-headline: #445566;
+  --tm-link: #002848;
+  --tm-border: #cccccc;
+  --tm-border-light: #e0e0e0;
+  --tm-font-body: Georgia, "Times New Roman", serif;
+  --tm-font-nav: "SF Pro Text", "Segoe UI", Arial, sans-serif;
+  --tm-font-size-body: 14px;
+  --tm-font-size-nav: 13px;
+
+  background: var(--tm-bg);
+  color: var(--tm-text);
+  font-family: var(--tm-font-body);
+  font-size: var(--tm-font-size-body);
+}
+
+.theme-light a:visited {
+  color: #551a8b;
+}
+
+.tm-link {
+  color: var(--tm-link);
+  text-decoration: none;
+}
+
+.tm-link:hover {
+  color: #004488;
+  text-decoration: underline;
+}
