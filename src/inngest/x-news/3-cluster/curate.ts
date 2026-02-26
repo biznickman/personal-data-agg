@@ -540,6 +540,21 @@ export const xNewsClusterCurate = inngest.createFunction(
         allDismissals.push(...result.dismissals);
       }
 
+      // ── Mark all evaluated clusters as curated ────────────────────────────
+      await step.run("stamp-curated-at", async () => {
+        const now = new Date().toISOString();
+        const evaluatedIds = [
+          ...new Set(candidateGroups.flatMap((g) => g.clusterIds)),
+        ];
+        for (let i = 0; i < evaluatedIds.length; i += DB_CHUNK) {
+          const chunk = evaluatedIds.slice(i, i + DB_CHUNK);
+          await supabase
+            .from("x_news_clusters")
+            .update({ curated_at: now })
+            .in("id", chunk);
+        }
+      });
+
       if (allMergeGroups.length === 0 && allDismissals.length === 0) {
         const summary = {
           status: "ok",
