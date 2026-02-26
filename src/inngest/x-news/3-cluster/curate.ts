@@ -410,6 +410,7 @@ export const xNewsClusterCurate = inngest.createFunction(
           .from("x_news_clusters")
           .select("id,normalized_headline,tweet_count,first_seen_at")
           .eq("is_active", true)
+          .eq("is_story_candidate", true)
           .is("merged_into_cluster_id", null)
           .gte("last_seen_at", since)
           .order("tweet_count", { ascending: false })

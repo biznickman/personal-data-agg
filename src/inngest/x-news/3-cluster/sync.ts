@@ -110,6 +110,9 @@ export async function recomputeClusterStats(
   }, 0);
   const lastSeenAt = latestTs > 0 ? new Date(latestTs).toISOString() : now;
 
+  // Deactivate clusters where no non-blocked tweets remain
+  const isActive = tweets.length > 0;
+
   const { error: updateError } = await supabase
     .from("x_news_clusters")
     .update({
@@ -119,7 +122,7 @@ export async function recomputeClusterStats(
       normalized_headline: headlineTweet?.normalized_headline ?? null,
       last_seen_at: lastSeenAt,
       last_synced_at: now,
-      is_active: true,
+      is_active: isActive,
     })
     .eq("id", clusterId);
   if (updateError) throw new Error(`Cluster stats update failed: ${updateError.message}`);
