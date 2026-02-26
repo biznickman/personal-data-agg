@@ -1,4 +1,4 @@
-import type { StoryCluster } from "@/lib/x-news-stories";
+import type { StoryCluster, StoryTweet } from "@/lib/x-news-stories";
 
 export function StoryClusterCard({
   story,
@@ -8,18 +8,18 @@ export function StoryClusterCard({
   isLead?: boolean;
 }) {
   const leadTweet = story.tweets[0];
-  const additionalTweets = story.tweets.slice(1);
   const headline = story.normalizedHeadline ?? "Untitled story";
   const summary = story.normalizedFacts[0] ?? leadTweet?.tweetText ?? "";
 
-  // Collect unique usernames for the "X:" row
-  const uniqueUsernames = [
-    ...new Set(
-      story.tweets
-        .map((t) => t.username)
-        .filter((u): u is string => u !== null)
-    ),
-  ];
+  // Build a map of best (highest-engagement, i.e. first in sorted array) tweet per user
+  const bestPerUser = new Map<string, StoryTweet>();
+  for (const t of story.tweets) {
+    if (!t.username) continue;
+    const key = t.username.toLowerCase();
+    if (!bestPerUser.has(key)) {
+      bestPerUser.set(key, t);
+    }
+  }
 
   return (
     <article
@@ -44,15 +44,15 @@ export function StoryClusterCard({
           href={leadTweet.link}
           target="_blank"
           rel="noopener noreferrer"
-          className={`font-bold leading-snug tm-link ${isLead ? "text-lg" : "text-base"}`}
-          style={{ color: "var(--tm-headline)" }}
+          className="font-bold leading-snug tm-link"
+          style={{ color: "var(--tm-headline)", fontSize: "22px" }}
         >
           {headline}
         </a>
       ) : (
         <span
-          className={`font-bold leading-snug ${isLead ? "text-lg" : "text-base"}`}
-          style={{ color: "var(--tm-headline)" }}
+          className="font-bold leading-snug"
+          style={{ color: "var(--tm-headline)", fontSize: "22px" }}
         >
           {headline}
         </span>
@@ -68,47 +68,35 @@ export function StoryClusterCard({
         </p>
       ) : null}
 
-      {/* More: links */}
-      {additionalTweets.length > 0 ? (
-        <div className="mt-1.5 text-xs" style={{ color: "var(--tm-text-muted)" }}>
-          <span className="font-semibold">More: </span>
-          {additionalTweets.map((tweet, i) => (
-            <span key={tweet.tweetId}>
-              {i > 0 ? ", " : ""}
-              {tweet.link ? (
-                <a
-                  href={tweet.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="tm-link"
-                >
-                  @{tweet.username ?? tweet.tweetId}
-                </a>
-              ) : (
-                <span>@{tweet.username ?? tweet.tweetId}</span>
-              )}
-            </span>
-          ))}
-        </div>
-      ) : null}
-
-      {/* X: accounts */}
-      {uniqueUsernames.length > 1 ? (
-        <div className="mt-1 text-xs" style={{ color: "var(--tm-text-muted)" }}>
+      {/* X: accounts with hover previews */}
+      {bestPerUser.size > 1 ? (
+        <div className="mt-1" style={{ color: "var(--tm-text-muted)", fontSize: "14px" }}>
           <span className="font-semibold">X: </span>
-          {uniqueUsernames.map((username, i) => (
-            <span key={username}>
-              {i > 0 ? ", " : ""}
-              <a
-                href={`https://x.com/${username}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="tm-link"
-              >
-                @{username}
-              </a>
-            </span>
-          ))}
+          {[...bestPerUser.values()].map((tweet, i) => {
+            const previewBody = tweet.tweetText
+              ? tweet.tweetText.slice(0, 280 - `@${tweet.username}: `.length)
+              : null;
+            return (
+              <span key={tweet.tweetId}>
+                {i > 0 ? ", " : ""}
+                <span className="tweet-preview-wrap">
+                  <a
+                    href={tweet.link ?? `https://x.com/${tweet.username}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="tm-link"
+                  >
+                    @{tweet.username}
+                  </a>
+                  {previewBody ? (
+                    <div className="tweet-preview">
+                      <strong>@{tweet.username}:</strong> {previewBody}
+                    </div>
+                  ) : null}
+                </span>
+              </span>
+            );
+          })}
         </div>
       ) : null}
     </article>
