@@ -182,6 +182,16 @@ type MergeGroup = {
   reason: string;
 };
 
+type DismissEntry = {
+  cluster_id: number;
+  reason: string;
+};
+
+type CurationResult = {
+  mergeGroups: MergeGroup[];
+  dismissals: DismissEntry[];
+};
+
 // ── Pre-filter: token overlap → connected components ────────────────────────
 
 function buildCandidateGroups(
@@ -299,9 +309,12 @@ function batchGroups(
 
 // ── LLM call ────────────────────────────────────────────────────────────────
 
-const CURATION_SYSTEM_PROMPT = `You are a news editor consolidating story clusters. You will receive a list of cluster headlines. Your job: identify clusters that belong to the SAME developing story and should be merged into one.
+const CURATION_SYSTEM_PROMPT = `You are a news editor consolidating story clusters. You will receive a list of cluster headlines. You have two jobs:
 
-Merge when:
+1. MERGE clusters that belong to the same developing story.
+2. DISMISS clusters that are not real news stories.
+
+MERGE when:
 - Clusters cover the same news event from different angles or sources (e.g. "US demands Iran dismantle nuclear sites" + "Iran rejects nuclear limits" + "Iran announces talks with US" = one developing story)
 - Clusters report the same fact with different wording (e.g. "Bitcoin ETFs bought $506M" + "Bitcoin ETFs attract $506M")
 - Clusters cover different developments within the same story (e.g. "PayPal stock drops on Stripe news" + "Stripe denies merger talks with PayPal")
@@ -311,14 +324,22 @@ Do NOT merge:
 - Different countries doing similar things independently (e.g. "Japan bans X" ≠ "EU bans X")
 - Different time periods (e.g. "Q1 earnings" ≠ "Q2 earnings")
 
+DISMISS when:
+- The headline is meaningless or contentless (e.g. "Link Shared Without Context", "Social Media Post", "No Substantive Information")
+- The cluster is clearly spam or promotional (e.g. airdrop announcements, scam token promotions)
+- The headline has no actual news value
+
 Respond with a JSON object:
 {
   "merge_groups": [
     { "cluster_ids": [1, 2, 3], "reason": "All part of the same story: ..." }
+  ],
+  "dismiss_clusters": [
+    { "cluster_id": 4, "reason": "No actual news content" }
   ]
 }
 
-If no merges are needed, respond: { "merge_groups": [] }`;
+If no actions are needed, respond: { "merge_groups": [], "dismiss_clusters": [] }`;
 
 function buildUserPrompt(
   groups: CandidateGroup[],
@@ -349,7 +370,7 @@ async function callCurationLlm(
   groups: CandidateGroup[],
   clusterMap: Map<number, ActiveCluster>,
   clusterFacts: Map<number, string[]>
-): Promise<MergeGroup[]> {
+): Promise<CurationResult> {
   const userPrompt = buildUserPrompt(groups, clusterMap, clusterFacts);
   const config = getNormalizerConfig();
 
@@ -369,20 +390,34 @@ async function callCurationLlm(
   try {
     const parsed = extractJsonObject(rawContent) as {
       merge_groups?: unknown;
+      dismiss_clusters?: unknown;
     };
-    if (!Array.isArray(parsed.merge_groups)) return [];
-    return parsed.merge_groups.filter(
-      (g: unknown): g is MergeGroup =>
-        typeof g === "object" &&
-        g !== null &&
-        Array.isArray((g as MergeGroup).cluster_ids) &&
-        (g as MergeGroup).cluster_ids.every(
-          (id: unknown) => typeof id === "number"
+
+    const mergeGroups = Array.isArray(parsed.merge_groups)
+      ? parsed.merge_groups.filter(
+          (g: unknown): g is MergeGroup =>
+            typeof g === "object" &&
+            g !== null &&
+            Array.isArray((g as MergeGroup).cluster_ids) &&
+            (g as MergeGroup).cluster_ids.every(
+              (id: unknown) => typeof id === "number"
+            )
         )
-    );
+      : [];
+
+    const dismissals = Array.isArray(parsed.dismiss_clusters)
+      ? parsed.dismiss_clusters.filter(
+          (d: unknown): d is DismissEntry =>
+            typeof d === "object" &&
+            d !== null &&
+            typeof (d as DismissEntry).cluster_id === "number"
+        )
+      : [];
+
+    return { mergeGroups, dismissals };
   } catch {
     console.warn("Failed to parse LLM curation response:", rawContent);
-    return [];
+    return { mergeGroups: [], dismissals: [] };
   }
 }
 
@@ -494,24 +529,27 @@ export const xNewsClusterCurate = inngest.createFunction(
       // ── Step 4: LLM calls (batched) ────────────────────────────────────────
       const batches = batchGroups(candidateGroups, clusterMap, factsMapRestored);
       const allMergeGroups: MergeGroup[] = [];
+      const allDismissals: DismissEntry[] = [];
 
       for (let bi = 0; bi < batches.length; bi++) {
         const batch = batches[bi];
-        const mergeGroups = await step.run(`llm-curation-batch-${bi}`, async () => {
+        const result = await step.run(`llm-curation-batch-${bi}`, async () => {
           return callCurationLlm(batch, clusterMap, factsMapRestored);
         });
-        allMergeGroups.push(...mergeGroups);
+        allMergeGroups.push(...result.mergeGroups);
+        allDismissals.push(...result.dismissals);
       }
 
-      if (allMergeGroups.length === 0) {
+      if (allMergeGroups.length === 0 && allDismissals.length === 0) {
         const summary = {
           status: "ok",
           clusters: clusters.length,
           candidate_groups: candidateGroups.length,
           llm_batches: batches.length,
           merges: 0,
+          dismissals: 0,
         };
-        await step.run("record-no-merges", async () => {
+        await step.run("record-no-actions", async () => {
           await recordFunctionRun({
             functionId: "x-news-cluster-curate",
             state: "ok",
@@ -619,7 +657,35 @@ export const xNewsClusterCurate = inngest.createFunction(
         return { totalMerged };
       });
 
-      // ── Step 6: Record run ──────────────────────────────────────────────────
+      // ── Step 6: Execute dismissals ────────────────────────────────────────────
+      const dismissResults = await step.run("execute-dismissals", async () => {
+        let totalDismissed = 0;
+        const clusterIdSet = new Set(clusters.map((c) => c.id));
+
+        for (const entry of allDismissals) {
+          if (!clusterIdSet.has(entry.cluster_id)) continue;
+
+          const { error } = await supabase
+            .from("x_news_clusters")
+            .update({ is_active: false })
+            .eq("id", entry.cluster_id)
+            .eq("is_active", true);
+
+          if (error) {
+            console.error(
+              `Failed to dismiss cluster ${entry.cluster_id}:`,
+              error.message
+            );
+            continue;
+          }
+
+          totalDismissed++;
+        }
+
+        return { totalDismissed };
+      });
+
+      // ── Step 7: Record run ──────────────────────────────────────────────────
       const summary = {
         status: "ok",
         clusters: clusters.length,
@@ -627,6 +693,8 @@ export const xNewsClusterCurate = inngest.createFunction(
         llm_batches: batches.length,
         merge_groups_from_llm: allMergeGroups.length,
         merges: mergeResults.totalMerged,
+        dismissals_from_llm: allDismissals.length,
+        dismissed: dismissResults.totalDismissed,
       };
 
       await step.run("record-success", async () => {
