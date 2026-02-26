@@ -299,22 +299,22 @@ function batchGroups(
 
 // ── LLM call ────────────────────────────────────────────────────────────────
 
-const CURATION_SYSTEM_PROMPT = `You are a news cluster deduplication assistant. You will receive groups of news cluster headlines that may be duplicates.
+const CURATION_SYSTEM_PROMPT = `You are a news editor consolidating story clusters. You will receive a list of cluster headlines. Your job: identify clusters that belong to the SAME developing story and should be merged into one.
 
-Your job: decide which clusters within each group should be MERGED because they cover the EXACT same news event.
+Merge when:
+- Clusters cover the same news event from different angles or sources (e.g. "US demands Iran dismantle nuclear sites" + "Iran rejects nuclear limits" + "Iran announces talks with US" = one developing story)
+- Clusters report the same fact with different wording (e.g. "Bitcoin ETFs bought $506M" + "Bitcoin ETFs attract $506M")
+- Clusters cover different developments within the same story (e.g. "PayPal stock drops on Stripe news" + "Stripe denies merger talks with PayPal")
 
-Rules:
-- Only merge clusters about the EXACT same specific news event
-- Do NOT merge merely related stories (e.g. "Bitcoin drops 5%" and "Fed raises rates" are different stories)
-- Different countries doing similar things = different stories (e.g. "Japan bans X" ≠ "EU bans X")
-- Different time periods = different stories (e.g. "Q1 earnings" ≠ "Q2 earnings")
-- If a group has no true duplicates, omit it from your response
-- Be conservative — when in doubt, do NOT merge
+Do NOT merge:
+- Unrelated stories that happen to share a topic (e.g. "Bitcoin ETF inflows" and "Bitcoin price drops" are separate stories unless one directly caused the other)
+- Different countries doing similar things independently (e.g. "Japan bans X" ≠ "EU bans X")
+- Different time periods (e.g. "Q1 earnings" ≠ "Q2 earnings")
 
 Respond with a JSON object:
 {
   "merge_groups": [
-    { "cluster_ids": [1, 2, 3], "reason": "All cover the same event: ..." }
+    { "cluster_ids": [1, 2, 3], "reason": "All part of the same story: ..." }
   ]
 }
 
