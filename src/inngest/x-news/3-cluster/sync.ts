@@ -1,5 +1,6 @@
 import { inngest } from "../../client";
 import { supabase } from "@/lib/supabase";
+import { isBlockedAccount } from "@/lib/x-news-accounts";
 import { recordFunctionRun } from "../../run-status";
 
 const SYNC_LOOKBACK_HOURS = parseEnvFloat("X_NEWS_SYNC_LOOKBACK_HOURS", 24);
@@ -93,7 +94,9 @@ export async function recomputeClusterStats(
   if (memberError) throw new Error(`Load members failed: ${memberError.message}`);
 
   const dbIds = (memberRows ?? []).map((r) => r.tweet_id as number);
-  const tweets = await loadTweetMeta(dbIds);
+  const tweets = (await loadTweetMeta(dbIds)).filter(
+    (t) => !isBlockedAccount(t.username)
+  );
 
   const uniqueUsers = new Set(
     tweets.map((t) => (t.username ?? `id:${t.tweet_id}`).toLowerCase())
@@ -339,7 +342,9 @@ export const xNewsClusterSync = inngest.createFunction(
                 .filter((id): id is number => id !== undefined);
               if (tweetDbIds.length === 0) continue;
 
-              const tweets = await loadTweetMeta(tweetDbIds);
+              const tweets = (await loadTweetMeta(tweetDbIds)).filter(
+                (t) => !isBlockedAccount(t.username)
+              );
               const uniqueUsers = new Set(
                 tweets.map((t) => (t.username ?? `id:${t.tweet_id}`).toLowerCase())
               ).size;

@@ -1,4 +1,5 @@
 import { supabase } from "@/lib/supabase";
+import { isBlockedAccount } from "@/lib/x-news-accounts";
 
 export interface StoryTweet {
   tweetId: string;
@@ -153,7 +154,7 @@ function scoreStory(params: {
 
   const hoursAgo = toHoursAgo(story.lastSeenAt);
   const freshness = Math.exp(-hoursAgo / 18);
-  const volume = Math.log1p(story.tweetCount * Math.max(1, story.uniqueUserCount));
+  const volume = Math.log1p(story.uniqueUserCount);
   const engagement = Math.log1p(Math.max(0, totalEngagement));
   const feedbackPenalty = Math.max(
     0,
@@ -253,7 +254,8 @@ export async function getLatestXNewsStories(
     const memberDbIds = membershipMap.get(c.id) ?? [];
     const tweets = memberDbIds
       .map((id) => tweetByDbId.get(id))
-      .filter((t): t is TweetRow => t !== undefined);
+      .filter((t): t is TweetRow => t !== undefined)
+      .filter((t) => !isBlockedAccount(t.username));
 
     const uniqueUsers = new Set(
       tweets.map((t) => (t.username ?? `id:${t.tweet_id}`).toLowerCase())
@@ -269,7 +271,16 @@ export async function getLatestXNewsStories(
       .sort((a, b) => computeTweetEngagement(b) - computeTweetEngagement(a))
       .slice(0, maxTweetsPerStory);
 
-    const totalEngagement = storyTweets.reduce(
+    // Deduplicate: keep only highest-engagement tweet per user for scoring
+    const bestPerUser = new Map<string, StoryTweet>();
+    for (const t of storyTweets) {
+      const key = (t.username ?? t.tweetId).toLowerCase();
+      const existing = bestPerUser.get(key);
+      if (!existing || computeTweetEngagement(t) > computeTweetEngagement(existing)) {
+        bestPerUser.set(key, t);
+      }
+    }
+    const totalEngagement = [...bestPerUser.values()].reduce(
       (sum, t) => sum + computeTweetEngagement(t),
       0
     );
