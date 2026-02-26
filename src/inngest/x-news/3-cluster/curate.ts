@@ -6,9 +6,10 @@ import { recomputeClusterStats } from "./sync";
 
 const LOOKBACK_HOURS = 48;
 const MAX_CLUSTERS = 500;
-const MIN_SHARED_TOKENS = 3;
+const MIN_SHARED_TOKENS = 2;
 const BATCH_CHAR_LIMIT = 12_000;
 const DB_CHUNK = 200;
+const LLM_DIRECT_THRESHOLD = 100;
 
 // ── LLM provider helpers (mirrored from review.ts) ──────────────────────────
 
@@ -432,8 +433,16 @@ export const xNewsClusterCurate = inngest.createFunction(
 
       const clusterMap = new Map(clusters.map((c) => [c.id, c]));
 
-      // ── Step 2: Pre-filter candidate groups ─────────────────────────────────
+      // ── Step 2: Build candidate groups ────────────────────────────────────────
+      // For small cluster counts, skip the token pre-filter and let the LLM
+      // evaluate all clusters directly. Fall back to token overlap for large sets.
       const candidateGroups = await step.run("build-candidate-groups", async () => {
+        if (clusters.length <= LLM_DIRECT_THRESHOLD) {
+          const ids = clusters
+            .filter((c) => c.normalized_headline?.trim())
+            .map((c) => c.id);
+          return ids.length >= 2 ? [{ clusterIds: ids }] : [];
+        }
         return buildCandidateGroups(clusters);
       });
 
