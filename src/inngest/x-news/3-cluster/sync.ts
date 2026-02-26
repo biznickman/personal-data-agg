@@ -300,9 +300,7 @@ export const xNewsClusterSync = inngest.createFunction(
 
           if (jaccard >= MATCH_JACCARD_THRESHOLD && intersection >= MIN_INTERSECTION) {
             const toAdd = tweetIds.filter(
-              (id) =>
-                !persistentWindowSet.has(id) &&
-                tweetStringIdToCluster[id] === undefined
+              (id) => !persistentWindowSet.has(id)
             );
             const toRemove = [...persistentWindowSet].filter((id) => !rpcSet.has(id));
 
@@ -330,10 +328,11 @@ export const xNewsClusterSync = inngest.createFunction(
       const { newClusterIds, updatedClusterIds } = await step.run(
         "execute-actions",
         async () => {
-          const { dbIdMap } = assignments;
+          const { dbIdMap, tweetStringIdToCluster } = assignments;
           const now = new Date().toISOString();
           const newClusterIds: number[] = [];
           const updatedClusterIds: Array<{ id: number; addedCount: number }> = [];
+          const staleClusterIds = new Set<number>();
 
           for (const action of actions) {
             if (action.type === "create") {
@@ -373,6 +372,15 @@ export const xNewsClusterSync = inngest.createFunction(
               }
 
               const clusterId = (newCluster as { id: number }).id;
+
+              // Track old clusters that will lose tweets to this new cluster
+              for (const tweetId of action.tweetIds) {
+                const oldClusterId = tweetStringIdToCluster[tweetId];
+                if (oldClusterId !== undefined) {
+                  staleClusterIds.add(oldClusterId);
+                }
+              }
+
               const memberRows = tweetDbIds.map((dbId) => ({
                 tweet_id: dbId,
                 cluster_id: clusterId,
@@ -381,7 +389,7 @@ export const xNewsClusterSync = inngest.createFunction(
 
               const { error: memberError } = await supabase
                 .from("x_news_cluster_tweets")
-                .upsert(memberRows, { onConflict: "tweet_id", ignoreDuplicates: true });
+                .upsert(memberRows, { onConflict: "tweet_id" });
 
               if (memberError) {
                 console.error("Cluster tweet insert failed:", memberError.message);
@@ -412,6 +420,14 @@ export const xNewsClusterSync = inngest.createFunction(
               // Add new tweets
               let addedCount = 0;
               if (toAdd.length > 0) {
+                // Track old clusters that will lose tweets
+                for (const tweetId of toAdd) {
+                  const oldClusterId = tweetStringIdToCluster[tweetId];
+                  if (oldClusterId !== undefined && oldClusterId !== persistentClusterId) {
+                    staleClusterIds.add(oldClusterId);
+                  }
+                }
+
                 const addDbIds = toAdd
                   .map((id) => dbIdMap[id])
                   .filter((id): id is number => id !== undefined);
@@ -423,7 +439,7 @@ export const xNewsClusterSync = inngest.createFunction(
                   }));
                   const { error } = await supabase
                     .from("x_news_cluster_tweets")
-                    .upsert(memberRows, { onConflict: "tweet_id", ignoreDuplicates: true });
+                    .upsert(memberRows, { onConflict: "tweet_id" });
                   if (error) {
                     console.error("Cluster tweet upsert failed:", error.message);
                   } else {
@@ -436,6 +452,11 @@ export const xNewsClusterSync = inngest.createFunction(
               await recomputeClusterStats(persistentClusterId, now);
               updatedClusterIds.push({ id: persistentClusterId, addedCount });
             }
+          }
+
+          // Recompute stats for old clusters that lost tweets
+          for (const staleId of staleClusterIds) {
+            await recomputeClusterStats(staleId, now);
           }
 
           return { newClusterIds, updatedClusterIds };
