@@ -1,5 +1,5 @@
 import { supabase } from "@/lib/supabase";
-import { isBlockedAccount } from "@/lib/x-news-accounts";
+import { isBlockedAccount, isJunkHeadline } from "@/lib/x-news-accounts";
 
 export interface StoryTweet {
   tweetId: string;
@@ -255,7 +255,8 @@ export async function getLatestXNewsStories(
     const tweets = memberDbIds
       .map((id) => tweetByDbId.get(id))
       .filter((t): t is TweetRow => t !== undefined)
-      .filter((t) => !isBlockedAccount(t.username));
+      .filter((t) => !isBlockedAccount(t.username))
+      .filter((t) => !isJunkHeadline(t.normalized_headline));
 
     const uniqueUsers = new Set(
       tweets.map((t) => (t.username ?? `id:${t.tweet_id}`).toLowerCase())

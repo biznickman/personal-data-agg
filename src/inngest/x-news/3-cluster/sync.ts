@@ -1,6 +1,6 @@
 import { inngest } from "../../client";
 import { supabase } from "@/lib/supabase";
-import { isBlockedAccount } from "@/lib/x-news-accounts";
+import { isBlockedAccount, isJunkHeadline } from "@/lib/x-news-accounts";
 import { recordFunctionRun } from "../../run-status";
 
 const SYNC_LOOKBACK_HOURS = parseEnvFloat("X_NEWS_SYNC_LOOKBACK_HOURS", 24);
@@ -87,6 +87,14 @@ export async function recomputeClusterStats(
   clusterId: number,
   now: string
 ): Promise<void> {
+  // Read current state to detect first promotion
+  const { data: currentCluster, error: clusterReadError } = await supabase
+    .from("x_news_clusters")
+    .select("is_story_candidate, promoted_at")
+    .eq("id", clusterId)
+    .single();
+  if (clusterReadError) throw new Error(`Cluster read failed: ${clusterReadError.message}`);
+
   const { data: memberRows, error: memberError } = await supabase
     .from("x_news_cluster_tweets")
     .select("tweet_id")
@@ -95,7 +103,7 @@ export async function recomputeClusterStats(
 
   const dbIds = (memberRows ?? []).map((r) => r.tweet_id as number);
   const tweets = (await loadTweetMeta(dbIds)).filter(
-    (t) => !isBlockedAccount(t.username)
+    (t) => !isBlockedAccount(t.username) && !isJunkHeadline(t.normalized_headline)
   );
 
   const uniqueUsers = new Set(
@@ -113,6 +121,10 @@ export async function recomputeClusterStats(
   // Deactivate clusters where no non-blocked tweets remain
   const isActive = tweets.length > 0;
 
+  // Stamp promoted_at the first time is_story_candidate flips to true
+  const newlyPromoted =
+    isStoryCandidate && !currentCluster.is_story_candidate && !currentCluster.promoted_at;
+
   const { error: updateError } = await supabase
     .from("x_news_clusters")
     .update({
@@ -123,6 +135,7 @@ export async function recomputeClusterStats(
       last_seen_at: lastSeenAt,
       last_synced_at: now,
       is_active: isActive,
+      ...(newlyPromoted ? { promoted_at: now } : {}),
     })
     .eq("id", clusterId);
   if (updateError) throw new Error(`Cluster stats update failed: ${updateError.message}`);
@@ -367,6 +380,7 @@ export const xNewsClusterSync = inngest.createFunction(
                   is_story_candidate: isStoryCandidate,
                   last_synced_at: now,
                   is_active: true,
+                  ...(isStoryCandidate ? { promoted_at: now } : {}),
                 })
                 .select("id")
                 .single();
