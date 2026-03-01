@@ -168,11 +168,6 @@ type ActiveCluster = {
   first_seen_at: string | null;
 };
 
-type ClusterFact = {
-  cluster_id: number;
-  normalized_facts: unknown;
-};
-
 type CandidateGroup = {
   clusterIds: number[];
 };
@@ -180,16 +175,6 @@ type CandidateGroup = {
 type MergeGroup = {
   cluster_ids: number[];
   reason: string;
-};
-
-type DismissEntry = {
-  cluster_id: number;
-  reason: string;
-};
-
-type CurationResult = {
-  mergeGroups: MergeGroup[];
-  dismissals: DismissEntry[];
 };
 
 // ── Pre-filter: token overlap → connected components ────────────────────────
@@ -309,10 +294,7 @@ function batchGroups(
 
 // ── LLM call ────────────────────────────────────────────────────────────────
 
-const CURATION_SYSTEM_PROMPT = `You are a news editor consolidating story clusters. You will receive a list of cluster headlines. You have two jobs:
-
-1. MERGE clusters that belong to the same developing story.
-2. DISMISS clusters that are not real news stories.
+const MERGE_SYSTEM_PROMPT = `You are a news editor consolidating story clusters. You will receive a list of cluster headlines. Your job is to identify clusters that should be MERGED because they cover the same developing story.
 
 MERGE when:
 - Clusters cover the same news event from different angles or sources (e.g. "US demands Iran dismantle nuclear sites" + "Iran rejects nuclear limits" + "Iran announces talks with US" = one developing story)
@@ -324,24 +306,14 @@ Do NOT merge:
 - Different countries doing similar things independently (e.g. "Japan bans X" ≠ "EU bans X")
 - Different time periods (e.g. "Q1 earnings" ≠ "Q2 earnings")
 
-DISMISS when:
-- Meaningless or contentless (e.g. "Link Shared Without Context", "Social Media Post", "No Substantive Information")
-- Spam or promotional content: trading signal services, paid trading groups, airdrop announcements, scam token promotions, engagement bait ("follow me for..."), account promotions
-- Pure price movements with no underlying news event (e.g. "Bitcoin Trading Above $66,000", "XRP Price Up 0.59%")
-- Unverifiable claims from promotional accounts (e.g. "Trading Signal Platform Claims 95% Accuracy")
-- The headline has no actual news value
-
 Respond with a JSON object:
 {
   "merge_groups": [
     { "cluster_ids": [1, 2, 3], "reason": "All part of the same story: ..." }
-  ],
-  "dismiss_clusters": [
-    { "cluster_id": 4, "reason": "No actual news content" }
   ]
 }
 
-If no actions are needed, respond: { "merge_groups": [], "dismiss_clusters": [] }`;
+If no merges are needed, respond: { "merge_groups": [] }`;
 
 function buildUserPrompt(
   groups: CandidateGroup[],
@@ -368,11 +340,11 @@ function buildUserPrompt(
   return parts.join("\n");
 }
 
-async function callCurationLlm(
+async function callMergeLlm(
   groups: CandidateGroup[],
   clusterMap: Map<number, ActiveCluster>,
   clusterFacts: Map<number, string[]>
-): Promise<CurationResult> {
+): Promise<MergeGroup[]> {
   const userPrompt = buildUserPrompt(groups, clusterMap, clusterFacts);
   const config = getNormalizerConfig();
 
@@ -380,19 +352,18 @@ async function callCurationLlm(
     config.provider === "openrouter"
       ? await callOpenRouter({
           model: config.model,
-          systemPrompt: CURATION_SYSTEM_PROMPT,
+          systemPrompt: MERGE_SYSTEM_PROMPT,
           userPrompt,
         })
       : await callPortkey({
           model: config.model,
-          systemPrompt: CURATION_SYSTEM_PROMPT,
+          systemPrompt: MERGE_SYSTEM_PROMPT,
           userPrompt,
         });
 
   try {
     const parsed = extractJsonObject(rawContent) as {
       merge_groups?: unknown;
-      dismiss_clusters?: unknown;
     };
 
     const mergeGroups = Array.isArray(parsed.merge_groups)
@@ -407,27 +378,18 @@ async function callCurationLlm(
         )
       : [];
 
-    const dismissals = Array.isArray(parsed.dismiss_clusters)
-      ? parsed.dismiss_clusters.filter(
-          (d: unknown): d is DismissEntry =>
-            typeof d === "object" &&
-            d !== null &&
-            typeof (d as DismissEntry).cluster_id === "number"
-        )
-      : [];
-
-    return { mergeGroups, dismissals };
+    return mergeGroups;
   } catch {
-    console.warn("Failed to parse LLM curation response:", rawContent);
-    return { mergeGroups: [], dismissals: [] };
+    console.warn("Failed to parse LLM merge response:", rawContent);
+    return [];
   }
 }
 
 // ── Inngest function ────────────────────────────────────────────────────────
 
-export const xNewsClusterCurate = inngest.createFunction(
+export const xNewsClusterMerge = inngest.createFunction(
   {
-    id: "x-news-cluster-curate",
+    id: "x-news-cluster-merge",
     retries: 1,
     concurrency: 1,
     timeouts: {
@@ -461,7 +423,7 @@ export const xNewsClusterCurate = inngest.createFunction(
         const summary = { status: "ok", clusters: clusters.length, candidate_groups: 0, merges: 0 };
         await step.run("record-empty-run", async () => {
           await recordFunctionRun({
-            functionId: "x-news-cluster-curate",
+            functionId: "x-news-cluster-merge",
             state: "ok",
             details: summary,
           });
@@ -472,8 +434,6 @@ export const xNewsClusterCurate = inngest.createFunction(
       const clusterMap = new Map(clusters.map((c) => [c.id, c]));
 
       // ── Step 2: Build candidate groups ────────────────────────────────────────
-      // For small cluster counts, skip the token pre-filter and let the LLM
-      // evaluate all clusters directly. Fall back to token overlap for large sets.
       const candidateGroups = await step.run("build-candidate-groups", async () => {
         if (clusters.length <= LLM_DIRECT_THRESHOLD) {
           const ids = clusters
@@ -481,25 +441,14 @@ export const xNewsClusterCurate = inngest.createFunction(
             .map((c) => c.id);
           return ids.length >= 2 ? [{ clusterIds: ids }] : [];
         }
-        const groups = buildCandidateGroups(clusters);
-
-        // Add singleton groups for clusters not included in any token-overlap group
-        // so they still get an LLM dismiss evaluation
-        const visitedIds = new Set(groups.flatMap((g) => g.clusterIds));
-        for (const c of clusters) {
-          if (!visitedIds.has(c.id) && c.normalized_headline?.trim()) {
-            groups.push({ clusterIds: [c.id] });
-          }
-        }
-
-        return groups;
+        return buildCandidateGroups(clusters);
       });
 
       if (candidateGroups.length === 0) {
         const summary = { status: "ok", clusters: clusters.length, candidate_groups: 0, merges: 0 };
         await step.run("record-no-candidates", async () => {
           await recordFunctionRun({
-            functionId: "x-news-cluster-curate",
+            functionId: "x-news-cluster-merge",
             state: "ok",
             details: summary,
           });
@@ -542,15 +491,13 @@ export const xNewsClusterCurate = inngest.createFunction(
       // ── Step 4: LLM calls (batched) ────────────────────────────────────────
       const batches = batchGroups(candidateGroups, clusterMap, factsMapRestored);
       const allMergeGroups: MergeGroup[] = [];
-      const allDismissals: DismissEntry[] = [];
 
       for (let bi = 0; bi < batches.length; bi++) {
         const batch = batches[bi];
-        const result = await step.run(`llm-curation-batch-${bi}`, async () => {
-          return callCurationLlm(batch, clusterMap, factsMapRestored);
+        const result = await step.run(`llm-merge-batch-${bi}`, async () => {
+          return callMergeLlm(batch, clusterMap, factsMapRestored);
         });
-        allMergeGroups.push(...result.mergeGroups);
-        allDismissals.push(...result.dismissals);
+        allMergeGroups.push(...result);
       }
 
       // ── Mark all evaluated clusters as curated ────────────────────────────
@@ -568,18 +515,17 @@ export const xNewsClusterCurate = inngest.createFunction(
         }
       });
 
-      if (allMergeGroups.length === 0 && allDismissals.length === 0) {
+      if (allMergeGroups.length === 0) {
         const summary = {
           status: "ok",
           clusters: clusters.length,
           candidate_groups: candidateGroups.length,
           llm_batches: batches.length,
           merges: 0,
-          dismissals: 0,
         };
-        await step.run("record-no-actions", async () => {
+        await step.run("record-no-merges", async () => {
           await recordFunctionRun({
-            functionId: "x-news-cluster-curate",
+            functionId: "x-news-cluster-merge",
             state: "ok",
             details: summary,
           });
@@ -685,35 +631,7 @@ export const xNewsClusterCurate = inngest.createFunction(
         return { totalMerged };
       });
 
-      // ── Step 6: Execute dismissals ────────────────────────────────────────────
-      const dismissResults = await step.run("execute-dismissals", async () => {
-        let totalDismissed = 0;
-        const clusterIdSet = new Set(clusters.map((c) => c.id));
-
-        for (const entry of allDismissals) {
-          if (!clusterIdSet.has(entry.cluster_id)) continue;
-
-          const { error } = await supabase
-            .from("x_news_clusters")
-            .update({ is_active: false })
-            .eq("id", entry.cluster_id)
-            .eq("is_active", true);
-
-          if (error) {
-            console.error(
-              `Failed to dismiss cluster ${entry.cluster_id}:`,
-              error.message
-            );
-            continue;
-          }
-
-          totalDismissed++;
-        }
-
-        return { totalDismissed };
-      });
-
-      // ── Step 7: Record run ──────────────────────────────────────────────────
+      // ── Step 6: Record run ──────────────────────────────────────────────────
       const summary = {
         status: "ok",
         clusters: clusters.length,
@@ -721,13 +639,11 @@ export const xNewsClusterCurate = inngest.createFunction(
         llm_batches: batches.length,
         merge_groups_from_llm: allMergeGroups.length,
         merges: mergeResults.totalMerged,
-        dismissals_from_llm: allDismissals.length,
-        dismissed: dismissResults.totalDismissed,
       };
 
       await step.run("record-success", async () => {
         await recordFunctionRun({
-          functionId: "x-news-cluster-curate",
+          functionId: "x-news-cluster-merge",
           state: "ok",
           details: summary,
         });
@@ -738,7 +654,7 @@ export const xNewsClusterCurate = inngest.createFunction(
       const message = error instanceof Error ? error.message : "Unknown error";
       await step.run("record-failure", async () => {
         await recordFunctionRun({
-          functionId: "x-news-cluster-curate",
+          functionId: "x-news-cluster-merge",
           state: "error",
           errorMessage: message,
         });

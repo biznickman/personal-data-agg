@@ -361,11 +361,30 @@ export const xNewsClusterReview = inngest.createFunction(
         return removed;
       });
 
+      // ── Step 4: Emit qualify event if still a story candidate ──────────────
+      const needsQualify = await step.run("check-qualify-needed", async () => {
+        const { data: cluster } = await supabase
+          .from("x_news_clusters")
+          .select("is_story_candidate,promoted_at")
+          .eq("id", clusterId)
+          .single();
+
+        return !!(cluster?.is_story_candidate && !cluster.promoted_at);
+      });
+
+      if (needsQualify) {
+        await step.sendEvent("emit-qualify-event", {
+          name: "x-news/cluster.qualify.requested",
+          data: { clusterId },
+        });
+      }
+
       const summary = {
         status: "ok",
         cluster_id: clusterId,
         tweets_reviewed: tweets.length,
         removed_count: removalCount,
+        qualify_emitted: needsQualify,
       };
 
       await step.run("record-success", async () => {

@@ -201,6 +201,7 @@ export async function getLatestXNewsStories(
     )
     .eq("is_active", true)
     .is("merged_into_cluster_id", null)
+    .not("promoted_at", "is", null)
     .gte("last_seen_at", since)
     .order("last_seen_at", { ascending: false })
     .limit(500);

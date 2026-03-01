@@ -4,4 +4,6 @@ export { xNewsTweetPreprocess } from "./2-enrich/preprocess";
 export { xNewsClusterBackfill } from "./3-cluster/backfill";
 export { xNewsClusterSync } from "./3-cluster/sync";
 export { xNewsClusterReview } from "./3-cluster/review";
-export { xNewsClusterCurate } from "./3-cluster/curate";
+export { xNewsClusterQualify } from "./3-cluster/qualify";
+export { xNewsClusterMerge } from "./3-cluster/merge";
+export { xNewsClusterMonitor } from "./3-cluster/monitor";

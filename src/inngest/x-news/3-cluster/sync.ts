@@ -87,14 +87,6 @@ export async function recomputeClusterStats(
   clusterId: number,
   now: string
 ): Promise<void> {
-  // Read current state to detect first promotion
-  const { data: currentCluster, error: clusterReadError } = await supabase
-    .from("x_news_clusters")
-    .select("is_story_candidate, promoted_at")
-    .eq("id", clusterId)
-    .single();
-  if (clusterReadError) throw new Error(`Cluster read failed: ${clusterReadError.message}`);
-
   const { data: memberRows, error: memberError } = await supabase
     .from("x_news_cluster_tweets")
     .select("tweet_id")
@@ -121,10 +113,6 @@ export async function recomputeClusterStats(
   // Deactivate clusters where no non-blocked tweets remain
   const isActive = tweets.length > 0;
 
-  // Stamp promoted_at the first time is_story_candidate flips to true
-  const newlyPromoted =
-    isStoryCandidate && !currentCluster.is_story_candidate && !currentCluster.promoted_at;
-
   const { error: updateError } = await supabase
     .from("x_news_clusters")
     .update({
@@ -135,7 +123,6 @@ export async function recomputeClusterStats(
       last_seen_at: lastSeenAt,
       last_synced_at: now,
       is_active: isActive,
-      ...(newlyPromoted ? { promoted_at: now } : {}),
     })
     .eq("id", clusterId);
   if (updateError) throw new Error(`Cluster stats update failed: ${updateError.message}`);
@@ -380,7 +367,6 @@ export const xNewsClusterSync = inngest.createFunction(
                   is_story_candidate: isStoryCandidate,
                   last_synced_at: now,
                   is_active: true,
-                  ...(isStoryCandidate ? { promoted_at: now } : {}),
                 })
                 .select("id")
                 .single();
@@ -516,12 +502,25 @@ export const xNewsClusterSync = inngest.createFunction(
         await step.sendEvent("emit-review-events", reviewEvents);
       }
 
+      // Emit qualify events for updated clusters that didn't trigger review
+      const qualifyEvents = updatedClusterIds
+        .filter(({ addedCount }) => addedCount < REVIEW_MIN_NEW_MEMBERS)
+        .map(({ id }) => ({
+          name: "x-news/cluster.qualify.requested" as const,
+          data: { clusterId: id },
+        }));
+
+      if (qualifyEvents.length > 0) {
+        await step.sendEvent("emit-qualify-events", qualifyEvents);
+      }
+
       const summary = {
         status: "ok",
         rpc_clusters: rpcClusters.length,
         created: newClusterIds.length,
         updated: updatedClusterIds.length,
         review_events_sent: reviewEvents.length,
+        qualify_events_sent: qualifyEvents.length,
       };
 
       await step.run("record-success", async () => {
