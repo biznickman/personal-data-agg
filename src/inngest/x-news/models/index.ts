@@ -13,3 +13,4 @@ export {
 } from "./tweet-urls";
 export { TweetImagesModel, type TweetImageRow } from "./tweet-images";
 export { TweetVideosModel, type TweetVideoInsertRow } from "./tweet-videos";
+export { SourcesModel } from "./sources";

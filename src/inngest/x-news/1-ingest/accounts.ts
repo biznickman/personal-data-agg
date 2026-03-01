@@ -7,62 +7,10 @@ import { getRequiredEnv } from "../utils/env";
 import { dedupeTweetsById } from "../utils/tweets";
 import { fetchTweetsForSources } from "../operations/fetch-tweets";
 import {
+  SourcesModel,
   TweetAssetsModel,
   TweetsModel,
 } from "../models";
-
-const SOURCES: string[] = [
-  "AggrNews",
-  "ashcrypto",
-  "autismcapital",
-  "blockworks_",
-  "bobloukas",
-  "cointelegraph",
-  "cryptohayes",
-  "cryptoslate",
-  "crypto_briefing",
-  "deitaone",
-  "decryptmedia",
-  "degeneratenews",
-  "ericbalchunas",
-  "geiger_capital",
-  "jseyff",
-  "kobeissiletter",
-  "luckytraderHQ",
-  "messaricrypto",
-  "moonoverlord",
-  "roundtablespace",
-  "solanafloor",
-  "techmeme",
-  "theblockcampus",
-  "theblock__",
-  "thestalwart",
-  "thetranscript_",
-  "treenewsfeed",
-  "tyler_did_it",
-  "walterbloomberg",
-  "watcherguru",
-  "whaleinsider",
-  "blocknewsdotcom",
-  "bubblemaps",
-  "coinbureau",
-  "coingecko",
-  "cryptodotnews",
-  "cryptorover",
-  "glassnode",
-  "intangiblecoins",
-  "ramahluwalia",
-  "rektmando",
-  "scottmelker",
-  "solidintel_x",
-  "tedtalksmacro",
-  "tier10k",
-  "tokenterminal",
-  "unusual_whales",
-  "xdaily",
-  "xerocooleth",
-  "zachxbt",
-];
 
 const FETCH_BATCH_SIZE = 8;
 const FETCH_BATCH_DELAY_MS = 5_500;
@@ -79,7 +27,7 @@ export const xNewsIngest = inngest.createFunction(
   async ({ step }) => {
     try {
       const sources = await step.run("load-sources", async () => {
-        const loaded = [...SOURCES];
+        const loaded = await SourcesModel.listActiveAccounts();
         if (loaded.length === 0) {
           throw new Error("No X sources found");
         }

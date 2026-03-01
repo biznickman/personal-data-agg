@@ -7,12 +7,10 @@ import { getRequiredEnv } from "../utils/env";
 import { dedupeTweetsById } from "../utils/tweets";
 import { fetchTweetsForKeywordQuery } from "../operations/fetch-tweets";
 import {
+  SourcesModel,
   TweetAssetsModel,
   TweetsModel,
 } from "../models";
-
-const KEYWORD_QUERY =
-  `"fed chair" OR "crypto market" OR "bitcoin" OR "market structure" OR "solana" OR "ethereum" OR "xrp" OR "brian armstrong" OR "coinbase" OR "okx" OR "kraken" OR "blockchain" OR "tether" lang:en min_faves:50 -filter:retweets`;
 
 /**
  * X Keyword Scan — searches crypto keywords every hour
@@ -25,13 +23,22 @@ export const xKeywordScan = inngest.createFunction(
   { cron: "0 * * * *" },
   async ({ step }) => {
     try {
+      const queries = await step.run("load-keyword-queries", async () => {
+        const loaded = await SourcesModel.listActiveKeywordQueries();
+        if (loaded.length === 0) {
+          throw new Error("No keyword queries found");
+        }
+        return loaded;
+      });
+
       const allTweets = await step.run("search-keywords", async () => {
         const apiKey = getRequiredEnv("TWITTERAPI_IO_KEY");
-        return fetchTweetsForKeywordQuery({
-          apiKey,
-          query: KEYWORD_QUERY,
-          pages: 2,
-        });
+        const results = await Promise.all(
+          queries.map((query) =>
+            fetchTweetsForKeywordQuery({ apiKey, query, pages: 2 })
+          )
+        );
+        return results.flat();
       });
 
       let inserted = 0;
