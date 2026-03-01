@@ -325,8 +325,10 @@ Do NOT merge:
 - Different time periods (e.g. "Q1 earnings" ≠ "Q2 earnings")
 
 DISMISS when:
-- The headline is meaningless or contentless (e.g. "Link Shared Without Context", "Social Media Post", "No Substantive Information")
-- The cluster is clearly spam or promotional (e.g. airdrop announcements, scam token promotions)
+- Meaningless or contentless (e.g. "Link Shared Without Context", "Social Media Post", "No Substantive Information")
+- Spam or promotional content: trading signal services, paid trading groups, airdrop announcements, scam token promotions, engagement bait ("follow me for..."), account promotions
+- Pure price movements with no underlying news event (e.g. "Bitcoin Trading Above $66,000", "XRP Price Up 0.59%")
+- Unverifiable claims from promotional accounts (e.g. "Trading Signal Platform Claims 95% Accuracy")
 - The headline has no actual news value
 
 Respond with a JSON object:
@@ -479,7 +481,18 @@ export const xNewsClusterCurate = inngest.createFunction(
             .map((c) => c.id);
           return ids.length >= 2 ? [{ clusterIds: ids }] : [];
         }
-        return buildCandidateGroups(clusters);
+        const groups = buildCandidateGroups(clusters);
+
+        // Add singleton groups for clusters not included in any token-overlap group
+        // so they still get an LLM dismiss evaluation
+        const visitedIds = new Set(groups.flatMap((g) => g.clusterIds));
+        for (const c of clusters) {
+          if (!visitedIds.has(c.id) && c.normalized_headline?.trim()) {
+            groups.push({ clusterIds: [c.id] });
+          }
+        }
+
+        return groups;
       });
 
       if (candidateGroups.length === 0) {
