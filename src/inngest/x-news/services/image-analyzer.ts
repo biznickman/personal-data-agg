@@ -1,3 +1,6 @@
+import { CLASSIFY_SYSTEM_PROMPT } from "../prompts/image-classify";
+import { SUMMARIZE_SYSTEM_PROMPT } from "../prompts/image-summarize";
+
 type NormalizerProvider = "openrouter" | "portkey";
 
 interface NormalizerConfig {
@@ -180,15 +183,6 @@ export interface ImageClassification {
   reason: string;
 }
 
-const CLASSIFY_SYSTEM_PROMPT = [
-  "You are an image classification engine for a financial news pipeline.",
-  "Categorize the image and decide whether it warrants deeper financial analysis.",
-  "Categories: logo, person, place, news_headline, chart, table, tweet, document, article, other",
-  "Images that warrant financial analysis: chart, table, news_headline, document, article, tweet (if financial content).",
-  "Return strict JSON with this schema:",
-  '{"image_category":"string","warrants_financial_analysis":boolean,"brief_description":"string","reason":"string"}',
-].join("\n");
-
 export async function classifyImage(imageUrl: string): Promise<ImageClassification> {
   const messages: VisionMessage[] = [
     { role: "system", content: CLASSIFY_SYSTEM_PROMPT },
@@ -225,14 +219,6 @@ export async function classifyImage(imageUrl: string): Promise<ImageClassificati
 export interface ImageSummary {
   summary: string;
 }
-
-const SUMMARIZE_SYSTEM_PROMPT = [
-  "You are a financial image analysis engine.",
-  "Produce a concise 1-3 sentence summary of the financial content in the image.",
-  "Use the tweet text for additional context. Focus on data, numbers, entities, and claims visible in the image.",
-  "Return strict JSON with this schema:",
-  '{"summary":"string"}',
-].join("\n");
 
 export async function summarizeImage(
   imageUrl: string,

@@ -1,6 +1,7 @@
 import { inngest } from "../../client";
 import { supabase } from "@/lib/supabase";
 import { recordFunctionRun } from "../../run-status";
+import { REVIEW_SYSTEM_PROMPT } from "../prompts/review";
 
 const STORY_MIN_TWEETS = 3;
 const STORY_MIN_USERS = 2;
@@ -171,13 +172,7 @@ async function callLlmReview(params: {
   const { tweets, normalizedHeadline } = params;
   const tweetsForLlm = tweets.slice(0, MAX_TWEETS_TO_LLM);
 
-  const systemPrompt = `You are reviewing a news cluster — a group of tweets that have been automatically grouped together as covering the same news story. Your job is to identify tweets that clearly do NOT belong to the main story being covered by the majority of tweets.
-
-Rules:
-- Only flag tweets that are about a COMPLETELY different topic or event
-- Be conservative — if a tweet is tangentially related, keep it
-- Return a JSON object: { "remove": ["tweet_id_1", "tweet_id_2"] }
-- Return { "remove": [] } if all tweets belong`;
+  const systemPrompt = REVIEW_SYSTEM_PROMPT;
 
   const tweetLines = tweetsForLlm
     .map((t, i) => {
