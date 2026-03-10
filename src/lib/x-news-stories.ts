@@ -222,7 +222,8 @@ export async function getLatestXNewsStories(
     const { data: memberData, error: memberError } = await supabase
       .from("x_news_cluster_tweets")
       .select("tweet_id,cluster_id")
-      .in("cluster_id", chunk);
+      .in("cluster_id", chunk)
+      .limit(10000);
 
     if (memberError) throw new Error(`Tweet membership load failed: ${memberError.message}`);
 
@@ -243,7 +244,8 @@ export async function getLatestXNewsStories(
       .select(
         "id,tweet_id,username,tweet_time,link,tweet_text,normalized_headline,normalized_facts,likes,retweets,replies,quotes,bookmarks,impressions"
       )
-      .in("id", chunk);
+      .in("id", chunk)
+      .limit(10000);
 
     if (error) throw new Error(`Tweet load failed: ${error.message}`);
     allTweets.push(...((data ?? []) as TweetRow[]));

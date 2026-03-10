@@ -179,7 +179,8 @@ export const xNewsClusterSync = inngest.createFunction(
           const { data, error } = await supabase
             .from("tweets")
             .select("id,tweet_id")
-            .in("tweet_id", chunk);
+            .in("tweet_id", chunk)
+            .limit(10000);
           if (error) throw new Error(`Tweet ID lookup failed: ${error.message}`);
           for (const row of (data ?? []) as Array<{ id: number; tweet_id: string }>) {
             dbIdMap[row.tweet_id] = row.id;
@@ -200,7 +201,8 @@ export const xNewsClusterSync = inngest.createFunction(
             const { data, error } = await supabase
               .from("x_news_cluster_tweets")
               .select("tweet_id,cluster_id")
-              .in("tweet_id", chunk);
+              .in("tweet_id", chunk)
+              .limit(10000);
             if (error) throw new Error(`Load assignments failed: ${error.message}`);
             for (const row of (data ?? []) as Array<{
               tweet_id: number;
@@ -223,7 +225,8 @@ export const xNewsClusterSync = inngest.createFunction(
             const { data: memberRows, error: memberError } = await supabase
               .from("x_news_cluster_tweets")
               .select("tweet_id,cluster_id")
-              .in("cluster_id", clusterChunk);
+              .in("cluster_id", clusterChunk)
+              .limit(10000);
             if (memberError) throw new Error(`Load cluster members failed: ${memberError.message}`);
 
             const memberDbIds = (memberRows ?? []).map(
@@ -234,7 +237,8 @@ export const xNewsClusterSync = inngest.createFunction(
               const { data: tweetRows, error: tweetError } = await supabase
                 .from("tweets")
                 .select("id,tweet_id,tweet_time")
-                .in("id", memberDbIds);
+                .in("id", memberDbIds)
+                .limit(10000);
               if (tweetError) throw new Error(`Load tweet times failed: ${tweetError.message}`);
 
               const dbIdToCluster: Record<number, number> = {};
