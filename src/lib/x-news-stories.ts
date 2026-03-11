@@ -213,23 +213,25 @@ export async function getLatestXNewsStories(
   const clusters = (clusterData ?? []) as PersistentClusterRow[];
   if (clusters.length === 0) return [];
 
-  // Query 2: Load tweet memberships for all clusters, chunked by 50 cluster IDs
+  // Query 2: Load tweet memberships for all clusters, one cluster at a time
+  // (Supabase caps responses at 1000 rows; mega-clusters can exceed that and
+  //  starve every other cluster in a batched .in() query.)
   const clusterIds = clusters.map((c) => c.id);
   const membershipMap = new Map<number, number[]>(); // cluster_id → db tweet ids
+  const MAX_MEMBERS_PER_CLUSTER = 200;
 
-  for (let i = 0; i < clusterIds.length; i += CLUSTER_CHUNK) {
-    const chunk = clusterIds.slice(i, i + CLUSTER_CHUNK);
+  for (const clusterId of clusterIds) {
     const { data: memberData, error: memberError } = await supabase
       .from("x_news_cluster_tweets")
-      .select("tweet_id,cluster_id")
-      .in("cluster_id", chunk)
-      .limit(10000);
+      .select("tweet_id")
+      .eq("cluster_id", clusterId)
+      .limit(MAX_MEMBERS_PER_CLUSTER);
 
     if (memberError) throw new Error(`Tweet membership load failed: ${memberError.message}`);
 
-    for (const row of (memberData ?? []) as Array<{ tweet_id: number; cluster_id: number }>) {
-      if (!membershipMap.has(row.cluster_id)) membershipMap.set(row.cluster_id, []);
-      membershipMap.get(row.cluster_id)!.push(row.tweet_id);
+    const tweetIds = (memberData ?? []).map((r: { tweet_id: number }) => r.tweet_id);
+    if (tweetIds.length > 0) {
+      membershipMap.set(clusterId, tweetIds);
     }
   }
 
@@ -244,8 +246,7 @@ export async function getLatestXNewsStories(
       .select(
         "id,tweet_id,username,tweet_time,link,tweet_text,normalized_headline,normalized_facts,likes,retweets,replies,quotes,bookmarks,impressions"
       )
-      .in("id", chunk)
-      .limit(10000);
+      .in("id", chunk);
 
     if (error) throw new Error(`Tweet load failed: ${error.message}`);
     allTweets.push(...((data ?? []) as TweetRow[]));
